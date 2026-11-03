@@ -23,44 +23,48 @@ addEventListener("resize", fit); fit();
 $("pedestal").style.display = "none";
 
 // ------------------------------------------------------------------ the test timeline
-const SLAM = 2.2, ZAP = 5.0, AFTER = 7.2;
+const SLAM = 2.0, ZAP = 4.9, AFTER = 7.1, JOLTS = [8.55, 8.85];
 const track = [
   { t: 0, pose: "idle", breathe: true },
   // anticipation: a quick crouch
-  { t: 1.0, pose: "idle", dur: 0.12, ease: "out", sy: 0.9, sx: 1.07 },
-  // snap up into the wind-up, trembling with effort, rising
-  { t: 1.22, pose: "slam-windup", dur: 0.1, ease: "snap", smear: [0, -170], lines: { at: [600, 420] }, wobble: 0.1, jitter: 2 },
-  { t: 1.7, pose: "slam-windup", dur: 0.38, ease: "out", y: -26, sy: 1.05, jitter: 3.5 },
-  // SLAM: a 2-frame smear down to the button, impact frames, squash and wobble
-  { t: SLAM - 0.07, pose: "slam-impact", dur: 0.07, ease: "lin", y: 0, smear: [-60, 300], lines: { at: [420, 900] }, impact: true, wobble: 0.24, jitter: 1.2 },
+  { t: 1.25, pose: "idle", dur: 0.12, ease: "out", sy: 0.88, sx: 1.08 },
+  // snap up into the wind-up, a short trembling hold (~0.35 s)
+  { t: 1.42, pose: "slam-windup", dur: 0.08, ease: "snap", smear: [0, -170], lines: { at: [600, 420] }, wobble: 0.1, jitter: 3 },
+  { t: 1.5, pose: "slam-windup", dur: 0.33, ease: "out", y: -26, sy: 1.06, jitter: 4.5 },
+  // the downswing: two stretched smear frames, then contact (clean for 2 frames, then impact frames)
+  { t: SLAM - 0.13, pose: "slam-windup", dur: 0.06, ease: "lin", y: 30, sy: 1.34, sx: 0.8, smear: [-40, 280], lines: { at: [380, 640] } },
+  { t: SLAM - 0.07, pose: "slam-impact", dur: 0.07, ease: "lin", y: 0, smear: [-60, 260], lines: { at: [420, 900] }, impact: true, impactDelay: 2, wobble: 0.24, jitter: 1.2 },
   // pop back up, proud
-  { t: 3.55, pose: "idle", dur: 0.16, ease: "back", smear: [-70, -150], wobble: 0.1, breathe: true },
+  { t: 3.45, pose: "idle", dur: 0.16, ease: "back", smear: [-70, -150], wobble: 0.1, breathe: true },
   // the button bites back
   { t: ZAP, pose: "electrocuted-a", dur: 0, ease: "lin", y: -30, zap: ["electrocuted-a", "electrocuted-b"], impact: true },
-  { t: AFTER, pose: "frazzled-aftermath", dur: 0.1, ease: "out", y: 0, smear: [0, 90], wobble: 0.18 },
-  // one last twitch
-  { t: 8.85, pose: "electrocuted-b", dur: 0.03, ease: "lin", y: -16 },
-  { t: 8.95, pose: "frazzled-aftermath", dur: 0.06, ease: "out", y: 0, wobble: 0.12 },
+  { t: AFTER, pose: "frazzled-aftermath", dur: 0.1, ease: "out", y: 0, smear: [0, 90], wobble: 0.18, jitter: 0.6 },
+  // a clear double jolt: two snaps up into the shock pose and back
+  ...JOLTS.flatMap((j) => [
+    { t: j, pose: "electrocuted-b", dur: 0.03, ease: "lin", y: -22, jitter: 6 },
+    { t: j + 0.12, pose: "frazzled-aftermath", dur: 0.06, ease: "out", y: 0, wobble: 0.16, jitter: 0.6 },
+  ]),
 ];
 const DURATION = 10.0;
 const bubbles = [
-  { t0: 0.15, t1: 1.15, text: "Watch closely. THIS is how you press a button." },
-  { t0: 3.75, t1: 4.9, text: "See? Textbook.", big: true },
-  { t0: 7.45, t1: 9.9, text: "...who wired the button to the mains. Was it you?" },
+  { t0: 0.15, t1: 1.3, text: "Watch closely. THIS is how you press a button." },
+  { t0: 3.65, t1: 4.8, text: "See? Textbook.", big: true },
+  { t0: 7.35, t1: 8.5, text: "...who wired the button to the mains." },
+  { t0: 8.55, t1: 9.95, text: "BZZT. BZZT. Was it you?", big: true },
 ];
 const sfx = [
-  { t: 0.15, name: "pop" }, { t: 1.0, name: "whoosh" },
-  { t: 1.22, name: "charge", dur: 0.95 }, { t: SLAM - 0.08, name: "whoosh" },
+  { t: 0.15, name: "pop" }, { t: 1.25, name: "whoosh" },
+  { t: 1.42, name: "charge", dur: 0.45 }, { t: SLAM - 0.13, name: "whoosh" },
   { t: SLAM, name: "slam" }, { t: SLAM, name: "boom" }, { t: SLAM + 0.05, name: "stamp" },
-  { t: 3.55, name: "boing" }, { t: 3.75, name: "pop" },
+  { t: 3.45, name: "boing" }, { t: 3.65, name: "pop" },
   { t: ZAP, name: "crash" }, { t: ZAP, name: "zap", dur: AFTER - ZAP },
-  { t: AFTER, name: "fizzle" }, { t: 7.45, name: "pop" },
-  { t: 8.85, name: "zap", dur: 0.12 },
+  { t: AFTER, name: "fizzle" }, { t: 7.35, name: "pop" },
+  ...JOLTS.map((j) => ({ t: j, name: "zap", dur: 0.14 })),
 ];
 const spin = { sfx, tStop: DURATION, duration: DURATION };
 
 // ------------------------------------------------------------------ puppet + fx
-const SCALE = 0.7, FEET_AT = [420, 1490];
+const SCALE = 0.78, FEET_AT = [425, 1490];
 const puppet = new Puppet($("avatar"), { scale: SCALE, feetAt: FEET_AT, base: "../avatar/chibi/" });
 const fromCanvas = ([cx, cy]) => [FEET_AT[0] + (cx - 600) * SCALE, FEET_AT[1] + (cy - 1140) * SCALE];
 // the drawn button: slam-windup has it at canvas (300, 1050), slam-impact at (410, 1050)
@@ -78,6 +82,8 @@ function bolt(x0, y0, x1, y1, seed, segs = 9) {
   return d + `L${x1} ${y1}`;
 }
 
+const zappingAt = (t) => (t >= ZAP && t < AFTER) || JOLTS.some((j) => t >= j && t < j + 0.12);
+
 function draw(t) {
   const st = puppet.draw(track, t);
 
@@ -85,7 +91,7 @@ function draw(t) {
   let sx = 0, sy = 0;
   const a = t - SLAM;
   if (a >= 0 && a < 0.7) { const k = 38 * Math.exp(-a * 8); sx += k * Math.sin(a * 83); sy += k * Math.cos(a * 61); }
-  if (t >= ZAP && t < AFTER) { const f = Math.floor(t * 30); sx += noise(f * 11) * 9; sy += noise(f * 13) * 7; }
+  if (zappingAt(t)) { const f = Math.floor(t * 30); sx += noise(f * 11) * 9; sy += noise(f * 13) * 7; }
   const az = t - ZAP;
   if (az >= 0 && az < 0.4) { const k = 26 * Math.exp(-az * 9); sx += k * Math.sin(az * 70); }
   $("shake").style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px)`;
@@ -93,8 +99,8 @@ function draw(t) {
   // impact frames: red field behind the silhouette for 2 frames, then a white flash
   $("impactbg").style.opacity = st.impact ? 1 : 0;
   let fl = 0;
-  if (a >= 2 / 30 && a < 0.25) fl = 0.45 * (1 - (a - 2 / 30) / 0.18);
-  if (az >= 2 / 30 && az < 0.2) fl = 0.7 * (1 - az / 0.2);
+  if (a >= 4 / 30 && a < 0.3) fl = 0.45 * (1 - (a - 4 / 30) / 0.17);
+  // (no white flash at the zap: strobe safety, max 3 flashes a second, Hexakin's area only)
   $("flash").style.opacity = Math.max(0, fl).toFixed(3);
 
   // the button: the slam poses draw their own; otherwise ours stands where theirs is
@@ -106,12 +112,12 @@ function draw(t) {
   const bj = t >= ZAP && t < AFTER ? noise(Math.floor(t * 30) * 3) * 6 : 0;
   b.style.left = `${(bx - 120).toFixed(0)}px`; b.style.top = `${(by - 150).toFixed(0)}px`;
   b.style.transform = `translateX(${bj.toFixed(1)}px) scale(${((2 - bs) ** 0.5 * 0.62).toFixed(3)}, ${(bs * 0.62).toFixed(3)})`;
-  $("boom").style.opacity = a >= 0 && a < 0.9 ? 1 : 0;
-  $("boom").style.transform = `rotate(-8deg) scale(${a >= 0 ? easeOutBack(clamp(a / 0.18)).toFixed(3) : 0})`;
+  const bt = a - 4 / 30;
+  $("boom").style.opacity = bt >= 0 && bt < 0.85 ? 1 : 0;
+  $("boom").style.transform = `rotate(-8deg) scale(${bt >= 0 ? easeOutBack(clamp(bt / 0.18)).toFixed(3) : 0})`;
 
   // zap: dark flicker frames behind him, bolts from the button into his hands and head
-  $("zapbg").style.opacity = st.xray ? 0.92 : 0;
-  const zapping = (t >= ZAP && t < AFTER) || (t >= 8.85 && t < 8.95);
+  const zapping = (t >= ZAP && t < AFTER) || JOLTS.some((j) => t >= j && t < j + 0.12);
   if (zapping) {
     const seed = Math.floor(t * 15);
     const [bx, by] = BUTTON_TOP;
@@ -123,26 +129,26 @@ function draw(t) {
   } else if ($("bolts").innerHTML) $("bolts").innerHTML = "";
 
   // fx layer: impact star + dust at the slam, smoke from his head after the zap
-  let fx = "";
-  if (a >= 0 && a < 0.35) {
-    const [x, y] = [BUTTON_TOP[0], BUTTON_TOP[1] + 10], r = 50 + 190 * easeOutBack(clamp(a / 0.15));
+  let fx = "", back = "";
+  if (bt >= 0 && bt < 0.3) {
+    const [x, y] = [BUTTON_TOP[0], BUTTON_TOP[1] + 10], r = 40 + 150 * easeOutBack(clamp(bt / 0.15));
     let pts = "";
     for (let i = 0; i < 16; i++) {
       const ang = (i / 16) * Math.PI * 2, rr = i % 2 ? r * 0.45 : r * (0.85 + 0.15 * noise(i));
       pts += `${(x + Math.cos(ang) * rr).toFixed(0)},${(y + Math.sin(ang) * rr * 0.75).toFixed(0)} `;
     }
-    fx += `<polygon points="${pts}" fill="#FFE14D" stroke="#0A0A0B" stroke-width="8" opacity="${(1 - clamp((a - 0.2) / 0.15)).toFixed(2)}"/>`;
+    back = `<polygon points="${pts}" fill="#FFE14D" stroke="#0A0A0B" stroke-width="8" opacity="${(1 - clamp((bt - 0.16) / 0.14)).toFixed(2)}"/>`;
   }
   if (a >= 0 && a < 1.1) {
     for (let i = 0; i < 7; i++) {
       const dir = i < 3.5 ? -1 : 1, k = (i % 4) + 1;
-      const x = BUTTON_TOP[0] + dir * (50 + a * 150 * k * 0.5), y = 1475 - a * 70 * (1 + (i % 3) * 0.4);
+      const x = Math.max(90, Math.min(930, BUTTON_TOP[0] + dir * (50 + a * 150 * k * 0.5))), y = 1475 - a * 70 * (1 + (i % 3) * 0.4);
       const r = 18 + a * 60 + (i % 3) * 8;
       fx += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(0)}" fill="#cfc6b1" stroke="#0A0A0B" stroke-width="5" opacity="${(1 - a / 1.1).toFixed(2)}"/>`;
     }
   }
   const sm = t - AFTER;
-  if (sm >= 0 && sm < 2.7) {
+  if (sm >= 0 && sm < 2.9) {
     const [hx, hy] = puppet.toStage([600, 330], st);
     for (let i = 0; i < 6; i++) {
       const life = (sm - i * 0.32);
@@ -152,6 +158,7 @@ function draw(t) {
     }
   }
   $("fxsvg").innerHTML = fx;
+  $("fxback").innerHTML = back;
 
   // speech bubble (whole text pops in: readable on the first frame it shows)
   let bub = null;

@@ -12,7 +12,8 @@
 //   from the previous key when omitted, sx/sy reset to 1
 //   ease: "snap" (fast, overshoots) | "back" | "out" | "lin"; wobble: squash wobble on arrival
 //   jitter: px of trembling in the hold that follows; zap: electrocution flicker hold
-//   impact: two silhouette frames when the move lands; breathe: a slow breath in the hold
+//   impact: two silhouette frames when the move lands (after impactDelay clean frames);
+//   breathe: a slow breath in the hold
 // Smear and line coordinates are canvas px (1200 canvas). Everything is a pure function of t.
 
 export const CANVAS = 1200;
@@ -23,11 +24,19 @@ export const POSES = ["idle", "slam-windup", "slam-impact", "electrocuted-a", "e
   "shove-offscreen", "despair-collapse", "despair-flat", "celebrate", "jazz-hands", "shrug",
   "thumbs-down"];
 
-// Per-pose size fix: the pack normalised heads by eye width, so a few bodies come out smaller
-// than idle's. Scaled about the feet so Hexakin's height doesn't jump between poses.
+// Per-pose size fix (webp-v3 art): the pack normalised heads by eye width, so a few bodies come
+// out smaller than idle's; scaled about the feet so Hexakin's height doesn't jump between poses.
+// electrocuted-a is drawn bigger and anchored at (600, 1156): matched to electrocuted-b's height,
+// because the two flicker against each other. despair-flat matched to the standing heads.
 export const POSE_SCALE = {
-  "pointing-accuse": 1.18, "thumbs-down": 1.18, "shrug": 1.14, "scheming": 1.16,
-  "nose-on-glass": 1.2, "shush": 1.08, "tap-watch": 1.04,
+  "pointing-accuse": 1.1, "thumbs-down": 1.1, "shrug": 1.08, "scheming": 1.1,
+  "nose-on-glass": 1.12, "shush": 1.06, "tap-watch": 1.03, "electrocuted-a": 0.9,
+  "despair-flat": 1.12,
+};
+const POSE_ANCHOR_Y = { "electrocuted-a": 1156 };   // canvas y of the feet, when not 1140
+const poseTransform = (p) => {
+  const k = POSE_SCALE[p] || 1, dy = ((POSE_ANCHOR_Y[p] || 1140) - 1140) * k / CANVAS * 100;
+  return `${dy ? `translateY(${(-dy).toFixed(3)}%) ` : ""}scale(${k})`;
 };
 
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -71,6 +80,7 @@ export class Puppet {
     let x = (cx - CANVAS * FEET[0]) * this.scale, y = (cy - CANVAS * FEET[1]) * this.scale;
     if (s) {
       const ps = POSE_SCALE[s.pose] || 1;
+      y -= ((POSE_ANCHOR_Y[s.pose] || 1140) - 1140) * this.scale;
       x *= s.sx * ps; y *= s.sy * ps;
       const r = s.rot * Math.PI / 180, c = Math.cos(r), n = Math.sin(r);
       [x, y] = [x * c - y * n, x * n + y * c];
@@ -85,8 +95,7 @@ export class Puppet {
       if (this.imgs[p]) return null;
       const img = document.createElement("img");
       img.alt = ""; img.className = "pose"; img.decoding = "sync";
-      const k = POSE_SCALE[p];
-      if (k) img.style.transform = `scale(${k})`;
+      img.style.transform = poseTransform(p);
       img.style.visibility = "hidden";
       img.src = `${this.base}${p}.webp`;
       this.body.appendChild(img);
@@ -133,7 +142,9 @@ export class Puppet {
       const f = Math.floor(t * 30);
       const step = Math.floor(f / 2);
       s.pose = step % 2 ? k.zap[1] : k.zap[0];
-      s.xray = step % 3 === 1;
+      // strobe safety: a flash (white silhouette, Hexakin only) lasts 2 frames every 0.4 s
+      const fa = Math.floor(arrive * 30);
+      s.xray = fa >= 12 && fa % 12 < 2;
       s.x += noise(f * 3) * 14; s.y += noise(f * 5) * 8; s.rot += noise(f * 7) * 3;
     }
     return s;
@@ -148,8 +159,10 @@ export class Puppet {
     }
     this.root.style.transform = `translate(${s.x.toFixed(1)}px, ${s.y.toFixed(1)}px) rotate(${s.rot.toFixed(2)}deg) scale(${s.sx.toFixed(3)}, ${s.sy.toFixed(3)})`;
     const k = s.key;
-    s.impact = !!k.impact && s.arrive >= 0 && s.arrive < 2 / 30;
-    const filter = s.impact ? "brightness(0)" : s.xray ? "invert(1) brightness(1.6) contrast(1.5) grayscale(1)" : "none";
+    // impact frames: 2 silhouette frames, after `impactDelay` clean contact frames
+    const d0 = (k.impactDelay || 0) / 30;
+    s.impact = !!k.impact && s.arrive >= d0 && s.arrive < d0 + 2 / 30;
+    const filter = s.impact ? "brightness(0)" : s.xray ? "brightness(0) invert(1) drop-shadow(0 0 4px #0A0A0B)" : "none";
     if (this._filter !== filter) { this.body.style.filter = filter; this._filter = filter; }
     // smear: ghosts of the new pose trailing back along the move
     const smearOn = s.moving && k.smear && s.u > 0.15;
@@ -158,12 +171,12 @@ export class Puppet {
       const img = this.imgs[k.pose];
       if (g.src !== img.src) g.src = img.src;
       const back = (n + 1) / 3.2 * (1 - s.u * 0.6);
-      const ps = POSE_SCALE[k.pose] || 1;
       g.style.opacity = (0.42 - n * 0.12).toFixed(2);
-      g.style.transform = `translate(${(-k.smear[0] * back * this.scale).toFixed(1)}px, ${(-k.smear[1] * back * this.scale).toFixed(1)}px) scale(${ps})`;
+      g.style.transform = `translate(${(-k.smear[0] * back * this.scale).toFixed(1)}px, ${(-k.smear[1] * back * this.scale).toFixed(1)}px) ${poseTransform(k.pose)}`;
     });
     // speed lines along the move
-    const showLines = k.lines && t >= k.t && t < k.t + (k.dur || 0) + 0.14;
+    // (an impact's contact frames stay clean: no lingering lines)
+    const showLines = k.lines && t >= k.t && t < k.t + (k.dur || 0) + (k.impact ? 0 : 0.14);
     if (showLines) {
       const [cx, cy] = k.lines.at, [dx, dy] = k.smear || [0, 1];
       const len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;

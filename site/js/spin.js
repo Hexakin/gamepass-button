@@ -30,24 +30,24 @@ export function eligible(catalogue, played, date) {
 // Fourth-wall bits during the fast spin: {pose, line, fx}. Poses are the chibi drawings
 // (site/js/puppet.js); `move` picks how he gets into the pose.
 const BITS = [
-  { id: "blink", pose: "pointing-accuse", move: "lunge", line: "Don't blink. Blinking is cheating." },
-  { id: "rigged", pose: "scheming", move: "rub", line: "You've rigged this. I can tell. You've got a rigging face." },
-  { id: "watch", pose: "tap-watch", move: "tap", line: "Any time today. Some of us have a download bar to stare at." },
+  { id: "blink", pose: "pointing-accuse", alt: "scheming", move: "lunge", line: "Don't blink. Blinking is cheating." },
+  { id: "rigged", pose: "scheming", alt: "pointing-accuse", move: "rub", line: "You've rigged this. I can tell. You've got a rigging face." },
+  { id: "watch", pose: "tap-watch", alt: "shrug", move: "tap", line: "Any time today. Some of us have a download bar to stare at." },
   { id: "glass", pose: "nose-on-glass", move: "glass", line: "*tap tap* Hello? You've got a thumbprint on your screen. Gross.", fx: "tap" },
-  { id: "shush", pose: "shush", move: "lunge", line: "Shh. SHH. It's concentrating." },
-  { id: "rules", pose: "pointing-accuse", move: "lunge", line: "{n} games. One button. No re-rolls. Those are the rules.", span: 3.0 },
-  { id: "illegal", pose: "shrug", move: "pop", line: "Is it allowed to go this fast? Feels illegal." },
-  { id: "sticker", pose: "shrug", move: "pop", line: "Who keeps putting stickers on the screen? Was that you?", fx: "stickers" },
-  { id: "editor", pose: "thumbs-down", move: "lunge", line: "Editor, if this lands on a golf game, cut it. Actually don't. Honesty." },
-  { id: "coward", pose: "pointing-accuse", move: "lunge", line: "You pressed it like a coward. One finger? Really?" },
-  { id: "lean", pose: "scheming", move: "rub", line: "Look at it go. Look at it. No, not at me. AT IT." },
+  { id: "shush", pose: "shush", alt: "pointing-accuse", move: "lunge", line: "Shh. SHH. It's concentrating." },
+  { id: "rules", pose: "pointing-accuse", alt: "thumbs-down", move: "lunge", line: "{n} games. One button. No re-rolls. Those are the rules.", span: 3.0 },
+  { id: "illegal", pose: "shrug", alt: "scheming", move: "pop", line: "Is it allowed to go this fast? Feels illegal." },
+  { id: "sticker", pose: "shrug", alt: "pointing-accuse", move: "pop", line: "Who keeps putting stickers on the screen? Was that you?", fx: "stickers" },
+  { id: "editor", pose: "thumbs-down", alt: "shrug", move: "lunge", line: "Editor, if this lands on a golf game, cut it. Actually don't. Honesty." },
+  { id: "coward", pose: "pointing-accuse", alt: "jazz-hands", move: "lunge", line: "You pressed it like a coward. One finger? Really?" },
+  { id: "lean", pose: "scheming", alt: "pointing-accuse", move: "rub", line: "Look at it go. Look at it. No, not at me. AT IT." },
 ];
 
 const SLOWDOWN = [
   { pose: "pointing-accuse", line: "Slowing down... slowing down... don't you DARE be a golf game." },
   { pose: "scheming", line: "Here it comes. Here it comes. Nobody breathe." },
   { pose: "idle", line: "Drumroll, please. I said DRUMROLL." },
-  { pose: "shush", line: "Easy... easy... I can see you reaching for the screen. Don't." },
+  { pose: "shush", line: "Shh. Easy... easy... I can see you reaching for the screen." },
 ];
 
 const REACTIONS = [
@@ -137,11 +137,13 @@ export function buildSpin(code, data) {
   // down, impact frames, squash, recovery)
   const impact = 1.7;
   key(0, "idle", { breathe: true });
-  key(0.5, "idle", { dur: 0.12, ease: "out", sy: 0.9, sx: 1.07 });
-  key(0.68, "slam-windup", { dur: 0.1, ease: "snap", smear: [0, -170], lines: { at: [600, 420] }, wobble: 0.1, jitter: 2 });
-  key(1.15, "slam-windup", { dur: 0.4, ease: "out", y: -24, sy: 1.05, jitter: 3.5 });
-  key(impact - 0.07, "slam-impact", { dur: 0.07, ease: "lin", y: 0, smear: [-60, 300], lines: { at: [420, 900] }, impact: true, wobble: 0.24, jitter: 1.2 });
-  sfx.push({ t: 0.5, name: "whoosh" }, { t: 0.68, name: "charge", dur: 0.95 }, { t: impact - 0.08, name: "whoosh" });
+  key(0.95, "idle", { dur: 0.12, ease: "out", sy: 0.88, sx: 1.08 });                     // anticipation
+  key(1.12, "slam-windup", { dur: 0.08, ease: "snap", smear: [0, -170], lines: { at: [600, 420] }, wobble: 0.1, jitter: 3 });
+  key(1.2, "slam-windup", { dur: 0.33, ease: "out", y: -26, sy: 1.06, jitter: 4.5 });   // trembling hold
+  // the downswing: two stretched smear frames of the wind-up, then contact
+  key(1.57, "slam-windup", { dur: 0.06, ease: "lin", y: 30, sy: 1.34, sx: 0.8, smear: [-40, 280], lines: { at: [380, 640] } });
+  key(impact - 0.07, "slam-impact", { dur: 0.07, ease: "lin", y: 0, sy: 1, sx: 1, smear: [-60, 260], lines: { at: [420, 900] }, impact: true, impactDelay: 2, wobble: 0.24, jitter: 1.2 });
+  sfx.push({ t: 0.95, name: "whoosh" }, { t: 1.12, name: "charge", dur: 0.45 }, { t: 1.55, name: "whoosh" });
   say(0.15, R.pick(["Oh, you pressed it? Cute. Let me do it PROPERLY.",
     "No no no. Like THIS.", "Stand back. Professional button presser coming through."]), { dur: 1.6 });
   fx.push({ t: impact, type: "slam" });
@@ -168,7 +170,16 @@ export function buildSpin(code, data) {
         key(t + k + 0.05, b.pose, { dur: 0.14, ease: "back", sx: 1.22, sy: 1.22, y: -40, wobble: 0.08 });
       }
       key(t + span - 0.25, "idle", { dur: 0.14, ease: "back", y: 0, smear: [0, 60], wobble: 0.12, breathe: true });
-    } else move(t0, b.pose, b.move);
+    } else {
+      move(t0, b.pose, b.move);
+      const bounce = (tb) => {
+        key(tb, b.pose === "idle" ? "idle" : track[track.length - 1].pose, { dur: 0.08, ease: "out", sy: 0.9, sx: 1.07, jitter: 1 });
+        key(tb + 0.08, track[track.length - 1].pose, { dur: 0.2, ease: "back", sy: 1, sx: 1, wobble: 0.14, jitter: 1 });
+      };
+      bounce(t0 + 1.0);
+      if (b.alt) move(t0 + 1.9, b.alt, "pop", { jitter: 1 });
+      bounce(t0 + 2.8);
+    }
     say(t + 0.25, b.line.replace("{n}", String(n)), { dur: span - 0.3 });
     if (b.fx === "tap") {
       for (const k of [0.35, 0.6, 1.4, 1.65]) { fx.push({ t: t + k, type: "tap" }); sfx.push({ t: t + k, name: "tap" }); }
@@ -265,7 +276,10 @@ export function buildSpin(code, data) {
   sfx.push({ t: tStop, name: "slam" });
   sfx.push({ t: tStop + 0.3, name: "stamp" });
   sfx.push({ t: tStop + 0.05, name: reaction.sfx });
-  if (reaction.mood === "win") move(tStop, reaction.pose, "jump");
+  if (reaction.mood === "win") {
+    move(tStop, reaction.pose, "jump");
+    fx.push({ t: tStop + 0.05, type: "confetti", dur: 3.2 });
+  }
   else if (reaction.mood === "lose") move(tStop, reaction.pose, "drop");
   else move(tStop, reaction.pose, "lunge", { impact: true });
   // shown whole (not typed) from tStop + 0.3, so it's complete inside the 1.6 s landing

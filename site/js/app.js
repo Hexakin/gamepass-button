@@ -59,6 +59,7 @@ if (RENDER) {
     await prepare(seedParam);
     await document.fonts.ready;
     await Promise.all([preload(show.assets(), { wait: true }), show.loadPoses()]);
+    document.querySelector("#bigbutton span").textContent = "PRESS";
     show.draw(0);
     return true;
   })();
@@ -129,6 +130,7 @@ async function live() {
   const press = async () => {
     if (playing || !spin || btn.querySelector("span").textContent === "…") return;
     playing = true;
+    stage.classList.remove("parked");
     // iOS only unlocks audio inside the tap itself: make the context before any await
     let ctx = null, t0 = 0;
     const AC = window.AudioContext || window.webkitAudioContext;
@@ -169,6 +171,7 @@ async function live() {
 
   function finish(ctx) {
     playing = false;
+    stage.classList.add("parked");   // Hexakin steps up and aside so the result panel doesn't cover him
     if (ctx) setTimeout(() => ctx.close(), 1500);
     const r = spin.result;
     $("store").href = r.store;

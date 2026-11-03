@@ -3,10 +3,10 @@
 import { reelAt } from "./spin.js";
 import { Puppet, POSES, noise } from "./puppet.js";
 
-const PITCH = 680;            // px between card centres on the reel
+const PITCH = 600;            // px between card centres on the reel
 const SLOTS = 5;
-const FEET_AT = [360, 1490];  // where Hexakin stands (stage px); everything inside x60-960, y150-1500
-const PUPPET_SCALE = 0.6;     // stage px per chibi canvas px (idle stands ~550 px tall)
+const FEET_AT = [425, 1490];  // where Hexakin stands (stage px); everything inside x60-960, y150-1500
+const PUPPET_SCALE = 0.78;    // stage px per chibi canvas px (idle stands ~710 px tall)
 // the button he grabs: the drawn one in slam-windup sits at canvas (300, 1050)
 const DRAWN_BUTTON = [FEET_AT[0] + (300 - 600) * PUPPET_SCALE, FEET_AT[1] + (1050 - 1140) * PUPPET_SCALE];
 const IDLE_TRACK = [{ t: 0, pose: "idle", breathe: true }];
@@ -34,6 +34,7 @@ export class Show {
       pending: $("#pending", stage), flash: $("#flash", stage), glitch: $("#glitch", stage),
       reboot: $("#reboot", stage), crack: $("#crack", stage), ripple: $("#ripple", stage),
       stickers: $("#stickers", stage), impactbg: $("#impactbg", stage), fx: $("#fxsvg", stage),
+      fxback: $("#fxback", stage),
       code: $("#codetag", stage), boom: $("#boom", stage), count: $("#count", stage),
     };
     this.stickerEls = [];
@@ -167,7 +168,7 @@ export class Show {
     let fl = 0;
     for (const f of s.fx) {
       if (!["slam", "land"].includes(f.type)) continue;
-      const a = since(f) - 2 / 30;   // after the two silhouette impact frames
+      const a = since(f) - (f.type === "slam" ? 4 : 6) / 30;   // after the contact + silhouette frames
       if (a >= 0 && a < 0.2) fl = Math.max(fl, (1 - a / 0.2) * (f.type === "land" ? 0.5 : 0.7));
     }
     E.flash.style.opacity = fl.toFixed(3);
@@ -176,13 +177,14 @@ export class Show {
     // drawn button in his slam poses takes over
     const slam = fxAt("slam")[0];
     const ba = t - slam.t;
-    const g = clamp((t - 0.25) / 0.4), ge = g * g * (3 - 2 * g);
+    const g = clamp((t - 0.45) / 0.45), ge = g * g * (3 - 2 * g);
     const bc = [770, 1385];
     const bx = (DRAWN_BUTTON[0] - bc[0]) * ge, by = (DRAWN_BUTTON[1] - bc[1]) * ge + -90 * Math.sin(Math.PI * g);
-    E.button.style.visibility = t < 0.73 ? "visible" : "hidden";
-    E.button.style.transform = `translate(${bx.toFixed(1)}px, ${by.toFixed(1)}px) scale(${(1 - 0.43 * ge).toFixed(3)}) rotate(${(-20 * Math.sin(Math.PI * g)).toFixed(1)}deg)`;
-    E.boom.style.opacity = ba >= 0 && ba < 0.9 ? 1 : 0;
-    E.boom.style.transform = `rotate(-8deg) scale(${ba >= 0 ? easeOutBack(clamp(ba / 0.2)).toFixed(3) : 0})`;
+    E.button.style.visibility = t < 1.16 ? "visible" : "hidden";
+    E.button.style.transform = `translate(${bx.toFixed(1)}px, ${by.toFixed(1)}px) scale(${(1 - 0.36 * ge).toFixed(3)}) rotate(${(-20 * Math.sin(Math.PI * g)).toFixed(1)}deg)`;
+    const bt = ba - 4 / 30;   // clean contact (2 frames), silhouette (2 frames), then the text
+    E.boom.style.opacity = bt >= 0 && bt < 0.85 ? 1 : 0;
+    E.boom.style.transform = `rotate(-8deg) scale(${bt >= 0 ? easeOutBack(clamp(bt / 0.18)).toFixed(3) : 0})`;
 
     // fake landing: a "PENDING..." stamp that gets knocked off by the shove
     const fk = fxAt("fakeland")[0];
@@ -200,7 +202,7 @@ export class Show {
       const a = t - gl.t;
       E.glitch.style.backgroundPosition = `${Math.floor(a * 977) % 300}px ${Math.floor(a * 613) % 300}px`;
       E.reel.style.transform = `translate(${(Math.sin(a * 140) * 18).toFixed(1)}px, 0) skewX(${(Math.sin(a * 53) * 6).toFixed(1)}deg)`;
-      E.reel.style.filter = `hue-rotate(${Math.floor(a * 30) * 47 % 360}deg) saturate(2.5)`;
+      E.reel.style.filter = `hue-rotate(${Math.floor(a / 0.4) * 47 % 360}deg) saturate(1.8)`;
     } else { E.reel.style.transform = ""; E.reel.style.filter = ""; }
     const rb = fxAt("reboot").find((f) => t >= f.t && t < f.t + 0.8);
     E.reboot.style.opacity = rb ? 1 : 0;
@@ -257,25 +259,40 @@ export class Show {
         fx += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(20 + life * 42).toFixed(0)}" fill="#3a3a3f" opacity="${(0.75 * (1 - life / 1.6)).toFixed(2)}"/>`;
       }
     }
-    // impact star + dust where his fist hits the drawn button
+    // impact star (behind him, after the clean contact frames) + dust where his fist hits
+    let back = "";
     if (ba >= 0 && ba < 1.1) {
       const [x, y] = this.puppet.toStage([410, 960]);
-      if (ba < 0.35) {
-        const r = 50 + 180 * easeOutBack(clamp(ba / 0.15));
+      if (bt >= 0 && bt < 0.3) {
+        const r = 40 + 150 * easeOutBack(clamp(bt / 0.15));
         let pts = "";
         for (let i = 0; i < 16; i++) {
           const ang = (i / 16) * Math.PI * 2, rr = i % 2 ? r * 0.45 : r * (0.85 + 0.15 * noise(i));
           pts += `${(x + Math.cos(ang) * rr).toFixed(0)},${(y + Math.sin(ang) * rr * 0.75).toFixed(0)} `;
         }
-        fx = `<polygon points="${pts}" fill="#FFE14D" stroke="#0A0A0B" stroke-width="8" opacity="${(1 - clamp((ba - 0.2) / 0.15)).toFixed(2)}"/>` + fx;
+        back = `<polygon points="${pts}" fill="#FFE14D" stroke="#0A0A0B" stroke-width="8" opacity="${(1 - clamp((bt - 0.16) / 0.14)).toFixed(2)}"/>`;
       }
       for (let i = 0; i < 6; i++) {
         const dir = i < 3 ? -1 : 1, k = (i % 3) + 1;
-        const dx = x + dir * (40 + ba * 140 * k * 0.5), dy = FEET_AT[1] - 15 - ba * 60 * (1 + (i % 3) * 0.4);
+        const dx = Math.max(90, Math.min(930, x + dir * (40 + ba * 140 * k * 0.5))), dy = FEET_AT[1] - 15 - ba * 60 * (1 + (i % 3) * 0.4);
         fx += `<circle cx="${dx.toFixed(0)}" cy="${dy.toFixed(0)}" r="${(16 + ba * 50 + (i % 3) * 6).toFixed(0)}" fill="#cfc6b1" stroke="#0A0A0B" stroke-width="5" opacity="${(1 - ba / 1.1).toFixed(2)}"/>`;
       }
     }
+    // confetti on the celebration (seeded by nothing but t: identical every replay)
+    const cf = fxAt("confetti").find((f) => t >= f.t && t < f.t + f.dur);
+    if (cf) {
+      const a = t - cf.t, cols = ["#C8202E", "#FFE14D", "#2BB3FF", "#ECE6D6", "#0A0A0B", "#7CE07C"];
+      for (let i = 0; i < 46; i++) {
+        const x0 = 90 + ((i * 197) % 840), vy = 260 + ((i * 53) % 260), drift = noise(i * 3) * 90;
+        const y = 180 - ((i * 71) % 260) + vy * a + 120 * a * a;
+        if (y < 150 || y > 1500) continue;
+        const x = x0 + drift * Math.sin(a * 3 + i), rot = (a * 360 * (1 + (i % 3))) + i * 40;
+        const fade = 1 - clamp((a - cf.dur + 0.5) / 0.5);
+        fx += `<rect x="${(x - 9).toFixed(0)}" y="${(y - 5).toFixed(0)}" width="18" height="10" fill="${cols[i % cols.length]}" stroke="#0A0A0B" stroke-width="2" opacity="${fade.toFixed(2)}" transform="rotate(${rot.toFixed(0)} ${x.toFixed(0)} ${y.toFixed(0)})"/>`;
+      }
+    }
     if (this._fx !== fx) { E.fx.innerHTML = fx; this._fx = fx; }
+    if (this._back !== back) { E.fxback.innerHTML = back; this._back = back; }
     // the glass ripple and crack sit on his face while he's pressed against the screen
     if (ps.pose === "nose-on-glass") {
       const [fx0, fy0] = this.puppet.toStage([600, 720]);
@@ -290,11 +307,14 @@ export class Show {
       const a = t - bub.t0, out = clamp((t - (bub.t1 - 0.15)) / 0.15);
       E.bubble.style.opacity = 1 - out;
       E.bubble.style.transform = `scale(${(easeOutBack(clamp(a / 0.18)) * (1 - 0.2 * out)).toFixed(3)})`;
-      const n = bub.style === "big" ? bub.text.length : Math.floor(a * 38);
+      const words = bub.text.split(" ");
+      const shown = bub.style === "big" ? words.length : Math.min(words.length, 1 + Math.floor(a / 0.4 * words.length));
+      const n = words.slice(0, shown).join(" ").length;
       const key = `${bub.t0}:${Math.min(n, bub.text.length)}`;
       if (this._lastBub !== key) {
         this._lastBub = key;
-        const esc = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+        // (non-breaking hyphens: "re-rolls" never wraps as "re- / rolls")
+        const esc = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/-/g, "\u2011");
         // the unrevealed text is there but invisible, so the bubble doesn't grow as it types
         E.bubbleText.innerHTML = `${esc(bub.text.slice(0, n))}<span class="ghost">${esc(bub.text.slice(n))}</span>`;
       }

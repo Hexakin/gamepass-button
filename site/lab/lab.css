@@ -15,16 +15,15 @@
 #bigbutton .base { height: 80px; }
 #bigbutton .dome { left: 18px; right: 18px; bottom: 36px; height: 140px; }
 #bigbutton .dome span { font-size: 56px; margin-top: -6px; }
-#boom { left: 100px; top: 1130px; font-size: 120px; }
+#boom { left: 660px; top: 1385px; font-size: 72px; }
 
-#bubble, #bubble.big { left: 560px; top: 760px; width: 390px; font-size: 36px; padding: 22px 24px; }
+#bubble, #bubble.big { left: 590px; top: 900px; width: 370px; font-size: 33px; font-size: 36px; padding: 22px 24px; }
 #bubble::before { left: -56px; top: 60px; }
 #bubble::after { left: -36px; top: 66px; }
 
-#zapbg { position: absolute; inset: 0; background: #0A0A0B; opacity: 0; z-index: 2; }
 #bolts { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 5; pointer-events: none; }
 #fxsvg { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 6; pointer-events: none; }
-#impactbg { position: absolute; inset: 0; background: var(--red); opacity: 0; z-index: 3; }
+#impactbg { position: absolute; inset: 0; background: var(--red); opacity: 0; z-index: 1; }
 #safe { position: absolute; left: 60px; top: 150px; width: 900px; height: 1350px; outline: 4px dashed #00a4ff; z-index: 40;
   display: none; pointer-events: none; }
 body.safe #safe { display: block; }
@@ -33,3 +32,4 @@ body.safe #safe { display: block; }
   pointer-events: auto; white-space: nowrap; font: 900 30px/1 "Big Shoulders Display", Impact, sans-serif; letter-spacing: 1px;
   background: var(--red); color: var(--paper); border: 3px solid var(--paper); border-radius: 10px; padding: 14px 26px 10px; }
 #ui #play:disabled { opacity: .6; }
+#fxback { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 3; pointer-events: none; }
