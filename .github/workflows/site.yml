@@ -1,0 +1,74 @@
+name: site
+
+# - every push: deploy site/ to GitHub Pages
+# - daily 03:15 UTC (and on demand): refresh the Game Pass catalogue, commit it, deploy
+# - an issue titled "played: <SPIN-CODE>" opened by the repo owner: add that spin's game to
+#   site/data/played.json, commit, close the issue, deploy
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "15 3 * * *"
+  workflow_dispatch:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name != 'issues' || (startsWith(github.event.issue.title, 'played:') && github.event.issue.user.login == github.repository_owner)
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refresh the catalogue
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python3 tools/fetch_gamepass.py
+
+      - uses: actions/setup-node@v4
+        if: github.event_name == 'issues'
+        with:
+          node-version: 20
+
+      - name: Mark a spin's game as played
+        if: github.event_name == 'issues'
+        env:
+          TITLE: ${{ github.event.issue.title }}
+        run: |
+          code="$(echo "$TITLE" | sed -E 's/^played:[[:space:]]*//I' | tr -d '[:space:]')"
+          node tools/mark_played.mjs "$code" | tee played.out
+
+      - name: Commit data changes
+        run: |
+          if [ -n "$(git status --porcelain site/data)" ]; then
+            git config user.name "gamepass-button bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add site/data
+            git commit -m "data: ${{ github.event_name == 'issues' && 'mark played' || 'catalogue refresh' }}"
+            git push
+          fi
+
+      - name: Close the issue
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close ${{ github.event.issue.number }} --comment "$(cat played.out)"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

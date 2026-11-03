@@ -1,0 +1,5 @@
+node_modules/
+assets/avatar/frames/
+assets/avatar/tmp/
+__pycache__/
+*.pyc

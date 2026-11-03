@@ -1,0 +1,19 @@
+{
+  "note": "Games already played. Each entry stops the button picking that game for spins dated AFTER 'since' (UK date), so replays of older spins never change. Match is by Microsoft product id if given, else by title (case, symbols and punctuation ignored).",
+  "games": [
+    {
+      "title": "Call of Duty: Modern Warfare 4",
+      "since": "2026-11-02"
+    },
+    {
+      "title": "Gears of War: E-Day",
+      "since": "2026-11-02",
+      "id": "9N4PT8HGCDHQ"
+    },
+    {
+      "title": "Mass Effect Legendary Edition",
+      "since": "2026-11-02",
+      "id": "9PKWHT7G60WQ"
+    }
+  ]
+}

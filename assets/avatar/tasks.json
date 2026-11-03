@@ -1,0 +1,37 @@
+{
+ "rig_task": "01a1a198-1685-7197-a161-f794c4cdcdab",
+ "animations": {
+  "button-slam": {
+   "task": "01a1a198-9422-726c-85d2-8ba3752aa669",
+   "action_id": 127
+  },
+  "shove-it-on": {
+   "task": "01a1a198-96c7-709b-917b-980bb3ad90c0",
+   "action_id": 259
+  },
+  "scheming": {
+   "task": "01a1a198-9935-75a6-b5b5-4b1fb599b15f",
+   "action_id": 318
+  },
+  "jazz-hands": {
+   "task": "01a1a198-9b6b-7256-9c99-96b51d873119",
+   "action_id": 408
+  },
+  "electrocuted": {
+   "task": "01a1a198-9dbc-762d-8ab2-cdb253f07cb5",
+   "action_id": 172
+  },
+  "collapse": {
+   "task": "01a1a198-a037-7542-922f-ec9ba2be94a8",
+   "action_id": 366
+  },
+  "flex": {
+   "task": "01a1a198-a299-7711-a2aa-95a6c8cd6802",
+   "action_id": 388
+  },
+  "backflip": {
+   "task": "01a1a198-a4f9-76d2-91a3-7a873964c234",
+   "action_id": 452
+  }
+ }
+}
