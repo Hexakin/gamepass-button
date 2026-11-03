@@ -18,7 +18,7 @@ export async function resolve(code) {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const arg = process.argv[2] || newCode();
+  const arg = process.argv.slice(2).find((a) => !a.startsWith("--")) || newCode();
   const s = await resolve(arg);
   const out = { code: s.code, date: s.date, catalogDate: s.catalogDate, eligible: s.eligibleCount,
     result: { title: s.result.title, productId: s.result.id, storeUrl: s.result.store, boxart: s.result.boxart },
