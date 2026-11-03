@@ -73,6 +73,39 @@ const SFX = {
       burst(ctx, out, tt, 0.05, amp, "bandpass", 900 + (k % 2) * 200, 0.9);
     }
   },
+  // rising power-up whine (the wind-up)
+  charge(ctx, out, t, ev) {
+    const dur = ev.dur || 1;
+    osc(ctx, out, "sawtooth", 140, 900, t, 0.05, 0.09, dur);
+    osc(ctx, out, "square", 280, 1800, t, 0.05, 0.04, dur);
+  },
+  // electrocution: mains buzz + crackle
+  zap(ctx, out, t, ev) {
+    const dur = ev.dur || 1.5;
+    const o = ctx.createOscillator(), g = ctx.createGain(), fl = ctx.createBiquadFilter();
+    o.type = "sawtooth"; o.frequency.value = 100; fl.type = "bandpass"; fl.frequency.value = 1400; fl.Q.value = 0.7;
+    const lfo = ctx.createOscillator(), lg = ctx.createGain();
+    lfo.type = "square"; lfo.frequency.value = 15; lg.gain.value = 0.12;
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.22, t + 0.02);
+    g.gain.setValueAtTime(0.22, t + dur - 0.05); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    lfo.connect(lg).connect(g.gain);
+    o.connect(fl).connect(g).connect(out);
+    o.start(t); o.stop(t + dur + 0.05); lfo.start(t); lfo.stop(t + dur + 0.05);
+    for (let k = 0; k < dur * 24; k++) {
+      const tt = t + k / 24 + ((k * 7919) % 7) / 300;
+      burst(ctx, out, tt, 0.03, 0.35, "highpass", 3000 + ((k * 433) % 4000), 1);
+    }
+  },
+  fizzle(ctx, out, t) { burst(ctx, out, t, 1.6, 0.18, "highpass", 6000, 0.5, 2500); osc(ctx, out, "sine", 600, 90, t, 0.01, 0.12, 0.8); },
+  boing(ctx, out, t) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "sine"; o.frequency.setValueAtTime(180, t); o.frequency.exponentialRampToValueAtTime(420, t + 0.08);
+    o.frequency.exponentialRampToValueAtTime(160, t + 0.45);
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 22; lg.gain.value = 40;
+    lfo.connect(lg).connect(o.frequency);
+    env(ctx, g, t, 0.005, 0.35, 0.45);
+    o.connect(g).connect(out); o.start(t); o.stop(t + 0.5); lfo.start(t); lfo.stop(t + 0.5);
+  },
   fanfare(ctx, out, t) {
     const notes = [[523.25, 0], [659.25, 0.12], [783.99, 0.24], [1046.5, 0.42]];
     for (const [f, d] of notes) {

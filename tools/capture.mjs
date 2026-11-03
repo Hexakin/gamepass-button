@@ -1,6 +1,7 @@
 // Render a spin to video, frame by frame, exactly as the site plays it.
 //
 //   node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only] [--fps 30]
+//   node tools/capture.mjs X --page lab/ --out DIR   a test page (full.mp4 only)
 //   node tools/capture.mjs --played     every spin in site/data/played.json (marked from the
 //                                       phone) that has no spin folder yet (git pull first)
 //
@@ -32,6 +33,7 @@ function args() {
     else if (a[i] === "--fps") o.fps = +a[++i];
     else if (a[i] === "--landing-only") o.landingOnly = true;
     else if (a[i] === "--played") o.played = true;
+    else if (a[i] === "--page") o.page = a[++i];
     else o.code = a[i];
   }
   if (!o.code && !o.played) { console.error("usage: node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only]"); process.exit(2); }
@@ -79,13 +81,13 @@ async function capture(o) {
   try {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     page.on("pageerror", (e) => console.error("page error:", e.message));
-    await page.goto(`http://127.0.0.1:${port}/?seed=${encodeURIComponent(o.code)}&render=916`);
+    await page.goto(`http://127.0.0.1:${port}/${o.page || ""}?seed=${encodeURIComponent(o.code)}&render=916`);
     await page.waitForFunction(() => window.__show, null, { timeout: 30000 });
     await page.evaluate(() => window.__show.ready);
     const info = await page.evaluate(() => window.__show.info());
     const outDir = o.out || path.join(SPINS, `${info.date}-${info.code}`);
     await mkdir(outDir, { recursive: true });
-    console.log(`spin ${info.code} (${info.date}): ${info.result.title}  ->  ${outDir}`);
+    console.log(`spin ${info.code} (${info.date}): ${info.result ? info.result.title : "(test page)"}  ->  ${outDir}`);
 
     // the soundtrack, rendered offline by the page's own audio code
     const wav = Buffer.from(await page.evaluate(() => window.__show.audioWav()), "base64");
@@ -117,6 +119,7 @@ async function capture(o) {
 
     const [l0, l1] = info.landing;
     if (!o.landingOnly) await encode(path.join(outDir, "full.mp4"), 0, info.duration);
+    if (!info.result) { console.log(`done: ${outDir}`); return; }   // a test page: just the video
     await encode(path.join(outDir, "landing.mp4"), l0, l1);
     await writeFile(path.join(outDir, "landing.png"), await (async () => {
       await page.evaluate((x) => window.__show.seek(x), info.tStop + 1.1);
