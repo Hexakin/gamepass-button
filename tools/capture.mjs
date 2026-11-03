@@ -128,7 +128,7 @@ async function capture(o) {
 
     const spinJson = {
       code: info.code, date: info.date, catalogDate: info.catalogDate,
-      result: info.result, eligibleCount: info.eligibleCount, reaction: info.reaction.clip,
+      result: info.result, eligibleCount: info.eligibleCount, reaction: info.reaction.pose,
       duration: +info.duration.toFixed(3), tStop: +info.tStop.toFixed(3),
       landing: [+l0.toFixed(3), +l1.toFixed(3)],
       files: { full: o.landingOnly ? null : "full.mp4", landing: "landing.mp4", still: "landing.png", audio: "audio.wav" },

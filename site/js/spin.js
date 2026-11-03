@@ -27,43 +27,43 @@ export function eligible(catalogue, played, date) {
 
 // ------------------------------------------------------------------ the script (his voice)
 
-// Fourth-wall bits during the fast spin. {clip, line, extra fx}
+// Fourth-wall bits during the fast spin: {pose, line, fx}. Poses are the chibi drawings
+// (site/js/puppet.js); `move` picks how he gets into the pose.
 const BITS = [
-  { id: "blink", clip: "point-at-you", line: "Don't blink. Blinking is cheating." },
-  { id: "rigged", clip: "scheming", line: "You've rigged this. I can tell. You've got a rigging face." },
-  { id: "watch", clip: "arms-crossed-tap", line: "Any time today. Some of us have a download bar to stare at.", fx: "watch" },
-  { id: "glass", clip: "finger-wag-no", line: "*tap tap* Hello? You've got a thumbprint on your screen. Gross.", fx: "tap" },
-  { id: "shush", clip: "dont-you-dare", line: "Shh. SHH. It's concentrating." },
-  { id: "rules", clip: "talk-passionately", line: "{n} games. One button. No re-rolls. Those are the rules.", span: 3.0 },
-  { id: "illegal", clip: "sceptical-chin", line: "Is it allowed to go this fast? Feels illegal." },
-  { id: "sticker", clip: "shrug", line: "Who keeps putting stickers on the screen? Was that you?", fx: "stickers" },
-  { id: "editor", clip: "headache", line: "Editor, if this lands on a golf game, cut it. Actually don't. Honesty." },
-  { id: "coward", clip: "laugh", line: "You pressed it like a coward. One finger? Really?" },
-  { id: "lean", clip: "point-left", line: "Look at it go. Look at it. No, not at me. AT IT." },
+  { id: "blink", pose: "pointing-accuse", move: "lunge", line: "Don't blink. Blinking is cheating." },
+  { id: "rigged", pose: "scheming", move: "rub", line: "You've rigged this. I can tell. You've got a rigging face." },
+  { id: "watch", pose: "tap-watch", move: "tap", line: "Any time today. Some of us have a download bar to stare at." },
+  { id: "glass", pose: "nose-on-glass", move: "glass", line: "*tap tap* Hello? You've got a thumbprint on your screen. Gross.", fx: "tap" },
+  { id: "shush", pose: "shush", move: "lunge", line: "Shh. SHH. It's concentrating." },
+  { id: "rules", pose: "pointing-accuse", move: "lunge", line: "{n} games. One button. No re-rolls. Those are the rules.", span: 3.0 },
+  { id: "illegal", pose: "shrug", move: "pop", line: "Is it allowed to go this fast? Feels illegal." },
+  { id: "sticker", pose: "shrug", move: "pop", line: "Who keeps putting stickers on the screen? Was that you?", fx: "stickers" },
+  { id: "editor", pose: "thumbs-down", move: "lunge", line: "Editor, if this lands on a golf game, cut it. Actually don't. Honesty." },
+  { id: "coward", pose: "pointing-accuse", move: "lunge", line: "You pressed it like a coward. One finger? Really?" },
+  { id: "lean", pose: "scheming", move: "rub", line: "Look at it go. Look at it. No, not at me. AT IT." },
 ];
 
 const SLOWDOWN = [
-  { clip: "frustrated-head-grab", line: "Slowing down... slowing down... don't you DARE be a golf game." },
-  { clip: "shocked", line: "Here it comes. Here it comes. Nobody breathe." },
-  { clip: "sceptical-chin", line: "Drumroll, please. I said DRUMROLL." },
-  { clip: "dont-you-dare", line: "Easy... easy... I can see you reaching for the screen. Don't." },
+  { pose: "pointing-accuse", line: "Slowing down... slowing down... don't you DARE be a golf game." },
+  { pose: "scheming", line: "Here it comes. Here it comes. Nobody breathe." },
+  { pose: "idle", line: "Drumroll, please. I said DRUMROLL." },
+  { pose: "shush", line: "Easy... easy... I can see you reaching for the screen. Don't." },
 ];
 
 const REACTIONS = [
-  { clip: "flex", mood: "win", line: "GET IN. Tonight's sorted.", sfx: "fanfare", w: 3 },
-  { clip: "backflip", mood: "win", line: "Didn't even warm up for that.", sfx: "fanfare", w: 3 },
-  { clip: "jazz-hands", mood: "win", line: "Ta-daaa. Tonight's entertainment.", sfx: "fanfare", w: 3 },
-  { clip: "cheer", mood: "win", line: "YES. Finally, the button has taste.", sfx: "fanfare", w: 2 },
-  { clip: "victory-fist-pump", mood: "win", line: "Called it. Didn't call it. Still counts.", sfx: "fanfare", w: 2 },
-  { clip: "collapse", mood: "lose", line: "Oh no. Oh no no no. ...Honesty's the brand.", sfx: "trombone", w: 3 },
-  { clip: "despair-knees", mood: "lose", line: "Why. WHY. Fine. It's tonight's game.", sfx: "trombone", w: 2 },
-  { clip: "facepalm", mood: "lose", line: "Of course it's that. Of course it is.", sfx: "trombone", w: 2 },
-  { clip: "shocked", mood: "shock", line: "It actually picked that. Wow. Okay.", sfx: "crash", w: 2 },
-  { clip: "slow-clap", mood: "shock", line: "Well done, button. Truly inspired.", sfx: "crash", w: 2 },
+  { pose: "celebrate", mood: "win", line: "GET IN. Tonight's sorted.", sfx: "fanfare", w: 3 },
+  { pose: "celebrate", mood: "win", line: "YES. Finally, the button has taste.", sfx: "fanfare", w: 2 },
+  { pose: "jazz-hands", mood: "win", line: "Ta-daaa. Tonight's entertainment.", sfx: "fanfare", w: 3 },
+  { pose: "jazz-hands", mood: "win", line: "Called it. Didn't call it. Still counts.", sfx: "fanfare", w: 2 },
+  { pose: "despair-collapse", mood: "lose", line: "Oh no. Oh no no no. Honesty's the brand.", sfx: "trombone", w: 3 },
+  { pose: "despair-flat", mood: "lose", line: "Why. WHY. Fine. It's tonight's game.", sfx: "trombone", w: 3 },
+  { pose: "thumbs-down", mood: "shock", line: "It actually picked that. Wow. Okay.", sfx: "crash", w: 2 },
+  { pose: "shrug", mood: "shock", line: "Well done, button. Truly inspired.", sfx: "crash", w: 2 },
 ];
 
-const STICKERS = ["table-flip", "mind-blown", "rage", "steaming", "eye-roll", "chefs-kiss",
-  "sceptical", "shocked", "tantrum", "megaphone", "point-at-you", "sigh"];
+// chibi stickers slapped on the screen (site/stickers/<pose>.webp, trimmed with their border)
+const STICKERS = ["shrug", "thumbs-down", "jazz-hands", "despair-collapse", "scheming", "celebrate",
+  "pointing-accuse", "shush", "tap-watch", "electrocuted-b"];
 
 // ------------------------------------------------------------------ reel kinematics
 
@@ -107,9 +107,7 @@ export function buildSpin(code, data) {
   if (!pool.length) throw new Error("No eligible games for this date.");
   const result = pickResult(code, pool);
   const R = stream(code, "show");
-  const clipDur = (c) => (data.clips && data.clips[c] ? data.clips[c].duration : 3);
-
-  const avatar = [], bubbles = [], stickers = [], fx = [], sfx = [];
+  const track = [], bubbles = [], stickers = [], fx = [], sfx = [];
   const segs = [];
   let t = 0, p = 0;
   const seg = (T, v0, v1, ease = "lin", extra = {}) => {
@@ -122,14 +120,30 @@ export function buildSpin(code, data) {
     bubbles.push({ t0, t1: t0 + dur, text, ...extra });
     sfx.push({ t: t0, name: "pop" });
   };
-  const play = (t0, clip, extra = {}) => avatar.push({ t0, clip, ...extra });
+  // the puppet: one key = a move into a pose (see puppet.js)
+  const key = (t0, pose, o = {}) => track.push({ t: t0, pose, ...o });
+  // the house moves: how he snaps into a pose
+  const move = (t0, pose, how = "pop", o = {}) => {
+    if (how === "lunge") key(t0, pose, { dur: 0.12, ease: "snap", smear: [120, -40], lines: { at: [900, 600] }, wobble: 0.14, jitter: 1.2, ...o });
+    else if (how === "rub") key(t0, pose, { dur: 0.12, ease: "snap", smear: [0, 90], wobble: 0.12, jitter: 2.2, ...o });
+    else if (how === "tap") key(t0, pose, { dur: 0.1, ease: "snap", smear: [0, -80], wobble: 0.12, jitter: 1, ...o });
+    else if (how === "drop") key(t0, pose, { dur: 0.1, ease: "out", smear: [0, 160], wobble: 0.3, impact: true, ...o });
+    else if (how === "jump") key(t0, pose, { dur: 0.1, ease: "snap", smear: [0, -170], lines: { at: [600, 500] }, wobble: 0.2, impact: true, y: -24, jitter: 1.4, ...o });
+    else key(t0, pose, { dur: 0.1, ease: "back", smear: [0, -70], wobble: 0.16, ...o });
+  };
   const V = R.range(13, 17); // cruise speed, cards per second
 
-  // --- 0. the slam: he does it "properly"
-  play(0, "button-slam");
+  // --- 0. the slam: he does it "properly" (anticipation, wind-up with tremble, 2-frame smear
+  // down, impact frames, squash, recovery)
+  const impact = 1.7;
+  key(0, "idle", { breathe: true });
+  key(0.5, "idle", { dur: 0.12, ease: "out", sy: 0.9, sx: 1.07 });
+  key(0.68, "slam-windup", { dur: 0.1, ease: "snap", smear: [0, -170], lines: { at: [600, 420] }, wobble: 0.1, jitter: 2 });
+  key(1.15, "slam-windup", { dur: 0.4, ease: "out", y: -24, sy: 1.05, jitter: 3.5 });
+  key(impact - 0.07, "slam-impact", { dur: 0.07, ease: "lin", y: 0, smear: [-60, 300], lines: { at: [420, 900] }, impact: true, wobble: 0.24, jitter: 1.2 });
+  sfx.push({ t: 0.5, name: "whoosh" }, { t: 0.68, name: "charge", dur: 0.95 }, { t: impact - 0.08, name: "whoosh" });
   say(0.15, R.pick(["Oh, you pressed it? Cute. Let me do it PROPERLY.",
     "No no no. Like THIS.", "Stand back. Professional button presser coming through."]), { dur: 1.6 });
-  const impact = 1.7;
   fx.push({ t: impact, type: "slam" });
   sfx.push({ t: impact, name: "boom" });
   hold(impact + 0.05);
@@ -145,13 +159,21 @@ export function buildSpin(code, data) {
   const cruiseBit = () => {
     const b = bits[bi++ % bits.length];
     const span = 3.4 + (b.span || 0);
-    play(t + 0.1, b.clip);
+    const t0 = t + (bi === 1 ? 0.55 : 0.1);   // the first one waits for the slam to settle
+    if (b.move === "glass") {
+      // presses up against the screen: zoom in, squash flat against the glass on each tap
+      key(t0, b.pose, { dur: 0.16, ease: "back", sx: 1.22, sy: 1.22, y: -40, smear: [0, -60], wobble: 0.1 });
+      for (const k of [0.35, 0.6, 1.4, 1.65]) {
+        key(t + k, b.pose, { dur: 0.04, ease: "lin", sx: 1.36, sy: 1.12, y: -40 });
+        key(t + k + 0.05, b.pose, { dur: 0.14, ease: "back", sx: 1.22, sy: 1.22, y: -40, wobble: 0.08 });
+      }
+      key(t + span - 0.25, "idle", { dur: 0.14, ease: "back", y: 0, smear: [0, 60], wobble: 0.12, breathe: true });
+    } else move(t0, b.pose, b.move);
     say(t + 0.25, b.line.replace("{n}", String(n)), { dur: span - 0.3 });
     if (b.fx === "tap") {
       for (const k of [0.35, 0.6, 1.4, 1.65]) { fx.push({ t: t + k, type: "tap" }); sfx.push({ t: t + k, name: "tap" }); }
       fx.push({ t: t + 1.65, type: "crack" });
     }
-    if (b.fx === "watch") fx.push({ t: t + 0.3, type: "watch", dur: 3 });
     if (b.fx === "stickers") {
       const picks = R.shuffle(STICKERS).slice(0, 3);
       picks.forEach((s, k) => stickers.push({ t0: t - 0.6 + k * 0.45, t1: t + span, src: s,
@@ -179,7 +201,7 @@ export function buildSpin(code, data) {
       seg(T1, V, vEnd, "out");
       const S = Math.round(p); p = S;
       say(tDecel + 0.2, "Ooh. Ooh. Is this it?", { dur: T1 - 0.2 });
-      play(tDecel, "shocked");
+      move(tDecel, "scheming", "rub", { jitter: 3 });
       const tLand = t;
       fx.push({ t: tLand, type: "fakeland", idx: S });
       sfx.push({ t: tLand, name: "thud" });
@@ -187,8 +209,11 @@ export function buildSpin(code, data) {
       fixed[S] = fake;
       say(tLand + 0.35, R.pick(["Hang on. That's not a stop. That's a nap. GO ON.",
         "Nope. It's not finished. It's just tired. MOVE.", "It didn't land. It wobbled. Wobbles don't count."]), { dur: 2.6 });
-      play(tLand - 1.0, "shove-it-on"); // the push lands ~2.9 s into the clip
-      const tPush = tLand - 1.0 + 2.9;
+      const tPush = tLand + 1.9;
+      key(tLand + 0.3, "idle", { dur: 0.1, ease: "back", smear: [0, -60], wobble: 0.14, jitter: 1.5 });
+      key(tPush - 0.35, "idle", { dur: 0.2, ease: "out", x: -40, sx: 0.94, sy: 1.04 });      // lean back
+      key(tPush - 0.08, "shove-offscreen", { dur: 0.08, ease: "lin", x: 30, smear: [260, 0], lines: { at: [900, 640] }, impact: true, wobble: 0.2 });
+      key(tPush + 0.9, "idle", { dur: 0.14, ease: "back", x: 0, smear: [-80, 0], wobble: 0.12, breathe: true });
       hold(tPush - tLand);
       fx.push({ t: tPush, type: "shove", idx: S });
       sfx.push({ t: tPush, name: "shove" });
@@ -198,7 +223,10 @@ export function buildSpin(code, data) {
     } else {
       // the wheel "breaks": static, sparks, he gets electrocuted, accuses the viewer
       const tb = t;
-      play(tb - 0.3, "electrocuted");
+      key(tb, "electrocuted-a", { dur: 0, y: -30, zap: ["electrocuted-a", "electrocuted-b"], impact: true });
+      key(tb + 2.8, "frazzled-aftermath", { dur: 0.1, ease: "out", y: 0, smear: [0, 90], wobble: 0.18, jitter: 0.6 });
+      fx.push({ t: tb + 2.8, type: "smoke", dur: 2.4 });
+      sfx.push({ t: tb, name: "zap", dur: 2.8 }, { t: tb + 2.8, name: "fizzle" });
       fx.push({ t: tb, type: "glitch", dur: 2.8 });
       sfx.push({ t: tb, name: "glitch", dur: 2.8 });
       hold(2.8, { jitter: true });
@@ -219,7 +247,7 @@ export function buildSpin(code, data) {
   const S = Math.ceil(p + 1.0 * V + dTail);
   seg((S - dTail - p) / V, V, V);
   const tSlow = t;
-  play(tSlow, sd.clip);
+  move(tSlow, sd.pose, sd.pose === "scheming" ? "rub" : "lunge", { jitter: 2.6 });
   say(tSlow + 0.1, sd.line, { dur: T1 + Tcr - 0.2 });
   sfx.push({ t: tSlow, name: "drumroll", dur: T1 + Tcr });
   seg(T1, V, vc, "out");
@@ -237,10 +265,14 @@ export function buildSpin(code, data) {
   sfx.push({ t: tStop, name: "slam" });
   sfx.push({ t: tStop + 0.3, name: "stamp" });
   sfx.push({ t: tStop + 0.05, name: reaction.sfx });
-  play(tStop, reaction.clip, { holdEnd: true });
+  if (reaction.mood === "win") move(tStop, reaction.pose, "jump");
+  else if (reaction.mood === "lose") move(tStop, reaction.pose, "drop");
+  else move(tStop, reaction.pose, "lunge", { impact: true });
   // shown whole (not typed) from tStop + 0.3, so it's complete inside the 1.6 s landing
   say(tStop + 0.3, reaction.line, { dur: 2.6, style: "big" });
   const tOut = tStop + 3.0;
+  // the outro: back on his feet, pointing at you
+  move(tOut - 0.05, reaction.mood === "lose" ? "shrug" : "pointing-accuse", reaction.mood === "lose" ? "pop" : "lunge", { y: 0 });
   say(tOut, R.pick(["That's tonight's game. No re-rolls. You saw it.",
     "Right. That's what we're playing. The button has spoken.",
     "No take-backs. Downloading it now. Probably 90 gigs."]), { dur: 3.2 });
@@ -259,13 +291,7 @@ export function buildSpin(code, data) {
     entries.push(g);
   }
 
-  // idle fills the gaps; a clip runs to its end unless the next one starts first
-  avatar.sort((a, b) => a.t0 - b.t0);
-  for (let i = 0; i < avatar.length; i++) {
-    const a = avatar[i], next = avatar[i + 1];
-    const end = a.t0 + clipDur(a.clip);
-    a.t1 = a.holdEnd ? duration + 1 : (next ? Math.min(end, next.t0) : end);
-  }
+  track.sort((a, b) => a.t - b.t);
 
   // ticks: one per card that passes the window
   let last = Math.floor(reelAt({ segs }, 0).p);
@@ -277,9 +303,9 @@ export function buildSpin(code, data) {
 
   return {
     code, date, catalogDate: data.catalogDate, eligibleCount: n,
-    result, reaction: { clip: reaction.clip, mood: reaction.mood },
+    result, reaction: { pose: reaction.pose, mood: reaction.mood },
     duration, tStop, landing: [Math.max(0, tStop - 0.25), tStop + 1.35],
-    reel: { segs, entries, shoved, V }, avatar, bubbles, stickers, fx, sfx,
+    reel: { segs, entries, shoved, V }, track, bubbles, stickers, fx, sfx,
   };
 }
 

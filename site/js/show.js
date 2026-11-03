@@ -1,11 +1,15 @@
 // Draws the show at any time t (seconds) on a 1080x1920 stage. Everything on screen is a pure
 // function of (spin, t), so the capture script can step frame by frame and get the exact show.
 import { reelAt } from "./spin.js";
+import { Puppet, POSES, noise } from "./puppet.js";
 
 const PITCH = 680;            // px between card centres on the reel
-const CARD_W = 420, CARD_H = 630;
-const AV_W = 600, AV_H = 800; // avatar box on the stage (matches #avatar in app.css)
 const SLOTS = 5;
+const FEET_AT = [360, 1490];  // where Hexakin stands (stage px); everything inside x60-960, y150-1500
+const PUPPET_SCALE = 0.6;     // stage px per chibi canvas px (idle stands ~550 px tall)
+// the button he grabs: the drawn one in slam-windup sits at canvas (300, 1050)
+const DRAWN_BUTTON = [FEET_AT[0] + (300 - 600) * PUPPET_SCALE, FEET_AT[1] + (1050 - 1140) * PUPPET_SCALE];
+const IDLE_TRACK = [{ t: 0, pose: "idle", breathe: true }];
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -17,35 +21,33 @@ export function boxart(url, hi) {
 }
 
 export class Show {
-  constructor(stage, { hi = false, clips = {} } = {}) {
+  constructor(stage, { hi = false } = {}) {
     this.stage = stage;
     this.hi = hi;
-    this.clips = clips;
     this.spin = null;
     this.reelCards = [...stage.querySelectorAll(".card")];
     this.el = {
       shake: $("#shake", stage), reel: $("#reel", stage), strip: $("#strip", stage),
       ticker: $("#ticker", stage), tonight: $("#tonight", stage), tonightTitle: $("#tonight .t", stage),
-      avatar: $("#avatar", stage), avImg: $("#avatar img", stage), bubble: $("#bubble", stage),
+      avatar: $("#avatar", stage), bubble: $("#bubble", stage),
       bubbleText: $("#bubble .txt", stage), button: $("#bigbutton", stage), stamp: $("#stamp", stage),
       pending: $("#pending", stage), flash: $("#flash", stage), glitch: $("#glitch", stage),
       reboot: $("#reboot", stage), crack: $("#crack", stage), ripple: $("#ripple", stage),
-      watch: $("#watch", stage), hand: $("#watch .hand", stage), stickers: $("#stickers", stage),
+      stickers: $("#stickers", stage), impactbg: $("#impactbg", stage), fx: $("#fxsvg", stage),
       code: $("#codetag", stage), boom: $("#boom", stage), count: $("#count", stage),
     };
     this.stickerEls = [];
-    this._lastAv = "";
+    this.puppet = new Puppet(this.el.avatar, { scale: PUPPET_SCALE, feetAt: FEET_AT });
     this.pending = []; // images whose src changed in the last draw (render mode waits for them)
   }
 
   setSpin(spin) {
     this.spin = spin;
-    if (!this.hi) for (const c of new Set(["idle", ...spin.avatar.map((x) => x.clip)])) this.layer(c);
     this.el.code.textContent = `SPIN ${spin.code}`;
     this.el.count.textContent = `${spin.eligibleCount} GAMES IN THE DRUM · CATALOGUE ${spin.catalogDate}`;
     this.el.tonightTitle.textContent = spin.result.title.replace(/[®™©]/g, "");
     const len = spin.result.title.length;
-    this.el.tonightTitle.style.fontSize = `${len > 40 ? 66 : len > 28 ? 82 : len > 18 ? 98 : 118}px`;
+    this.el.tonightTitle.style.fontSize = `${len > 40 ? 54 : len > 28 ? 64 : len > 18 ? 78 : 96}px`;
     this.el.stickers.innerHTML = "";
     this.stickerEls = spin.stickers.map((s) => {
       const img = document.createElement("img");
@@ -61,55 +63,11 @@ export class Show {
     const s = this.spin, urls = new Set();
     for (const g of s.reel.entries) urls.add(boxart(g.boxart, this.hi));
     for (const st of s.stickers) urls.add(`stickers/${st.src}.webp`);
-    const clips = new Set(["idle", ...s.avatar.map((a) => a.clip)]);
-    for (const c of clips) {
-      const info = this.clips[c];
-      if (!info) continue;
-      if (this.hi) for (let i = 0; i < info.hiFrames; i++) urls.add(this.hiFrame(c, i));
-      else urls.add(`avatar/lo/${c}.webp`);
-    }
     return [...urls].filter(Boolean);
   }
 
-  hiFrame(clip, i) { return `avatar/hi/${clip}/${String(i).padStart(3, "0")}.webp`; }
-
-  // ---------------------------------------------------------------- avatar
-  drawAvatar(clip, local, holdEnd = false) {
-    const info = this.clips[clip] || this.clips.idle;
-    if (!info) return;
-    if (clip === "idle") local = local % info.duration;
-    if (this.hi) {
-      const i = Math.min(info.hiFrames - 1, Math.max(0, Math.floor(local * info.hiFps)));
-      const src = this.hiFrame(clip, i);
-      if (src !== this._lastAv) { this.el.avImg.src = src; this._lastAv = src; this.pending.push(this.el.avImg); }
-      return;
-    }
-    const n = info.frames, cols = Math.min(info.cols, n), rows = Math.ceil(n / cols);
-    const i = Math.min(n - 1, Math.max(0, Math.floor(local * info.fps)));
-    const key = `${clip}:${i}`;
-    if (key === this._lastAv) return;
-    this._lastAv = key;
-    // one layer per clip, all loaded before the show starts: a clip change only flips which
-    // layer is visible, so the phone never shows a blank frame while an image loads
-    const layer = this.layer(clip);
-    for (const [c, el] of Object.entries(this.layers)) el.style.visibility = c === clip ? "visible" : "hidden";
-    const st = layer.style;
-    st.backgroundSize = `${cols * AV_W}px ${rows * AV_H}px`;
-    st.backgroundPosition = `${-(i % cols) * AV_W}px ${-Math.floor(i / cols) * AV_H}px`;
-  }
-
-  layer(clip) {
-    this.layers = this.layers || {};
-    if (!this.layers[clip]) {
-      const el = document.createElement("div");
-      el.className = "avlayer";
-      el.style.backgroundImage = `url(avatar/lo/${clip}.webp)`;
-      el.style.visibility = "hidden";
-      this.el.avatar.appendChild(el);
-      this.layers[clip] = el;
-    }
-    return this.layers[clip];
-  }
+  // every chibi pose, decoded, each in its own layer (call before the show can start)
+  loadPoses() { return this.puppet.load(POSES); }
 
   drawReel(t) {
     const s = this.spin, E = this.el;
@@ -126,7 +84,7 @@ export class Show {
       const sh = shoved.find((q) => q.idx === idx);
       if (sh && t >= sh.t) {
         const a = t - sh.t;
-        x = -1300 * clamp(a / 0.35) ** 1.6; rot = -28 * clamp(a / 0.35);
+        x = 1300 * clamp(a / 0.35) ** 1.6; rot = 28 * clamp(a / 0.35);   // shoved off to the right
         if (a > 0.4) hidden = true;
       }
       card.style.visibility = hidden ? "hidden" : "visible";
@@ -145,12 +103,13 @@ export class Show {
 
   // ---------------------------------------------------------------- idle (before the press)
   drawIdle(wall, line) {
-    this.drawAvatar("idle", wall);
+    this.puppet.draw(IDLE_TRACK, wall);
     this.el.reel.classList.add("idle");
     if (this.spin) { this.drawReel(0); this.el.ticker.textContent = "THE DRUM AWAITS. PRESS THE BUTTON."; }
     const b = this.el.bubble;
     b.style.opacity = 1; b.style.transform = "scale(1)";
     this.el.bubbleText.textContent = line;
+    this.el.button.style.visibility = "visible";
     this.el.button.style.transform = `scale(${1 + 0.03 * Math.sin(wall * 4)})`;
   }
 
@@ -208,18 +167,20 @@ export class Show {
     let fl = 0;
     for (const f of s.fx) {
       if (!["slam", "land"].includes(f.type)) continue;
-      const a = since(f);
-      if (a >= 0 && a < 0.22) fl = Math.max(fl, (1 - a / 0.22) * (f.type === "land" ? 0.6 : 0.8));
+      const a = since(f) - 2 / 30;   // after the two silhouette impact frames
+      if (a >= 0 && a < 0.2) fl = Math.max(fl, (1 - a / 0.2) * (f.type === "land" ? 0.5 : 0.7));
     }
     E.flash.style.opacity = fl.toFixed(3);
 
-    // the big button: squashed by the slam, then it sinks out of the way
+    // the big button: he yanks it over to his feet (0.25-0.68 s); from the wind-up on, the
+    // drawn button in his slam poses takes over
     const slam = fxAt("slam")[0];
     const ba = t - slam.t;
-    let bs = 1, by = 0;
-    if (ba < 0) bs = 1 - 0.06 * clamp((ba + 0.25) / 0.25);
-    else { bs = ba < 0.12 ? 0.55 : 0.55 + 0.45 * clamp((ba - 0.12) / 0.3); by = ba > 1.2 ? 900 * clamp((ba - 1.2) / 0.5) ** 2 : 0; }
-    E.button.style.transform = `translateY(${by}px) scale(1, ${bs.toFixed(3)})`;
+    const g = clamp((t - 0.25) / 0.4), ge = g * g * (3 - 2 * g);
+    const bc = [770, 1385];
+    const bx = (DRAWN_BUTTON[0] - bc[0]) * ge, by = (DRAWN_BUTTON[1] - bc[1]) * ge + -90 * Math.sin(Math.PI * g);
+    E.button.style.visibility = t < 0.73 ? "visible" : "hidden";
+    E.button.style.transform = `translate(${bx.toFixed(1)}px, ${by.toFixed(1)}px) scale(${(1 - 0.43 * ge).toFixed(3)}) rotate(${(-20 * Math.sin(Math.PI * g)).toFixed(1)}deg)`;
     E.boom.style.opacity = ba >= 0 && ba < 0.9 ? 1 : 0;
     E.boom.style.transform = `rotate(-8deg) scale(${ba >= 0 ? easeOutBack(clamp(ba / 0.2)).toFixed(3) : 0})`;
 
@@ -229,7 +190,7 @@ export class Show {
       const sh = shoved.find((q) => q.idx === fk.idx);
       const a = t - fk.t, gone = sh ? t - sh.t : -1;
       E.pending.style.opacity = a >= 0 && gone < 0.3 ? 1 : 0;
-      E.pending.style.transform = `translate(${gone > 0 ? -1500 * clamp(gone / 0.35) ** 1.6 : 0}px, 0) rotate(${8 + (gone > 0 ? -30 * clamp(gone / 0.35) : 0)}deg) scale(${a >= 0 ? (1 + 0.8 * (1 - clamp(a / 0.12)) ** 2).toFixed(3) : 2})`;
+      E.pending.style.transform = `translate(${gone > 0 ? 1500 * clamp(gone / 0.35) ** 1.6 : 0}px, 0) rotate(${8 + (gone > 0 ? 30 * clamp(gone / 0.35) : 0)}deg) scale(${a >= 0 ? (1 + 0.8 * (1 - clamp(a / 0.12)) ** 2).toFixed(3) : 2})`;
     } else E.pending.style.opacity = 0;
 
     // glitch + reboot
@@ -251,15 +212,6 @@ export class Show {
     const cr = fxAt("crack").find((f) => t >= f.t && t < f.t + 2.6);
     E.crack.style.opacity = cr ? clamp((f => 1 - clamp((t - f.t - 2.1) / 0.5))(cr)) : 0;
 
-    // the watch he taps at you
-    const w = fxAt("watch").find((f) => t >= f.t && t < f.t + f.dur);
-    E.watch.style.opacity = w ? 1 : 0;
-    if (w) {
-      const a = t - w.t;
-      E.watch.style.transform = `scale(${easeOutBack(clamp(a / 0.25)).toFixed(3)}) rotate(${(Math.sin(a * 6) * 4).toFixed(1)}deg)`;
-      E.hand.style.transform = `rotate(${Math.floor(a * 4) * 30}deg)`;
-    }
-
     // stickers slapped on the screen
     s.stickers.forEach((sk, i) => {
       const el = this.stickerEls[i];
@@ -273,14 +225,63 @@ export class Show {
       el.style.transform = `rotate(${sk.rot.toFixed(1)}deg) scale(${(sk.scale * (a < 0.18 ? 1.6 - 0.6 * easeOutBack(a / 0.18) : 1) * (1 - 0.3 * out)).toFixed(3)})`;
     });
 
-    // avatar
-    let act = null;
-    for (const a of s.avatar) if (t >= a.t0 && t < a.t1) act = a;
-    if (act) this.drawAvatar(act.clip, t - act.t0);
-    else this.drawAvatar("idle", t);
-    // he leans in when talking big
-    const lean = landed ? 1 + 0.05 * Math.exp(-(t - tl) * 3) : 1;
-    E.avatar.style.transform = `scale(${lean.toFixed(3)})`;
+    // Hexakin (the chibi puppet) + his effects
+    const ps = this.puppet.draw(s.track, t);
+    E.impactbg.style.opacity = ps.impact ? 1 : 0;
+    let fx = "";
+    // bolts from the broken reel into him while he's zapped
+    const zapping = gl && (ps.pose === "electrocuted-a" || ps.pose === "electrocuted-b");
+    if (zapping) {
+      const seed = Math.floor(t * 15);
+      const from = [[300, 420], [300, 620], [300, 820]];
+      const to = [[160, 560], [1040, 560], [600, 380]].map((c) => this.puppet.toStage(c));
+      from.forEach(([x0, y0], i) => {
+        const [x1, y1] = to[i];
+        let d = `M${x0} ${y0}`;
+        for (let k = 1; k < 8; k++) {
+          const u = k / 8, nx = -(y1 - y0), ny = x1 - x0, l = Math.hypot(nx, ny) || 1, off = noise(seed * 31 + i * 7 + k) * 40;
+          d += `L${(x0 + (x1 - x0) * u + nx / l * off).toFixed(0)} ${(y0 + (y1 - y0) * u + ny / l * off).toFixed(0)}`;
+        }
+        d += `L${x1.toFixed(0)} ${y1.toFixed(0)}`;
+        fx += `<path d="${d}" stroke="#7fe8ff" stroke-width="22" stroke-linejoin="round" fill="none" opacity=".45"/><path d="${d}" stroke="#fff" stroke-width="8" stroke-linejoin="round" fill="none"/>`;
+      });
+    }
+    // smoke off his head after a zap
+    const sm = fxAt("smoke").find((f) => t >= f.t && t < f.t + f.dur);
+    if (sm) {
+      const a = t - sm.t, [hx, hy] = this.puppet.toStage([600, 330]);
+      for (let i = 0; i < 6; i++) {
+        const life = a - i * 0.32;
+        if (life < 0 || life > 1.6) continue;
+        const x = hx + Math.sin(life * 3 + i) * 26 + (i % 2 ? 18 : -18), y = hy - life * 230;
+        fx += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(20 + life * 42).toFixed(0)}" fill="#3a3a3f" opacity="${(0.75 * (1 - life / 1.6)).toFixed(2)}"/>`;
+      }
+    }
+    // impact star + dust where his fist hits the drawn button
+    if (ba >= 0 && ba < 1.1) {
+      const [x, y] = this.puppet.toStage([410, 960]);
+      if (ba < 0.35) {
+        const r = 50 + 180 * easeOutBack(clamp(ba / 0.15));
+        let pts = "";
+        for (let i = 0; i < 16; i++) {
+          const ang = (i / 16) * Math.PI * 2, rr = i % 2 ? r * 0.45 : r * (0.85 + 0.15 * noise(i));
+          pts += `${(x + Math.cos(ang) * rr).toFixed(0)},${(y + Math.sin(ang) * rr * 0.75).toFixed(0)} `;
+        }
+        fx = `<polygon points="${pts}" fill="#FFE14D" stroke="#0A0A0B" stroke-width="8" opacity="${(1 - clamp((ba - 0.2) / 0.15)).toFixed(2)}"/>` + fx;
+      }
+      for (let i = 0; i < 6; i++) {
+        const dir = i < 3 ? -1 : 1, k = (i % 3) + 1;
+        const dx = x + dir * (40 + ba * 140 * k * 0.5), dy = FEET_AT[1] - 15 - ba * 60 * (1 + (i % 3) * 0.4);
+        fx += `<circle cx="${dx.toFixed(0)}" cy="${dy.toFixed(0)}" r="${(16 + ba * 50 + (i % 3) * 6).toFixed(0)}" fill="#cfc6b1" stroke="#0A0A0B" stroke-width="5" opacity="${(1 - ba / 1.1).toFixed(2)}"/>`;
+      }
+    }
+    if (this._fx !== fx) { E.fx.innerHTML = fx; this._fx = fx; }
+    // the glass ripple and crack sit on his face while he's pressed against the screen
+    if (ps.pose === "nose-on-glass") {
+      const [fx0, fy0] = this.puppet.toStage([600, 720]);
+      E.ripple.style.left = `${(fx0 - 90).toFixed(0)}px`; E.ripple.style.top = `${(fy0 - 90).toFixed(0)}px`;
+      E.crack.style.left = `${(fx0 - 200).toFixed(0)}px`; E.crack.style.top = `${(fy0 - 200).toFixed(0)}px`;
+    }
 
     // speech bubble
     let bub = null;

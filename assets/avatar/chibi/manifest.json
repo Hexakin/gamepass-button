@@ -1,0 +1,200 @@
+{
+ "idle": {
+  "scale": 1.033,
+  "size": [
+   456,
+   920
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "slam-windup": {
+  "scale": 1.016,
+  "size": [
+   912,
+   1001
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "slam-impact": {
+  "scale": 0.829,
+  "size": [
+   824,
+   796
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "electrocuted-a": {
+  "scale": 1.125,
+  "size": [
+   952,
+   1010
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "electrocuted-b": {
+  "scale": 1.068,
+  "size": [
+   831,
+   957
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "frazzled-aftermath": {
+  "scale": 0.969,
+  "size": [
+   527,
+   921
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "nose-on-glass": {
+  "scale": 0.702,
+  "size": [
+   601,
+   637
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "pointing-accuse": {
+  "scale": 0.829,
+  "size": [
+   635,
+   728
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "tap-watch": {
+  "scale": 0.926,
+  "size": [
+   526,
+   871
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "shush": {
+  "scale": 0.926,
+  "size": [
+   592,
+   797
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "scheming": {
+  "scale": 0.716,
+  "size": [
+   493,
+   694
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "shove-offscreen": {
+  "scale": 0.863,
+  "size": [
+   852,
+   816
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "despair-collapse": {
+  "scale": 0.797,
+  "size": [
+   702,
+   792
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "celebrate": {
+  "scale": 0.94,
+  "size": [
+   844,
+   827
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "jazz-hands": {
+  "scale": 0.913,
+  "size": [
+   769,
+   833
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "despair-flat": {
+  "scale": 0.702,
+  "size": [
+   920,
+   465
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "shrug": {
+  "scale": 0.829,
+  "size": [
+   752,
+   760
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ },
+ "thumbs-down": {
+  "scale": 0.75,
+  "size": [
+   642,
+   732
+  ],
+  "canvas_anchor_bottom_center": [
+   600,
+   1140
+  ]
+ }
+}

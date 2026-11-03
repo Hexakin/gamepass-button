@@ -1,6 +1,6 @@
-// 10-second animation test: Hexakin slams the button, then the button electrocutes him.
+// 10-second animation test: chibi Hexakin slams the button, then the button electrocutes him.
 // Same engine as the show: everything is a pure function of t; ?render=916 for capture.
-import { Puppet, noise, KEY_W, KEY_H } from "../js/puppet.js";
+import { Puppet, noise, POSES } from "../js/puppet.js";
 import { schedule, renderWav } from "../js/audio.js";
 
 const params = new URLSearchParams(location.search);
@@ -25,22 +25,22 @@ $("pedestal").style.display = "none";
 // ------------------------------------------------------------------ the test timeline
 const SLAM = 2.2, ZAP = 5.0, AFTER = 7.2;
 const track = [
-  { t: 0, pose: "neutral", breathe: true },
+  { t: 0, pose: "idle", breathe: true },
   // anticipation: a quick crouch
-  { t: 1.0, pose: "neutral", dur: 0.12, ease: "out", sy: 0.9, sx: 1.07 },
+  { t: 1.0, pose: "idle", dur: 0.12, ease: "out", sy: 0.9, sx: 1.07 },
   // snap up into the wind-up, trembling with effort, rising
-  { t: 1.22, pose: "slam-windup", dur: 0.1, ease: "snap", smear: [0, -170], lines: { at: [540, 420] }, wobble: 0.1, jitter: 2 },
+  { t: 1.22, pose: "slam-windup", dur: 0.1, ease: "snap", smear: [0, -170], lines: { at: [600, 420] }, wobble: 0.1, jitter: 2 },
   { t: 1.7, pose: "slam-windup", dur: 0.38, ease: "out", y: -26, sy: 1.05, jitter: 3.5 },
   // SLAM: a 2-frame smear down to the button, impact frames, squash and wobble
-  { t: SLAM - 0.07, pose: "slam-impact", dur: 0.07, ease: "lin", y: 0, smear: [150, 300], lines: { at: [700, 760] }, impact: true, wobble: 0.24, jitter: 1.2 },
+  { t: SLAM - 0.07, pose: "slam-impact", dur: 0.07, ease: "lin", y: 0, smear: [-60, 300], lines: { at: [420, 900] }, impact: true, wobble: 0.24, jitter: 1.2 },
   // pop back up, proud
-  { t: 3.55, pose: "neutral", dur: 0.16, ease: "back", smear: [-70, -150], wobble: 0.1, breathe: true },
+  { t: 3.55, pose: "idle", dur: 0.16, ease: "back", smear: [-70, -150], wobble: 0.1, breathe: true },
   // the button bites back
-  { t: ZAP, pose: "zap-a", dur: 0, ease: "lin", y: -30, zap: ["zap-a", "zap-b"], impact: true },
-  { t: AFTER, pose: "zap-after", dur: 0.1, ease: "out", y: 0, smear: [0, 90], wobble: 0.18 },
+  { t: ZAP, pose: "electrocuted-a", dur: 0, ease: "lin", y: -30, zap: ["electrocuted-a", "electrocuted-b"], impact: true },
+  { t: AFTER, pose: "frazzled-aftermath", dur: 0.1, ease: "out", y: 0, smear: [0, 90], wobble: 0.18 },
   // one last twitch
-  { t: 8.85, pose: "zap-b", dur: 0.03, ease: "lin", y: -16 },
-  { t: 8.95, pose: "zap-after", dur: 0.06, ease: "out", y: 0, wobble: 0.12 },
+  { t: 8.85, pose: "electrocuted-b", dur: 0.03, ease: "lin", y: -16 },
+  { t: 8.95, pose: "frazzled-aftermath", dur: 0.06, ease: "out", y: 0, wobble: 0.12 },
 ];
 const DURATION = 10.0;
 const bubbles = [
@@ -60,13 +60,13 @@ const sfx = [
 const spin = { sfx, tStop: DURATION, duration: DURATION };
 
 // ------------------------------------------------------------------ puppet + fx
-const puppet = new Puppet($("avatar"), { scale: 0.95, feetAt: [330, 1490], base: "../avatar/key/" });
-const box = { left: 330 - 0.5203 * KEY_W * 0.95, top: 1490 - 0.9085 * KEY_H * 0.95, s: 0.95 };
-const toStage = (fx, fy, st) => [box.left + fx * KEY_W * box.s + (st ? st.x : 0), box.top + fy * KEY_H * box.s + (st ? st.y : 0)];
-const FIST = toStage(0.7973, 0.736);          // slam-impact LeftHand
-const BUTTON_TOP = [567, 1305];
-const ZAP_HANDS = [[0.7506, 0.3645], [0.315, 0.3827]];  // zap-a hands
-const HEAD = [0.53, 0.40];
+const SCALE = 0.7, FEET_AT = [420, 1490];
+const puppet = new Puppet($("avatar"), { scale: SCALE, feetAt: FEET_AT, base: "../avatar/chibi/" });
+const fromCanvas = ([cx, cy]) => [FEET_AT[0] + (cx - 600) * SCALE, FEET_AT[1] + (cy - 1140) * SCALE];
+// the drawn button: slam-windup has it at canvas (300, 1050), slam-impact at (410, 1050)
+const BTN_BEFORE = fromCanvas([300, 1040]), BTN_AFTER = fromCanvas([410, 1040]);
+const BUTTON_TOP = fromCanvas([410, 985]);
+const ZAP_TARGETS = [[160, 560], [1040, 560], [600, 380]];   // electrocuted-a: hands, head
 
 function bolt(x0, y0, x1, y1, seed, segs = 9) {
   let d = `M${x0} ${y0}`;
@@ -80,10 +80,6 @@ function bolt(x0, y0, x1, y1, seed, segs = 9) {
 
 function draw(t) {
   const st = puppet.draw(track, t);
-  if (track[0].breathe && st.idx >= 0 && track[st.idx].breathe && !st.moving) {
-    // breathing on neutral holds
-    $("avatar").style.transform += ` scale(1, ${(1 + 0.012 * Math.sin(t * 3.2)).toFixed(4)})`;
-  }
 
   // screen shake: big at the slam, constant buzz while zapped
   let sx = 0, sy = 0;
@@ -95,20 +91,21 @@ function draw(t) {
   $("shake").style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px)`;
 
   // impact frames: red field behind the silhouette for 2 frames, then a white flash
-  const impact = (a >= 0 && a < 2 / 30) || (az >= 0 && az < 2 / 30);
-  $("impactbg").style.opacity = impact ? 1 : 0;
+  $("impactbg").style.opacity = st.impact ? 1 : 0;
   let fl = 0;
-  if (a >= 2 / 30 && a < 0.25) fl = 0.75 * (1 - (a - 2 / 30) / 0.18);
+  if (a >= 2 / 30 && a < 0.25) fl = 0.45 * (1 - (a - 2 / 30) / 0.18);
   if (az >= 2 / 30 && az < 0.2) fl = 0.7 * (1 - az / 0.2);
   $("flash").style.opacity = Math.max(0, fl).toFixed(3);
 
-  // button: squashed by the slam, sparking while it zaps
+  // the button: the slam poses draw their own; otherwise ours stands where theirs is
   const b = $("bigbutton");
-  let bs = 1;
-  if (a >= -0.05 && a < 0) bs = 0.92;
-  else if (a >= 0) bs = a < 0.1 ? 0.5 : 0.5 + 0.5 * clamp(easeOutBack(clamp((a - 0.1) / 0.35)));
+  const drawn = st.pose === "slam-windup" || st.pose === "slam-impact";
+  b.style.visibility = drawn ? "hidden" : "visible";
+  const [bx, by] = a >= 0 ? BTN_AFTER : BTN_BEFORE;
+  const bs = a >= 0 && a < 0.45 ? 0.6 + 0.4 * clamp(easeOutBack(clamp(a / 0.45))) : 1;
   const bj = t >= ZAP && t < AFTER ? noise(Math.floor(t * 30) * 3) * 6 : 0;
-  b.style.transform = `translateX(${bj.toFixed(1)}px) scale(${(2 - bs) ** 0.5}, ${bs.toFixed(3)})`;
+  b.style.left = `${(bx - 120).toFixed(0)}px`; b.style.top = `${(by - 150).toFixed(0)}px`;
+  b.style.transform = `translateX(${bj.toFixed(1)}px) scale(${((2 - bs) ** 0.5 * 0.62).toFixed(3)}, ${(bs * 0.62).toFixed(3)})`;
   $("boom").style.opacity = a >= 0 && a < 0.9 ? 1 : 0;
   $("boom").style.transform = `rotate(-8deg) scale(${a >= 0 ? easeOutBack(clamp(a / 0.18)).toFixed(3) : 0})`;
 
@@ -118,7 +115,7 @@ function draw(t) {
   if (zapping) {
     const seed = Math.floor(t * 15);
     const [bx, by] = BUTTON_TOP;
-    const targets = [...ZAP_HANDS, HEAD].map(([fx, fy]) => toStage(fx, fy, st));
+    const targets = ZAP_TARGETS.map((c) => puppet.toStage(c, st));
     const paths = targets.map(([x, y], i) => bolt(bx, by, x.toFixed(0), y.toFixed(0), seed * 3 + i));
     $("bolts").innerHTML = paths.map((d) =>
       `<path d="${d}" stroke="#7fe8ff" stroke-width="22" stroke-linejoin="round" fill="none" opacity=".45"/>` +
@@ -128,7 +125,7 @@ function draw(t) {
   // fx layer: impact star + dust at the slam, smoke from his head after the zap
   let fx = "";
   if (a >= 0 && a < 0.35) {
-    const [x, y] = [BUTTON_TOP[0], BUTTON_TOP[1] + 10], r = 60 + 260 * easeOutBack(clamp(a / 0.15));
+    const [x, y] = [BUTTON_TOP[0], BUTTON_TOP[1] + 10], r = 50 + 190 * easeOutBack(clamp(a / 0.15));
     let pts = "";
     for (let i = 0; i < 16; i++) {
       const ang = (i / 16) * Math.PI * 2, rr = i % 2 ? r * 0.45 : r * (0.85 + 0.15 * noise(i));
@@ -139,14 +136,14 @@ function draw(t) {
   if (a >= 0 && a < 1.1) {
     for (let i = 0; i < 7; i++) {
       const dir = i < 3.5 ? -1 : 1, k = (i % 4) + 1;
-      const x = BUTTON_TOP[0] + dir * (60 + a * 260 * k * 0.5), y = 1468 - a * 70 * (1 + (i % 3) * 0.4);
+      const x = BUTTON_TOP[0] + dir * (50 + a * 150 * k * 0.5), y = 1475 - a * 70 * (1 + (i % 3) * 0.4);
       const r = 18 + a * 60 + (i % 3) * 8;
       fx += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(0)}" fill="#cfc6b1" stroke="#0A0A0B" stroke-width="5" opacity="${(1 - a / 1.1).toFixed(2)}"/>`;
     }
   }
   const sm = t - AFTER;
   if (sm >= 0 && sm < 2.7) {
-    const [hx, hy] = toStage(0.55, 0.42, st);
+    const [hx, hy] = puppet.toStage([600, 330], st);
     for (let i = 0; i < 6; i++) {
       const life = (sm - i * 0.32);
       if (life < 0 || life > 1.6) continue;
@@ -169,7 +166,6 @@ function draw(t) {
   } else B.style.opacity = 0;
 }
 
-const POSES = ["neutral", "slam-windup", "slam-impact", "zap-a", "zap-b", "zap-after"];
 const ready = (async () => {
   await document.fonts.ready;
   await puppet.load(POSES);

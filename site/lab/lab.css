@@ -6,24 +6,18 @@
   border: 14px solid var(--ink); box-shadow: inset 0 0 0 4px var(--red); display: flex; align-items: center; justify-content: center; }
 #labreel .q { font: 900 320px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--red); }
 
-.puppet { position: absolute; z-index: 4; pointer-events: none; }
 #avatar.puppet { z-index: 4; }
-#avatar.puppet img { display: block; }
-.puppet .pbody, .puppet .pose, .puppet .ghost { position: absolute; inset: 0; width: 100%; height: 100%; }
-.puppet .pose { opacity: 0; }
-.puppet .ghost { opacity: 0; filter: blur(3px) brightness(0.6); }
-.puppet .plines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 
 #pedestal { position: absolute; left: 454px; top: 1440px; width: 150px; height: 56px; z-index: 3; }
 #pedestal .col { position: absolute; left: 30px; right: 30px; top: 0; bottom: 0; background: #2a2a2e;
   box-shadow: inset -14px 0 0 #1b1b1e, inset 0 6px 0 #444; }
-#bigbutton { left: 447px; top: 1276px; width: 240px; height: 200px; z-index: 3; transform-origin: 50% 100%; cursor: default; }
+#bigbutton { width: 240px; height: 200px; z-index: 3; transform-origin: 50% 75%; cursor: default; }
 #bigbutton .base { height: 80px; }
 #bigbutton .dome { left: 18px; right: 18px; bottom: 36px; height: 140px; }
 #bigbutton .dome span { font-size: 56px; margin-top: -6px; }
-#boom { left: 560px; top: 1090px; font-size: 120px; }
+#boom { left: 100px; top: 1130px; font-size: 120px; }
 
-#bubble, #bubble.big { left: 600px; top: 780px; width: 360px; font-size: 36px; padding: 22px 24px; }
+#bubble, #bubble.big { left: 560px; top: 760px; width: 390px; font-size: 36px; padding: 22px 24px; }
 #bubble::before { left: -56px; top: 60px; }
 #bubble::after { left: -36px; top: 66px; }
 

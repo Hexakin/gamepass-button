@@ -22,7 +22,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const s = await resolve(arg);
   const out = { code: s.code, date: s.date, catalogDate: s.catalogDate, eligible: s.eligibleCount,
     result: { title: s.result.title, productId: s.result.id, storeUrl: s.result.store, boxart: s.result.boxart },
-    duration: +s.duration.toFixed(2), tStop: +s.tStop.toFixed(2), reaction: s.reaction.clip,
+    duration: +s.duration.toFixed(2), tStop: +s.tStop.toFixed(2), reaction: s.reaction.pose,
     fakeouts: s.fx.filter((f) => ["fakeland", "glitch"].includes(f.type)).map((f) => f.type) };
   console.log(JSON.stringify(out, null, process.argv.includes("--json") ? 0 : 1));
 }

@@ -47,7 +47,7 @@ async function prepare(c) {
   code = c;
   data = await loadData(code, browserFetchJson);
   spin = buildSpin(code, data);
-  if (!show) show = new Show(stage, { hi: !!RENDER, clips: data.clips });
+  if (!show) show = new Show(stage, { hi: !!RENDER });
   show.setSpin(spin);
   return spin;
 }
@@ -58,7 +58,7 @@ if (RENDER) {
     if (!seedParam) throw new Error("render mode needs ?seed=CODE");
     await prepare(seedParam);
     await document.fonts.ready;
-    await preload(show.assets(), { wait: true });
+    await Promise.all([preload(show.assets(), { wait: true }), show.loadPoses()]);
     show.draw(0);
     return true;
   })();
@@ -117,7 +117,7 @@ async function live() {
     label.textContent = "…";
     const say = idleLine;
     idleLine = "Hang on. Loading the drum. Don't touch anything.";
-    await preload(show.assets(), { wait: true });
+    await Promise.all([preload(show.assets(), { wait: true }), show.loadPoses()]);
     label.textContent = was;
     idleLine = say;
   } catch (e) {
