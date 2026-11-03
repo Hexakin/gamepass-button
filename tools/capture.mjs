@@ -1,6 +1,8 @@
 // Render a spin to video, frame by frame, exactly as the site plays it.
 //
 //   node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only] [--fps 30]
+//   node tools/capture.mjs --played     every spin in site/data/played.json (marked from the
+//                                       phone) that has no spin folder yet (git pull first)
 //
 // Writes to ~/Videos/quick-takes/gamepass-button/spins/<YYYY-MM-DD>-<CODE>/ (or --out):
 //   full.mp4      the whole theatrical spin, 1080x1920, with the show's own audio
@@ -29,9 +31,10 @@ function args() {
     if (a[i] === "--out") o.out = a[++i];
     else if (a[i] === "--fps") o.fps = +a[++i];
     else if (a[i] === "--landing-only") o.landingOnly = true;
+    else if (a[i] === "--played") o.played = true;
     else o.code = a[i];
   }
-  if (!o.code) { console.error("usage: node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only]"); process.exit(2); }
+  if (!o.code && !o.played) { console.error("usage: node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only]"); process.exit(2); }
   return o;
 }
 
@@ -54,8 +57,22 @@ function ffmpeg(argv, stdin = false) {
   return { p, done };
 }
 
+const SPINS = path.join(homedir(), "Videos/quick-takes/gamepass-button/spins");
+
 async function main() {
   const o = args();
+  if (o.played) {
+    const { existsSync } = await import("node:fs");
+    const doc = JSON.parse(await readFile(path.join(SITE, "data/played.json"), "utf8"));
+    const todo = (doc.games || doc).filter((g) => g.code && !existsSync(path.join(SPINS, `${g.since}-${g.code}`)));
+    if (!todo.length) { console.log("every played spin is captured already"); return; }
+    for (const g of todo) await capture({ ...o, code: g.code });
+    return;
+  }
+  await capture(o);
+}
+
+async function capture(o) {
   const srv = await serve();
   const port = srv.address().port;
   const browser = await chromium.launch({ args: ["--autoplay-policy=no-user-gesture-required"] });
@@ -66,7 +83,7 @@ async function main() {
     await page.waitForFunction(() => window.__show, null, { timeout: 30000 });
     await page.evaluate(() => window.__show.ready);
     const info = await page.evaluate(() => window.__show.info());
-    const outDir = o.out || path.join(homedir(), "Videos/quick-takes/gamepass-button/spins", `${info.date}-${info.code}`);
+    const outDir = o.out || path.join(SPINS, `${info.date}-${info.code}`);
     await mkdir(outDir, { recursive: true });
     console.log(`spin ${info.code} (${info.date}): ${info.result.title}  ->  ${outDir}`);
 

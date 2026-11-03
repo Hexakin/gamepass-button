@@ -35,6 +35,7 @@ export class Show {
     };
     this.stickerEls = [];
     this._lastAv = "";
+    this.pending = []; // images whose src changed in the last draw (render mode waits for them)
   }
 
   setSpin(spin) {
@@ -79,7 +80,7 @@ export class Show {
     if (this.hi) {
       const i = Math.min(info.hiFrames - 1, Math.max(0, Math.floor(local * info.hiFps)));
       const src = this.hiFrame(clip, i);
-      if (src !== this._lastAv) { this.el.avImg.src = src; this._lastAv = src; }
+      if (src !== this._lastAv) { this.el.avImg.src = src; this._lastAv = src; this.pending.push(this.el.avImg); }
       return;
     }
     const n = info.frames, cols = Math.min(info.cols, n), rows = Math.ceil(n / cols);
@@ -115,7 +116,7 @@ export class Show {
       if (hidden) continue;
       const img = card.firstElementChild;
       const src = boxart(g.boxart, this.hi);
-      if (img.dataset.src !== src) { img.dataset.src = src; img.src = src; }
+      if (img.dataset.src !== src) { img.dataset.src = src; img.src = src; this.pending.push(img); }
       card.style.transform = `translate(${x}px, ${y.toFixed(1)}px) rotate(${rot}deg)`;
       card.style.filter = blur > 0.4 ? `blur(${blur.toFixed(1)}px)` : "none";
     }
@@ -136,8 +137,16 @@ export class Show {
     this.el.button.style.transform = `scale(${1 + 0.03 * Math.sin(wall * 4)})`;
   }
 
+  // render mode: draw, then wait until every image that changed is decoded and on screen
+  async drawExact(t) {
+    this.draw(t);
+    const imgs = this.pending.splice(0);
+    await Promise.all(imgs.map((i) => (i.decode ? i.decode().catch(() => {}) : null)));
+  }
+
   // ---------------------------------------------------------------- the show at time t
   draw(t) {
+    this.pending.length = 0;
     const s = this.spin, E = this.el;
     E.reel.classList.remove("idle");
     const fxAt = (type) => s.fx.filter((f) => f.type === type);

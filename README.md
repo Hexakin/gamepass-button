@@ -24,6 +24,7 @@ A static site (HTML/CSS/JS, no server, no AI at runtime), hosted on GitHub Pages
 npm install && npx playwright install chromium     # once
 node tools/capture.mjs <CODE>                       # full.mp4 + landing.mp4 + landing.png + spin.json
 node tools/capture.mjs <CODE> --landing-only        # just the ~1.6 s landing
+node tools/capture.mjs --played                     # every spin marked played (git pull first) not yet captured
 ```
 
 Output: `~/Videos/quick-takes/gamepass-button/spins/<YYYY-MM-DD>-<CODE>/`. The page is rendered at 1080×1920 with no UI (`?seed=<code>&render=916`) and stepped frame by frame, so the video is exactly the show; the audio is rendered offline by the page's own sound code. `spin.json` = `{code, date, result {title, productId, storeUrl, boxart}, catalogDate, landing [start, end], …}`.

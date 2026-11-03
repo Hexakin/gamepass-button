@@ -67,7 +67,10 @@ if (RENDER) {
     info: () => ({ code: spin.code, date: spin.date, catalogDate: spin.catalogDate, duration: spin.duration,
       tStop: spin.tStop, landing: spin.landing, reaction: spin.reaction, eligibleCount: spin.eligibleCount,
       result: { title: spin.result.title, productId: spin.result.id, storeUrl: spin.result.store, boxart: spin.result.boxart } }),
-    seek: (t) => new Promise((res) => { show.draw(t); requestAnimationFrame(() => requestAnimationFrame(res)); }),
+    seek: async (t) => {
+      await show.drawExact(t);
+      await new Promise((res) => requestAnimationFrame(() => requestAnimationFrame(res)));
+    },
     audioWav: async () => {
       const bytes = await renderWav(spin, MUSIC_URL);
       let s = ""; const CH = 0x8000;
