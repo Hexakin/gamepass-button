@@ -15,9 +15,11 @@ if (RENDER) document.body.classList.add("render", "hi");
 
 function fit() {
   if (RENDER) { stage.style.transform = "none"; return; }
+  // room above the stage for the sound toggles, below it for the footer
+  const TOP = 38, BOTTOM = 26;
   const w = innerWidth, h = innerHeight;
-  const s = Math.min(w / 1080, (h - 18) / 1920);
-  const x = (w - 1080 * s) / 2, y = Math.max(0, (h - 18 - 1920 * s) / 2);
+  const s = Math.min(w / 1080, (h - TOP - BOTTOM) / 1920);
+  const x = (w - 1080 * s) / 2, y = TOP + Math.max(0, (h - TOP - BOTTOM - 1920 * s) / 2);
   stage.style.transform = `translate(${x}px, ${y}px) scale(${s})`;
 }
 addEventListener("resize", fit);
@@ -115,22 +117,31 @@ async function live() {
 
   const press = async () => {
     if (playing || !spin) return;
+    playing = true;
+    // iOS only unlocks audio inside the tap itself: make the context before any await
+    let ctx = null, t0 = 0;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (settings.sound && AC) {
+      try {
+        if (navigator.audioSession) navigator.audioSession.type = "playback"; // iOS: sound even on silent
+        ctx = new AC();
+        ctx.resume();
+      } catch (e) { console.warn(e); ctx = null; }
+    }
     // a page left open overnight: the spin belongs to the day it's pressed
     if (!seedParam && codeDate(code) !== ukDate()) await prepare(newCode());
-    playing = true;
     $("result").hidden = true;
-    let ctx = null, t0 = 0;
     const clock = () => (ctx ? ctx.currentTime - t0 : (performance.now() - t0) / 1000);
-    if (settings.sound && (window.AudioContext || window.webkitAudioContext)) {
+    if (ctx) {
       try {
-        if (navigator.audioSession) navigator.audioSession.type = "playback"; // iOS: play with the ringer switch on silent
-        ctx = new (window.AudioContext || window.webkitAudioContext)();
-        await ctx.resume();
+        await Promise.race([ctx.resume(), new Promise((r) => setTimeout(r, 500))]);
+        // audio blocked (e.g. a browser policy)? run the show on the wall clock, silently
+        if (ctx.state !== "running") throw new Error(`audio ${ctx.state}`);
         let music = null;
         if (settings.music && musicBytes) music = await ctx.decodeAudioData(musicBytes.slice(0)).catch(() => null);
         t0 = ctx.currentTime + 0.08;
         schedule(ctx, spin, t0, music);
-      } catch (e) { console.warn(e); ctx = null; }
+      } catch (e) { console.warn(e); try { ctx.close(); } catch { /* */ } ctx = null; }
     }
     if (!ctx) t0 = performance.now();
     history.replaceState(null, "", `?seed=${code}`);
@@ -152,7 +163,7 @@ async function live() {
     $("store").href = r.store;
     $("store").textContent = `GET ${r.title.replace(/[®™©]/g, "").toUpperCase()} ON XBOX ↗`;
     $("played").href = `https://github.com/Hexakin/gamepass-button/issues/new?title=${encodeURIComponent(`played: ${code}`)}&body=${encodeURIComponent(`Marks ${r.title} as played (spin ${code}, ${spin.date}). Submit to confirm; a bot updates played.json and closes this.`)}`;
-    $("resultnote").textContent = `Spin ${code} · ${spin.date} · catalogue ${spin.catalogDate} · ${spin.eligibleCount} eligible games. Replay: ?seed=${code}`;
+    $("resultnote").textContent = `Spin ${code} · ${spin.date} · drawn from ${spin.eligibleCount} games`;
     $("result").hidden = false;
   }
 
