@@ -238,7 +238,8 @@ export function buildSpin(code, data) {
   sfx.push({ t: tStop + 0.3, name: "stamp" });
   sfx.push({ t: tStop + 0.05, name: reaction.sfx });
   play(tStop, reaction.clip, { holdEnd: true });
-  say(tStop + 0.45, reaction.line, { dur: 2.4, style: "big" });
+  // shown whole (not typed) from tStop + 0.3, so it's complete inside the 1.6 s landing
+  say(tStop + 0.3, reaction.line, { dur: 2.6, style: "big" });
   const tOut = tStop + 3.0;
   say(tOut, R.pick(["That's tonight's game. No re-rolls. You saw it.",
     "Right. That's what we're playing. The button has spoken.",

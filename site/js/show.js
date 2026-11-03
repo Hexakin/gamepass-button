@@ -2,9 +2,9 @@
 // function of (spin, t), so the capture script can step frame by frame and get the exact show.
 import { reelAt } from "./spin.js";
 
-const PITCH = 830;            // px between card centres on the reel
-const CARD_W = 520, CARD_H = 780;
-const AV_W = 750, AV_H = 1000; // avatar box on the stage (matches #avatar in app.css)
+const PITCH = 680;            // px between card centres on the reel
+const CARD_W = 420, CARD_H = 630;
+const AV_W = 600, AV_H = 800; // avatar box on the stage (matches #avatar in app.css)
 const SLOTS = 5;
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -40,11 +40,12 @@ export class Show {
 
   setSpin(spin) {
     this.spin = spin;
+    if (!this.hi) for (const c of new Set(["idle", ...spin.avatar.map((x) => x.clip)])) this.layer(c);
     this.el.code.textContent = `SPIN ${spin.code}`;
     this.el.count.textContent = `${spin.eligibleCount} GAMES IN THE DRUM · CATALOGUE ${spin.catalogDate}`;
     this.el.tonightTitle.textContent = spin.result.title.replace(/[®™©]/g, "");
     const len = spin.result.title.length;
-    this.el.tonightTitle.style.fontSize = `${len > 40 ? 76 : len > 28 ? 94 : len > 18 ? 112 : 132}px`;
+    this.el.tonightTitle.style.fontSize = `${len > 40 ? 66 : len > 28 ? 82 : len > 18 ? 98 : 118}px`;
     this.el.stickers.innerHTML = "";
     this.stickerEls = spin.stickers.map((s) => {
       const img = document.createElement("img");
@@ -88,10 +89,26 @@ export class Show {
     const key = `${clip}:${i}`;
     if (key === this._lastAv) return;
     this._lastAv = key;
-    const st = this.el.avatar.style;
-    st.backgroundImage = `url(avatar/lo/${clip}.webp)`;
+    // one layer per clip, all loaded before the show starts: a clip change only flips which
+    // layer is visible, so the phone never shows a blank frame while an image loads
+    const layer = this.layer(clip);
+    for (const [c, el] of Object.entries(this.layers)) el.style.visibility = c === clip ? "visible" : "hidden";
+    const st = layer.style;
     st.backgroundSize = `${cols * AV_W}px ${rows * AV_H}px`;
     st.backgroundPosition = `${-(i % cols) * AV_W}px ${-Math.floor(i / cols) * AV_H}px`;
+  }
+
+  layer(clip) {
+    this.layers = this.layers || {};
+    if (!this.layers[clip]) {
+      const el = document.createElement("div");
+      el.className = "avlayer";
+      el.style.backgroundImage = `url(avatar/lo/${clip}.webp)`;
+      el.style.visibility = "hidden";
+      this.el.avatar.appendChild(el);
+      this.layers[clip] = el;
+    }
+    return this.layers[clip];
   }
 
   drawReel(t) {
@@ -109,7 +126,7 @@ export class Show {
       const sh = shoved.find((q) => q.idx === idx);
       if (sh && t >= sh.t) {
         const a = t - sh.t;
-        x = -1500 * clamp(a / 0.35) ** 1.6; rot = -28 * clamp(a / 0.35);
+        x = -1300 * clamp(a / 0.35) ** 1.6; rot = -28 * clamp(a / 0.35);
         if (a > 0.4) hidden = true;
       }
       card.style.visibility = hidden ? "hidden" : "visible";
@@ -180,7 +197,7 @@ export class Show {
     const sa = st ? t - st.t : -1;
     E.stamp.style.opacity = sa >= 0 ? 1 : 0;
     E.stamp.style.transform = sa >= 0
-      ? `rotate(-11deg) scale(${(1 + 1.6 * (1 - clamp(sa / 0.12)) ** 2).toFixed(3)})` : "rotate(-11deg) scale(2.6)";
+      ? `rotate(-7deg) scale(${(1 + 1.6 * (1 - clamp(sa / 0.12)) ** 2).toFixed(3)})` : "rotate(-7deg) scale(2.6)";
     const centreCard = this.reelCards[2];
     if (landed) {
       const a = t - tl;
@@ -250,8 +267,9 @@ export class Show {
       if (a < 0 || t > sk.t1 + 0.3) { el.style.opacity = 0; return; }
       const out = clamp((t - sk.t1) / 0.3);
       el.style.opacity = 1 - out;
-      el.style.left = `${(sk.x * 1080 - 170).toFixed(0)}px`;
-      el.style.top = `${(220 + sk.y * 900).toFixed(0)}px`;
+      // inside the Shorts safe zone (x 60-960, y 150-1500); stickers are ~300x420
+      el.style.left = `${(60 + (sk.x - 0.15) / 0.7 * 560).toFixed(0)}px`;
+      el.style.top = `${(230 + (sk.y - 0.15) / 0.4 * 600).toFixed(0)}px`;
       el.style.transform = `rotate(${sk.rot.toFixed(1)}deg) scale(${(sk.scale * (a < 0.18 ? 1.6 - 0.6 * easeOutBack(a / 0.18) : 1) * (1 - 0.3 * out)).toFixed(3)})`;
     });
 
@@ -271,7 +289,7 @@ export class Show {
       const a = t - bub.t0, out = clamp((t - (bub.t1 - 0.15)) / 0.15);
       E.bubble.style.opacity = 1 - out;
       E.bubble.style.transform = `scale(${(easeOutBack(clamp(a / 0.18)) * (1 - 0.2 * out)).toFixed(3)})`;
-      const n = Math.floor(a * 38);
+      const n = bub.style === "big" ? bub.text.length : Math.floor(a * 38);
       const key = `${bub.t0}:${Math.min(n, bub.text.length)}`;
       if (this._lastBub !== key) {
         this._lastBub = key;
@@ -280,6 +298,7 @@ export class Show {
         E.bubbleText.innerHTML = `${esc(bub.text.slice(0, n))}<span class="ghost">${esc(bub.text.slice(n))}</span>`;
       }
       E.bubble.classList.toggle("big", bub.style === "big");
+      E.bubble.classList.toggle("low", bub.t0 >= s.tStop);
     } else E.bubble.style.opacity = 0;
   }
 }

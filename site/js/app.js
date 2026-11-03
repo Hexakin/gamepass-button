@@ -16,7 +16,7 @@ if (RENDER) document.body.classList.add("render", "hi");
 function fit() {
   if (RENDER) { stage.style.transform = "none"; return; }
   // room above the stage for the sound toggles, below it for the footer
-  const TOP = 38, BOTTOM = 26;
+  const TOP = 38, BOTTOM = 34;
   const w = innerWidth, h = innerHeight;
   const s = Math.min(w / 1080, (h - TOP - BOTTOM) / 1920);
   const x = (w - 1080 * s) / 2, y = TOP + Math.max(0, (h - TOP - BOTTOM - 1920 * s) / 2);
@@ -98,28 +98,37 @@ async function live() {
   $("music").onclick = () => { settings.music = !settings.music; localStorage.setItem("gpb.music", settings.music ? "on" : "off"); setToggles(); };
   $("howbtn").onclick = () => $("how").showModal();
 
-  try {
-    await prepare(seedParam || newCode());
-    idleLine = seedParam
-      ? `Replay of spin ${code} (${codeDate(code)}). Same spin, same game. Watch closely.`
-      : "Go on. Press it. I dare you. First spin counts.";
-    if (seedParam) btn.querySelector("span").textContent = "REPLAY";
-    preload(show.assets());
-  } catch (e) {
-    idleLine = "The catalogue won't load. Check your signal and refresh.";
-    console.error(e);
-  }
-
   const wall0 = performance.now();
   const idle = () => {
     if (playing) return;
     if (show) show.drawIdle((performance.now() - wall0) / 1000, idleLine);
     requestAnimationFrame(idle);
   };
-  requestAnimationFrame(idle);
+
+  try {
+    await prepare(seedParam || newCode());
+    requestAnimationFrame(idle);
+    idleLine = seedParam
+      ? `Replay of spin ${code} (${codeDate(code)}). Same spin, same game. Watch closely.`
+      : "Go on. Press it. I dare you. First spin counts.";
+    if (seedParam) btn.querySelector("span").textContent = "REPLAY";
+    // everything this spin shows is loaded and decoded before the button works
+    const label = btn.querySelector("span"), was = label.textContent;
+    label.textContent = "…";
+    const say = idleLine;
+    idleLine = "Hang on. Loading the drum. Don't touch anything.";
+    await preload(show.assets(), { wait: true });
+    label.textContent = was;
+    idleLine = say;
+  } catch (e) {
+    idleLine = "The catalogue won't load. Check your signal and refresh.";
+    console.error(e);
+    if (!show) requestAnimationFrame(idle);
+  }
+
 
   const press = async () => {
-    if (playing || !spin) return;
+    if (playing || !spin || btn.querySelector("span").textContent === "…") return;
     playing = true;
     // iOS only unlocks audio inside the tap itself: make the context before any await
     let ctx = null, t0 = 0;

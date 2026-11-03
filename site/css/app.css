@@ -19,19 +19,19 @@ html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper
   repeating-linear-gradient(0deg, rgba(0,0,0,.018) 0 2px, transparent 2px 5px),
   var(--paper); }
 
-.tabhead .tab { position: absolute; left: 36px; top: 26px; height: 96px; padding: 0 44px 0 34px;
+.tabhead .tab { position: absolute; left: 60px; top: 56px; height: 96px; padding: 0 44px 0 34px;
   background: var(--manila); color: var(--ink); font: 900 76px/100px "Big Shoulders Display", Impact, sans-serif;
   letter-spacing: 1px; border-radius: 18px 46px 0 0; box-shadow: inset 0 -6px 0 rgba(0,0,0,.08); }
-.tabhead .strip { position: absolute; left: 0; right: 0; top: 122px; height: 52px; background: var(--ink);
-  color: var(--paper); font: 700 25px/52px "Plex Mono", monospace; padding: 0 36px; letter-spacing: .5px;
+.tabhead .strip { position: absolute; left: 60px; right: 120px; top: 152px; height: 52px; background: var(--ink);
+  color: var(--paper); font: 700 22px/52px "Plex Mono", monospace; padding: 0 20px; letter-spacing: .5px;
   white-space: nowrap; overflow: hidden; }
-#codetag { position: absolute; right: 36px; top: 122px; height: 52px; font: 700 25px/52px "Plex Mono", monospace;
+#codetag { position: absolute; right: 120px; top: 152px; height: 52px; font: 700 25px/52px "Plex Mono", monospace;
   color: var(--ink); background: var(--red); color: var(--paper); padding: 0 18px; letter-spacing: 1px; }
 
 /* the reel */
-#reel { position: absolute; left: 230px; top: 205px; width: 620px; height: 880px; }
+#reel { position: absolute; left: 440px; top: 215px; width: 500px; height: 720px; }
 #reel .gate { position: absolute; inset: 14px; overflow: hidden; background: #17171a; }
-#reel .card { position: absolute; left: 36px; top: 36px; width: 520px; height: 780px; will-change: transform;
+#reel .card { position: absolute; left: 26px; top: 31px; width: 420px; height: 630px; will-change: transform;
   background: #2a2a2e repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 14px, transparent 14px 28px);
   border-radius: 10px; overflow: hidden; box-shadow: 0 8px 26px rgba(0,0,0,.5); }
 #reel .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -47,13 +47,13 @@ html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper
 #reel.idle .card::after { content: "?"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   font: 900 420px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--red); background: rgba(10,10,11,.35); }
 
-#stamp { position: absolute; left: 50%; top: 58%; width: 660px; margin-left: -330px; text-align: center; opacity: 0;
+#stamp { position: absolute; left: 50%; top: 64%; width: 520px; margin-left: -260px; white-space: nowrap; text-align: center; opacity: 0;
   pointer-events: none; }
-#stamp span { display: inline-block; padding: 8px 30px 4px; border: 12px solid var(--red); outline: 4px solid var(--red);
-  outline-offset: 8px; color: var(--red); background: rgba(236,230,214,.88);
-  font: 900 104px/1 "Big Shoulders Display", Impact, sans-serif; letter-spacing: 2px; }
-#pending { position: absolute; left: 110px; top: 380px; padding: 6px 26px; border: 10px dashed #555;
-  color: #444; background: rgba(236,230,214,.85); font: 900 90px/1 "Big Shoulders Display", Impact, sans-serif; opacity: 0; }
+#stamp span { display: inline-block; padding: 12px 28px 6px; border: 6px solid var(--paper); outline: 8px solid var(--red);
+  color: var(--paper); background: var(--red); box-shadow: 10px 10px 0 rgba(10,10,11,.85);
+  font: 900 66px/1 "Big Shoulders Display", Impact, sans-serif; letter-spacing: 2px; }
+#pending { position: absolute; left: 60px; top: 300px; padding: 6px 26px; border: 10px dashed #555;
+  color: #444; background: rgba(236,230,214,.85); font: 900 72px/1 "Big Shoulders Display", Impact, sans-serif; opacity: 0; }
 #glitch { position: absolute; inset: 14px; opacity: 0; display: flex; align-items: center; justify-content: center;
   background: repeating-linear-gradient(0deg, rgba(255,255,255,.22) 0 3px, rgba(0,0,0,.4) 3px 7px),
     repeating-linear-gradient(90deg, rgba(200,32,46,.35) 0 9px, rgba(0,180,255,.2) 9px 17px, transparent 17px 31px), #111; }
@@ -61,54 +61,56 @@ html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper
 #reboot { position: absolute; left: 0; right: 0; top: 46%; text-align: center; opacity: 0;
   font: 700 46px/1 "Plex Mono", monospace; color: #7CFF7C; text-shadow: 0 0 12px #3f3; }
 
-#ticker { position: absolute; left: 60px; right: 60px; top: 1108px; height: 74px; background: var(--ink); color: var(--paper);
+#ticker { position: absolute; left: 60px; right: 120px; top: 955px; height: 74px; background: var(--ink); color: var(--paper);
   font: 700 36px/74px "Plex Mono", monospace; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   padding: 0 24px; border-left: 14px solid var(--red); }
-#tonight { position: absolute; left: 40px; right: 40px; top: 1098px; text-align: center; opacity: 0; transform-origin: 50% 30%; z-index: 3; }
-#tonight .k { display: inline-block; background: var(--red); color: var(--paper); font: 900 62px/1 "Big Shoulders Display", Impact, sans-serif;
+#tonight { position: absolute; left: 60px; right: 120px; top: 950px; text-align: center; opacity: 0; transform-origin: 50% 30%; z-index: 3; }
+#tonight .k { display: none; background: var(--red); color: var(--paper); font: 900 62px/1 "Big Shoulders Display", Impact, sans-serif;
   padding: 6px 22px 2px; letter-spacing: 2px; }
 #tonight .t { color: var(--ink); font: 900 116px/1.02 "Big Shoulders Display", Impact, sans-serif; text-transform: uppercase;
   margin-top: 8px; padding-bottom: 8px; text-shadow: 4px 4px 0 var(--paper), -4px -4px 0 var(--paper), 4px -4px 0 var(--paper), -4px 4px 0 var(--paper);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* the button */
-#bigbutton { position: absolute; left: 690px; top: 1585px; width: 340px; height: 300px; cursor: pointer;
+#bigbutton { position: absolute; left: 640px; top: 1270px; width: 260px; height: 230px; cursor: pointer;
   transform-origin: 50% 100%; z-index: 2; outline: none; }
-#bigbutton .base { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; border-radius: 50%; background: #1b1b1e;
+#bigbutton .base { position: absolute; left: 0; right: 0; bottom: 0; height: 96px; border-radius: 50%; background: #1b1b1e;
   box-shadow: 0 16px 0 #000, inset 0 -8px 0 #333; }
-#bigbutton .dome { position: absolute; left: 26px; right: 26px; bottom: 52px; height: 210px; border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+#bigbutton .dome { position: absolute; left: 20px; right: 20px; bottom: 42px; height: 160px; border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
   background: radial-gradient(circle at 35% 25%, #ff7b7b 0 10%, #e33 24%, var(--red) 55%, #7a0d16 100%);
   box-shadow: 0 14px 0 #5a0810, inset 0 -18px 30px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; }
-#bigbutton .dome span { font: 900 86px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--paper); letter-spacing: 3px;
+#bigbutton .dome span { font: 900 70px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--paper); letter-spacing: 3px;
   text-shadow: 0 4px 0 rgba(0,0,0,.35); margin-top: -10px; }
-#boom { position: absolute; left: 520px; top: 1440px; font: 900 128px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--red);
+#boom { position: absolute; left: 430px; top: 1150px; font: 900 128px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--red);
   -webkit-text-stroke: 6px var(--ink); paint-order: stroke fill; opacity: 0; z-index: 6; }
 
 /* Hexakin */
-#avatar { position: absolute; left: -95px; top: 910px; width: 750px; height: 1000px; background-repeat: no-repeat;
+#avatar { position: absolute; left: -50px; top: 722px; width: 600px; height: 800px; background-repeat: no-repeat;
   transform-origin: 50% 95%; z-index: 2; pointer-events: none; }
 #avatar img { width: 100%; height: 100%; display: none; }
+#avatar .avlayer { position: absolute; inset: 0; background-repeat: no-repeat; }
 body.hi #avatar img { display: block; }
 
-#bubble { position: absolute; left: 545px; top: 1330px; width: 505px; padding: 26px 30px; background: #FBF8F0; color: var(--ink);
+#bubble { position: absolute; left: 470px; top: 1060px; width: 470px; padding: 26px 30px; background: #FBF8F0; color: var(--ink);
   border: 7px solid var(--ink); border-radius: 30px; font: 700 40px/1.22 "Plex Mono", monospace; opacity: 0;
   transform-origin: 0% 40%; z-index: 5; box-shadow: 10px 10px 0 rgba(10,10,11,.85); }
 #bubble::before { content: ""; position: absolute; left: -62px; top: 46px; border: 30px solid transparent; border-right: 40px solid var(--ink); }
 #bubble::after { content: ""; position: absolute; left: -42px; top: 52px; border: 24px solid transparent; border-right: 32px solid #FBF8F0; }
-#bubble.big { border-color: var(--red); font-size: 46px; top: 1450px; } /* below a two-line title */
+#bubble.big { border-color: var(--red); font-size: 44px; }
+#bubble.low { top: 1215px; } /* below the two-line title at the landing */
 #bubble.big::before { border-right-color: var(--red); }
 #bubble .ghost { color: transparent; }
 
-#watch { position: absolute; left: 520px; top: 1150px; width: 250px; opacity: 0; z-index: 6; text-align: center; }
+#watch { position: absolute; left: 560px; top: 1020px; width: 250px; opacity: 0; z-index: 6; text-align: center; }
 #watch svg { width: 230px; height: 230px; filter: drop-shadow(8px 8px 0 rgba(0,0,0,.6)); }
 #watch .hand { transform-origin: 100px 100px; }
 #watch span { display: block; font: 900 50px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--red); -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; }
 
 #stickers .sticker { position: absolute; height: 420px; opacity: 0; z-index: 7; filter: drop-shadow(6px 8px 0 rgba(0,0,0,.35)); }
 #stickers { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
-#ripple { position: absolute; left: 260px; top: 620px; width: 180px; height: 180px; border-radius: 50%; border: 8px solid rgba(255,255,255,.9);
+#ripple { position: absolute; left: 600px; top: 420px; width: 180px; height: 180px; border-radius: 50%; border: 8px solid rgba(255,255,255,.9);
   box-shadow: 0 0 0 4px rgba(0,0,0,.25); opacity: 0; z-index: 8; pointer-events: none; }
-#crack { position: absolute; left: 150px; top: 510px; width: 400px; height: 400px; opacity: 0; z-index: 8; pointer-events: none;
+#crack { position: absolute; left: 490px; top: 310px; width: 400px; height: 400px; opacity: 0; z-index: 8; pointer-events: none;
   filter: drop-shadow(0 0 2px rgba(0,0,0,.6)); }
 #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 20; pointer-events: none; }
 
