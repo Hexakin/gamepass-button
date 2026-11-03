@@ -95,7 +95,7 @@ body.hi #avatar img { display: block; }
   transform-origin: 0% 40%; z-index: 5; box-shadow: 10px 10px 0 rgba(10,10,11,.85); }
 #bubble::before { content: ""; position: absolute; left: -62px; top: 46px; border: 30px solid transparent; border-right: 40px solid var(--ink); }
 #bubble::after { content: ""; position: absolute; left: -42px; top: 52px; border: 24px solid transparent; border-right: 32px solid #FBF8F0; }
-#bubble.big { border-color: var(--red); font-size: 46px; }
+#bubble.big { border-color: var(--red); font-size: 46px; top: 1450px; } /* below a two-line title */
 #bubble.big::before { border-right-color: var(--red); }
 #bubble .ghost { color: transparent; }
 
