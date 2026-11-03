@@ -23,7 +23,8 @@
 
 #bolts { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 5; pointer-events: none; }
 #fxsvg { position: absolute; inset: 0; width: 1080px; height: 1920px; z-index: 6; pointer-events: none; }
-#impactbg { position: absolute; inset: 0; background: var(--red); opacity: 0; z-index: 1; }
+#impactbg { position: absolute; left: 75px; top: 790px; width: 700px; height: 700px; background: var(--red); opacity: 0; z-index: 1;
+  clip-path: polygon(50.0% 0.0%, 56.6% 16.7%, 67.6% 7.5%, 68.9% 21.7%, 85.4% 14.6%, 78.3% 31.1%, 92.5% 32.4%, 83.3% 43.4%, 100.0% 50.0%, 83.3% 56.6%, 92.5% 67.6%, 78.3% 68.9%, 85.4% 85.4%, 68.9% 78.3%, 67.6% 92.5%, 56.6% 83.3%, 50.0% 100.0%, 43.4% 83.3%, 32.4% 92.5%, 31.1% 78.3%, 14.6% 85.4%, 21.7% 68.9%, 7.5% 67.6%, 16.7% 56.6%, 0.0% 50.0%, 16.7% 43.4%, 7.5% 32.4%, 21.7% 31.1%, 14.6% 14.6%, 31.1% 21.7%, 32.4% 7.5%, 43.4% 16.7%); }
 #safe { position: absolute; left: 60px; top: 150px; width: 900px; height: 1350px; outline: 4px dashed #00a4ff; z-index: 40;
   display: none; pointer-events: none; }
 body.safe #safe { display: block; }

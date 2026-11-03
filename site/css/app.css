@@ -29,9 +29,9 @@ html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper
   color: var(--ink); background: var(--red); color: var(--paper); padding: 0 18px; letter-spacing: 1px; }
 
 /* the reel */
-#reel { position: absolute; left: 310px; top: 292px; width: 460px; height: 640px; }
+#reel { position: absolute; left: 335px; top: 284px; width: 410px; height: 565px; }
 #reel .gate { position: absolute; inset: 14px; overflow: hidden; background: #17171a; }
-#reel .card { position: absolute; left: 26px; top: 21px; width: 380px; height: 570px; will-change: transform;
+#reel .card { position: absolute; left: 26px; top: 21px; width: 330px; height: 495px; will-change: transform;
   background: #2a2a2e repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 14px, transparent 14px 28px);
   border-radius: 10px; overflow: hidden; box-shadow: 0 8px 26px rgba(0,0,0,.5); }
 #reel .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -45,7 +45,7 @@ html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper
 #reel.idle .card { filter: none !important; }
 #reel.idle .card img { opacity: 0; }
 #reel.idle .card::after { content: "?"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  font: 900 420px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--red); background: rgba(10,10,11,.35); }
+  font: 900 360px/1 "Big Shoulders Display", Impact, sans-serif; color: var(--red); background: rgba(10,10,11,.35); }
 
 #stamp { position: absolute; left: 50%; top: 12%; width: 520px; margin-left: -260px; white-space: nowrap; text-align: center; opacity: 0;
   pointer-events: none; }
@@ -64,7 +64,7 @@ html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper
 #ticker { position: absolute; left: 60px; right: 120px; top: 214px; height: 64px; background: var(--ink); color: var(--paper);
   font: 700 32px/64px "Plex Mono", monospace; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   padding: 0 24px; border-left: 14px solid var(--red); }
-#tonight { position: absolute; left: 60px; right: 120px; top: 700px; text-align: center; opacity: 0; transform-origin: 50% 50%; z-index: 3;
+#tonight { position: absolute; left: 60px; right: 120px; top: 612px; text-align: center; opacity: 0; transform-origin: 50% 50%; z-index: 3;
   background: var(--paper); border: 7px solid var(--ink); box-shadow: 10px 10px 0 rgba(10,10,11,.85); padding: 10px 16px 6px; }
 #tonight .k { display: none; background: var(--red); color: var(--paper); font: 900 62px/1 "Big Shoulders Display", Impact, sans-serif;
   padding: 6px 22px 2px; letter-spacing: 2px; }
@@ -145,7 +145,9 @@ body.render #ui { display: none; }
 .puppet .pose { transform-origin: 50% 95%; }
 .puppet .ghost { opacity: 0; filter: blur(3px) brightness(0.6); transform-origin: 50% 95%; }
 .puppet .plines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-#impactbg { position: absolute; inset: 0; background: var(--red); opacity: 0; z-index: 1; pointer-events: none; }
+/* impact frames: a red burst behind Hexakin (his black silhouette on top), not a full-screen flash */
+#impactbg { position: absolute; left: 75px; top: 790px; width: 700px; height: 700px; background: var(--red); opacity: 0; z-index: 1;
+  pointer-events: none; clip-path: polygon(50.0% 0.0%, 56.6% 16.7%, 67.6% 7.5%, 68.9% 21.7%, 85.4% 14.6%, 78.3% 31.1%, 92.5% 32.4%, 83.3% 43.4%, 100.0% 50.0%, 83.3% 56.6%, 92.5% 67.6%, 78.3% 68.9%, 85.4% 85.4%, 68.9% 78.3%, 67.6% 92.5%, 56.6% 83.3%, 50.0% 100.0%, 43.4% 83.3%, 32.4% 92.5%, 31.1% 78.3%, 14.6% 85.4%, 21.7% 68.9%, 7.5% 67.6%, 16.7% 56.6%, 0.0% 50.0%, 16.7% 43.4%, 7.5% 32.4%, 21.7% 31.1%, 14.6% 14.6%, 31.1% 21.7%, 32.4% 7.5%, 43.4% 16.7%); }
 #fxsvg { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 4; pointer-events: none; overflow: visible; }
 
 #fxback { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; z-index: 2; pointer-events: none; overflow: visible; }

@@ -1,6 +1,6 @@
 // Render a spin to video, frame by frame, exactly as the site plays it.
 //
-//   node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only] [--fps 30]
+//   node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only] [--cut] [--fps 30]
 //   node tools/capture.mjs X --page lab/ --out DIR   a test page (full.mp4 only)
 //   node tools/capture.mjs --played     every spin in site/data/played.json (marked from the
 //                                       phone) that has no spin folder yet (git pull first)
@@ -9,12 +9,14 @@
 //   full.mp4      the whole theatrical spin, 1080x1920, with the show's own audio
 //   landing.mp4   ~1.6 s: the slam stop, box art, Hexakin's reaction, "TONIGHT: <GAME>"
 //   landing.png   a still from the landing (thumbnail / hook frame)
+//   cut.mp4       (--cut) ~11 s short version: the slam (0 .. 2.7 s), a 2-frame white flash, then
+//                 tStop - 5.5 s .. the end of Hexakin's reaction (tStop + 3.0 s)
 //   spin.json     {code, date, result {title, productId, storeUrl, boxart}, catalogDate, ...}
 //
 // Needs: node 18+, `npm install` (playwright + its Chromium: `npx playwright install chromium`),
 // ffmpeg on PATH. Serves site/ itself on a free local port; no network needed except box art.
 import { createServer } from "node:http";
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { homedir } from "node:os";
 import path from "node:path";
@@ -32,6 +34,7 @@ function args() {
     if (a[i] === "--out") o.out = a[++i];
     else if (a[i] === "--fps") o.fps = +a[++i];
     else if (a[i] === "--landing-only") o.landingOnly = true;
+    else if (a[i] === "--cut") o.cut = true;
     else if (a[i] === "--played") o.played = true;
     else if (a[i] === "--page") o.page = a[++i];
     else o.code = a[i];
@@ -126,12 +129,32 @@ async function capture(o) {
       return page.screenshot({ type: "png" });
     })());
 
+    // the short version: slam, white flash, the last stretch to the end of the reaction
+    const CUT_A = [0, 2.7], CUT_B = [Math.max(CUT_A[1], info.tStop - 5.5), info.tStop + 3.0];
+    if (o.cut) {
+      const a = path.join(outDir, ".cut-a.mp4"), b = path.join(outDir, ".cut-b.mp4");
+      await encode(a, ...CUT_A);
+      await encode(b, ...CUT_B);
+      const fl = (2 / o.fps).toFixed(4), aEnd = (CUT_A[1] - CUT_A[0] - 0.04).toFixed(3);
+      const ff = ffmpeg(["-i", a, "-i", b, "-filter_complex",
+        `[1:v]fade=t=in:st=0:d=${fl}:color=white[bv];` +
+        `[0:a]afade=t=out:st=${aEnd}:d=0.04[aa];[1:a]afade=t=in:st=0:d=0.04[ba];` +
+        `[0:v][aa][bv][ba]concat=n=2:v=1:a=1[v][o]`,
+        "-map", "[v]", "-map", "[o]", "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-pix_fmt", "yuv420p",
+        "-r", String(o.fps), "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", path.join(outDir, "cut.mp4")]);
+      await ff.done;
+      await rm(a); await rm(b);
+      console.log(`  cut.mp4 ${(CUT_A[1] - CUT_A[0] + CUT_B[1] - CUT_B[0]).toFixed(1)} s`);
+    }
+
     const spinJson = {
       code: info.code, date: info.date, catalogDate: info.catalogDate,
       result: info.result, eligibleCount: info.eligibleCount, reaction: info.reaction.pose,
       duration: +info.duration.toFixed(3), tStop: +info.tStop.toFixed(3),
       landing: [+l0.toFixed(3), +l1.toFixed(3)],
-      files: { full: o.landingOnly ? null : "full.mp4", landing: "landing.mp4", still: "landing.png", audio: "audio.wav" },
+      cut: o.cut ? [CUT_A.map((x) => +x.toFixed(3)), CUT_B.map((x) => +x.toFixed(3))] : null,
+      files: { full: o.landingOnly ? null : "full.mp4", landing: "landing.mp4", still: "landing.png", audio: "audio.wav",
+        cut: o.cut ? "cut.mp4" : null },
       replay: `?seed=${info.code}`,
     };
     await writeFile(path.join(outDir, "spin.json"), JSON.stringify(spinJson, null, 1));

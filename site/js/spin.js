@@ -44,10 +44,10 @@ const BITS = [
 ];
 
 const SLOWDOWN = [
-  { pose: "pointing-accuse", line: "Slowing down... slowing down... don't you DARE be a golf game." },
-  { pose: "scheming", line: "Here it comes. Here it comes. Nobody breathe." },
-  { pose: "idle", line: "Drumroll, please. I said DRUMROLL." },
-  { pose: "shush", line: "Shh. Easy... easy... I can see you reaching for the screen." },
+  { pose: "pointing-accuse", alt: "scheming", line: "Slowing down... slowing down... don't you DARE be a golf game." },
+  { pose: "scheming", alt: "pointing-accuse", line: "Here it comes. Here it comes. Nobody breathe." },
+  { pose: "idle", alt: "tap-watch", line: "Drumroll, please. I said DRUMROLL." },
+  { pose: "shush", alt: "pointing-accuse", line: "Shh. Easy... easy... I can see you reaching for the screen." },
 ];
 
 const REACTIONS = [
@@ -176,9 +176,11 @@ export function buildSpin(code, data) {
         key(tb, b.pose === "idle" ? "idle" : track[track.length - 1].pose, { dur: 0.08, ease: "out", sy: 0.9, sx: 1.07, jitter: 1 });
         key(tb + 0.08, track[track.length - 1].pose, { dur: 0.2, ease: "back", sy: 1, sx: 1, wobble: 0.14, jitter: 1 });
       };
-      bounce(t0 + 1.0);
-      if (b.alt) move(t0 + 1.9, b.alt, "pop", { jitter: 1 });
-      bounce(t0 + 2.8);
+      const end = t + span - 0.7;
+      for (let k = 0; t0 + 1.0 + k * 1.9 < end; k++) {
+        bounce(t0 + 1.0 + k * 1.9);
+        if (b.alt && t0 + 1.9 * (k + 1) < end) move(t0 + 1.9 * (k + 1), k % 2 ? b.pose : b.alt, "pop", { jitter: 1 });
+      }
     }
     say(t + 0.25, b.line.replace("{n}", String(n)), { dur: span - 0.3 });
     if (b.fx === "tap") {
@@ -259,6 +261,7 @@ export function buildSpin(code, data) {
   seg((S - dTail - p) / V, V, V);
   const tSlow = t;
   move(tSlow, sd.pose, sd.pose === "scheming" ? "rub" : "lunge", { jitter: 2.6 });
+  move(tSlow + (T1 + Tcr) / 2, sd.alt, "pop", { jitter: 2.6 });   // a second pose halfway
   say(tSlow + 0.1, sd.line, { dur: T1 + Tcr - 0.2 });
   sfx.push({ t: tSlow, name: "drumroll", dur: T1 + Tcr });
   seg(T1, V, vc, "out");

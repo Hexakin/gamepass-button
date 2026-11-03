@@ -3,10 +3,10 @@
 import { reelAt } from "./spin.js";
 import { Puppet, POSES, noise } from "./puppet.js";
 
-const PITCH = 600;            // px between card centres on the reel
+const PITCH = 540;            // px between card centres on the reel
 const SLOTS = 5;
 const FEET_AT = [425, 1490];  // where Hexakin stands (stage px); everything inside x60-960, y150-1500
-const PUPPET_SCALE = 0.78;    // stage px per chibi canvas px (idle stands ~710 px tall)
+const PUPPET_SCALE = 0.71;    // stage px per chibi canvas px (idle stands ~650 px tall, head below the reel)
 // the button he grabs: the drawn one in slam-windup sits at canvas (300, 1050)
 const DRAWN_BUTTON = [FEET_AT[0] + (300 - 600) * PUPPET_SCALE, FEET_AT[1] + (1050 - 1140) * PUPPET_SCALE];
 const IDLE_TRACK = [{ t: 0, pose: "idle", breathe: true }];

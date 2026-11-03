@@ -34,9 +34,13 @@ export const POSE_SCALE = {
   "despair-flat": 1.12,
 };
 const POSE_ANCHOR_Y = { "electrocuted-a": 1156 };   // canvas y of the feet, when not 1140
+// canvas px a pose slides sideways (despair-flat lies wide: keep its head off the left edge)
+const POSE_SHIFT_X = { "despair-flat": 55 };
 const poseTransform = (p) => {
   const k = POSE_SCALE[p] || 1, dy = ((POSE_ANCHOR_Y[p] || 1140) - 1140) * k / CANVAS * 100;
-  return `${dy ? `translateY(${(-dy).toFixed(3)}%) ` : ""}scale(${k})`;
+  const dx = (POSE_SHIFT_X[p] || 0) / CANVAS * 100;
+  const tr = (dx ? `translateX(${dx.toFixed(3)}%) ` : "") + (dy ? `translateY(${(-dy).toFixed(3)}%) ` : "");
+  return `${tr}scale(${k})`;
 };
 
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -82,6 +86,7 @@ export class Puppet {
       const ps = POSE_SCALE[s.pose] || 1;
       y -= ((POSE_ANCHOR_Y[s.pose] || 1140) - 1140) * this.scale;
       x *= s.sx * ps; y *= s.sy * ps;
+      x += (POSE_SHIFT_X[s.pose] || 0) * this.scale;
       const r = s.rot * Math.PI / 180, c = Math.cos(r), n = Math.sin(r);
       [x, y] = [x * c - y * n, x * n + y * c];
       x += s.x; y += s.y;

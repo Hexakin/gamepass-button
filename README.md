@@ -24,6 +24,7 @@ A static site (HTML/CSS/JS, no server, no AI at runtime), hosted on GitHub Pages
 npm install && npx playwright install chromium     # once
 node tools/capture.mjs <CODE>                       # full.mp4 + landing.mp4 + landing.png + spin.json
 node tools/capture.mjs <CODE> --landing-only        # just the ~1.6 s landing
+node tools/capture.mjs <CODE> --cut                 # also cut.mp4: ~11 s (slam, flash, last 5.5 s + reaction)
 node tools/capture.mjs --played                     # every spin marked played (git pull first) not yet captured
 ```
 

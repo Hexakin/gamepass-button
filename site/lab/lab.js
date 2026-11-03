@@ -64,7 +64,7 @@ const sfx = [
 const spin = { sfx, tStop: DURATION, duration: DURATION };
 
 // ------------------------------------------------------------------ puppet + fx
-const SCALE = 0.78, FEET_AT = [425, 1490];
+const SCALE = 0.71, FEET_AT = [425, 1490];
 const puppet = new Puppet($("avatar"), { scale: SCALE, feetAt: FEET_AT, base: "../avatar/chibi/" });
 const fromCanvas = ([cx, cy]) => [FEET_AT[0] + (cx - 600) * SCALE, FEET_AT[1] + (cy - 1140) * SCALE];
 // the drawn button: slam-windup has it at canvas (300, 1050), slam-impact at (410, 1050)
