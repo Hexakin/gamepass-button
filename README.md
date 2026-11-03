@@ -52,10 +52,13 @@ site/            the website (deployed as-is)
   js/show.js     draws the show at any time t
   js/audio.js    synth SFX + music, live or offline
   js/app.js      page glue (phone mode, render mode)
-  avatar/        Hexakin sprites (lo: phone sheets; hi: render frames)
+  js/puppet.js   chibi Hexakin as a cut-out cartoon (pose-to-pose, smears, impact frames)
+  avatar/chibi/  the 18 chibi sticker poses (WebP, 1200 canvas, feet at 600,1140)
+  stickers/      chibi stickers for the sticker gag
+  lab/           10-second slam + electrocution animation test
   data/          catalogue, archive, played.json
 tools/           fetch, capture, spin lookup, mark played, avatar build, Meshy
-assets/avatar/   the new Meshy poses (see its README)
+assets/avatar/   chibi/: the drawn pose pack from Ares (source PNGs); older 3D Meshy poses (no longer used)
 ```
 
 Fan-made. Not affiliated with or endorsed by Microsoft or Xbox. Box art belongs to its owners and is shown under the Xbox Game Content Usage Rules: free, no ads, nothing implies it's official.

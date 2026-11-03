@@ -111,9 +111,8 @@ async function live() {
     idleLine = seedParam
       ? `Replay of spin ${code} (${codeDate(code)}). Same spin, same game. Watch closely.`
       : "Go on. Press it. I dare you. First spin counts.";
-    if (seedParam) btn.querySelector("span").textContent = "REPLAY";
-    // everything this spin shows is loaded and decoded before the button works
-    const label = btn.querySelector("span"), was = label.textContent;
+    // everything this spin shows is loaded and decoded before the button works ("…" until then)
+    const label = btn.querySelector("span"), was = seedParam ? "REPLAY" : "PRESS";
     label.textContent = "…";
     const say = idleLine;
     idleLine = "Hang on. Loading the drum. Don't touch anything.";
@@ -173,7 +172,7 @@ async function live() {
     if (ctx) setTimeout(() => ctx.close(), 1500);
     const r = spin.result;
     $("store").href = r.store;
-    $("store").textContent = `GET ${r.title.replace(/[®™©]/g, "").toUpperCase()} ON XBOX ↗`;
+    $("store").textContent = "GET IT ON XBOX ↗";   // the title is on the banner above
     $("played").href = `https://github.com/Hexakin/gamepass-button/issues/new?title=${encodeURIComponent(`played: ${code}`)}&body=${encodeURIComponent(`Marks ${r.title} as played (spin ${code}, ${spin.date}). Submit to confirm; a bot updates played.json and closes this.`)}`;
     $("resultnote").textContent = `Spin ${code} · ${spin.date} · drawn from ${spin.eligibleCount} games`;
     $("result").hidden = false;
