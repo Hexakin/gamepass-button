@@ -1,8 +1,8 @@
 {
-"fetched": "2026-11-03T13:36:25+00:00",
+"fetched": "2026-11-04T10:49:15+00:00",
 "market": "GB",
 "list": "All Console Games",
-"count": 621,
+"count": 622,
 "games": [
 {
 "id": "9NPDN9R45JX4",
@@ -1573,14 +1573,6 @@
 "store": "https://www.xbox.com/en-GB/games/store/p/9NVJ4L71DF5Q"
 },
 {
-"id": "BV2ZVP7PJZWL",
-"title": "Far Cry 3 Classic Edition",
-"publisher": "Ubisoft",
-"boxart": "https://store-images.s-microsoft.com/image/apps.33719.71220804959101191.bad88979-60b4-40b4-af6d-182d4534c987.ecf3220f-0497-4cf1-9cee-d46d9d86ecc3",
-"hero": "https://store-images.s-microsoft.com/image/apps.38505.71220804959101191.bad88979-60b4-40b4-af6d-182d4534c987.f4e71fb2-e446-46e4-8291-e474508a0c71",
-"store": "https://www.xbox.com/en-GB/games/store/p/BV2ZVP7PJZWL"
-},
-{
 "id": "BV6BRSLFJW3W",
 "title": "FAR CRY PRIMAL",
 "publisher": "Ubisoft",
@@ -1611,6 +1603,14 @@
 "boxart": "https://store-images.s-microsoft.com/image/apps.64306.64841033704503268.bc0de57e-6dcd-40b5-b35e-f9f46b4ec1ae.f10b3597-c0ec-428e-9266-d457abfd1d56",
 "hero": "https://store-images.s-microsoft.com/image/apps.28761.64841033704503268.bc0de57e-6dcd-40b5-b35e-f9f46b4ec1ae.2119e8e5-a857-46e3-b5eb-5ec22fb9dc74",
 "store": "https://www.xbox.com/en-GB/games/store/p/C1DDW4PRF6K5"
+},
+{
+"id": "BV2ZVP7PJZWL",
+"title": "FARCRY 3 Classic Edition",
+"publisher": "Ubisoft",
+"boxart": "https://store-images.s-microsoft.com/image/apps.33719.71220804959101191.bad88979-60b4-40b4-af6d-182d4534c987.ecf3220f-0497-4cf1-9cee-d46d9d86ecc3",
+"hero": "https://store-images.s-microsoft.com/image/apps.38505.71220804959101191.bad88979-60b4-40b4-af6d-182d4534c987.f4e71fb2-e446-46e4-8291-e474508a0c71",
+"store": "https://www.xbox.com/en-GB/games/store/p/BV2ZVP7PJZWL"
 },
 {
 "id": "9PBNGCVBGML0",
@@ -3171,6 +3171,14 @@
 "boxart": "https://store-images.s-microsoft.com/image/apps.55121.69508748727770428.7ce00ad4-485c-4664-819a-1d17af316267.d92d72fb-1a52-492f-96ea-2229c4c4eb9b",
 "hero": "https://store-images.s-microsoft.com/image/apps.29060.69508748727770428.7ce00ad4-485c-4664-819a-1d17af316267.f55434f9-2650-4cea-bf9a-a382615d7c8d",
 "store": "https://www.xbox.com/en-GB/games/store/p/BS34VNW7H61F"
+},
+{
+"id": "9MW4MFG0192L",
+"title": "PIT OF GOBLIN",
+"publisher": "Friendly Foe, Bright Gambit",
+"boxart": "https://store-images.s-microsoft.com/image/apps.9831.13846192334895629.23a9d00d-834c-4fd7-abe1-41b8b885b3ee.6ec243d5-63f7-4a8a-bf58-7a0bd6fcd318",
+"hero": "https://store-images.s-microsoft.com/image/apps.17754.13846192334895629.23a9d00d-834c-4fd7-abe1-41b8b885b3ee.2e1f9cbc-5362-4d7f-a418-3148206034cb",
+"store": "https://www.xbox.com/en-GB/games/store/p/9MW4MFG0192L"
 },
 {
 "id": "9PK5WS0HXQKQ",
@@ -4872,8 +4880,8 @@
 "id": "9N11JM7F5CXK",
 "title": "World of Tanks: HEAT",
 "publisher": "Wargaming.net",
-"boxart": "https://store-images.s-microsoft.com/image/apps.46446.13914660851585642.bf740845-6b4f-4219-8754-f267907650cd.86215b6f-798f-45e3-bcde-737ebc123907",
-"hero": "https://store-images.s-microsoft.com/image/apps.37452.13914660851585642.bf740845-6b4f-4219-8754-f267907650cd.5c5e08d0-567c-44f0-bc41-12bd4405b109",
+"boxart": "https://store-images.s-microsoft.com/image/apps.28387.13914660851585642.a21c2c87-a21a-4263-9436-669b54cfa894.7bd00d59-6fb9-4b0a-b3d2-eed534f2e0c1",
+"hero": "https://store-images.s-microsoft.com/image/apps.15966.13914660851585642.410fbb84-b7a6-486d-bf6f-12ec7c6616cd.47365447-ef67-40f6-af23-87c39ff9031b",
 "store": "https://www.xbox.com/en-GB/games/store/p/9N11JM7F5CXK"
 },
 {
