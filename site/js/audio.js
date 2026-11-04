@@ -106,6 +106,16 @@ const SFX = {
     env(ctx, g, t, 0.005, 0.35, 0.45);
     o.connect(g).connect(out); o.start(t); o.stop(t + 0.5); lfo.start(t); lfo.stop(t + 0.5);
   },
+  // gag-library sounds
+  click(ctx, out, t) { osc(ctx, out, "square", 1400, 900, t, 0.001, 0.18, 0.03); burst(ctx, out, t, 0.03, 0.35, "highpass", 3500); osc(ctx, out, "sine", 220, 140, t + 0.02, 0.002, 0.25, 0.08); },
+  sparkle(ctx, out, t) { for (let k = 0; k < 7; k++) osc(ctx, out, "sine", 1800 + k * 260, 2400 + k * 260, t + k * 0.05, 0.002, 0.06, 0.12); },
+  whistle(ctx, out, t, ev) { osc(ctx, out, "sine", 2200, 500, t, 0.02, 0.12, ev.dur || 0.7); },
+  clang(ctx, out, t) {
+    for (const [f, a, d] of [[523, 0.3, 1.2], [1187, 0.2, 0.9], [1873, 0.14, 0.7], [2711, 0.1, 0.5]]) osc(ctx, out, "triangle", f, f * 0.99, t, 0.001, a, d);
+    burst(ctx, out, t, 0.08, 0.5, "highpass", 2500); osc(ctx, out, "sine", 120, 50, t, 0.002, 0.6, 0.35);
+  },
+  slip(ctx, out, t) { osc(ctx, out, "sine", 300, 1600, t, 0.005, 0.2, 0.22); },
+  bonk(ctx, out, t) { osc(ctx, out, "sine", 420, 160, t, 0.002, 0.5, 0.18); burst(ctx, out, t, 0.05, 0.4, "bandpass", 1800, 1.2); },
   fanfare(ctx, out, t) {
     const notes = [[523.25, 0], [659.25, 0.12], [783.99, 0.24], [1046.5, 0.42]];
     for (const [f, d] of notes) {

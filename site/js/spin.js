@@ -2,6 +2,7 @@
 // spin code and that day's catalogue. No DOM here (Node can import it too).
 
 import { stream, codeDate } from "./rng.js";
+import { buildGagSpin, GAGS_SINCE } from "./gags.js";
 
 // ------------------------------------------------------------------ catalogue + eligibility
 
@@ -75,7 +76,7 @@ const EASE = {
   in: { e: (u) => u * u, E: (u) => (u ** 3) / 3 },
 };
 
-function segDist(T, v0, v1, ease) { return T * (v0 + (v1 - v0) * EASE[ease].E(1)); }
+export function segDist(T, v0, v1, ease) { return T * (v0 + (v1 - v0) * EASE[ease].E(1)); }
 
 export function reelAt(reel, t) {
   const segs = reel.segs;
@@ -101,7 +102,14 @@ export function pickResult(code, pool) {
   return pool[r.int(pool.length)];
 }
 
-export function buildSpin(code, data) {
+// spins dated GAGS_SINCE or later use the gag library (gags.js); older ones this original
+// builder, untouched, so they replay exactly (tests/replays.json)
+export function buildSpin(code, data, opts) {
+  if (codeDate(code) >= GAGS_SINCE) return buildGagSpin(code, data, opts);
+  return buildSpinV1(code, data);
+}
+
+function buildSpinV1(code, data) {
   const date = codeDate(code);
   const pool = eligible(data.catalogue, data.played || [], date);
   if (!pool.length) throw new Error("No eligible games for this date.");

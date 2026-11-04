@@ -1,5 +1,6 @@
 import { newCode, normaliseCode, ukDate, codeDate } from "./rng.js";
 import { buildSpin } from "./spin.js";
+import { GAGS_SINCE } from "./gags.js";
 import { loadData, browserFetchJson } from "./data.js";
 import { Show } from "./show.js";
 import { schedule, renderWav } from "./audio.js";
@@ -7,6 +8,9 @@ import { schedule, renderWav } from "./audio.js";
 const params = new URLSearchParams(location.search);
 const RENDER = params.get("render");            // "916": 1080x1920, no UI, driven by __show.seek
 const seedParam = normaliseCode(params.get("seed"));
+// ?gag=slot:id (from gags.html): preview a spin with that gag forced in (not a real spin)
+const gagParam = params.get("gag");
+const force = gagParam ? Object.fromEntries([gagParam.split(":")]) : undefined;
 const MUSIC_URL = "audio/bed.m4a";
 const stage = document.getElementById("stage");
 const $ = (id) => document.getElementById(id);
@@ -46,10 +50,40 @@ let playing = false;
 async function prepare(c) {
   code = c;
   data = await loadData(code, browserFetchJson);
-  spin = buildSpin(code, data);
+  spin = buildSpin(code, data, { force });
   if (!show) show = new Show(stage, { hi: !!RENDER });
   show.setSpin(spin);
   return spin;
+}
+
+// A new spin: generate a few candidate codes and keep the one whose gags overlap least with the
+// last few spins on this device (localStorage). Every code is still a real, replayable spin;
+// this only chooses which one you get, so presses in a row don't repeat the same gags.
+const RECENT = "gpb.recentGags";
+const features = (s) => s.gags ? [`o:${s.gags.opener}`, ...s.gags.mishaps.map((m) => `m:${m}`), `r:${s.gags.reaction}`,
+  `s:${s.gags.slowdown}`, `u:${s.gags.outro}`, ...s.gags.bits.map((b) => `b:${b}`)] : [];
+const WEIGHT = { o: 1, m: 3, r: 2, s: 1, u: 0.5, b: 0.5 };
+async function freshCode() {
+  const first = newCode();
+  if (codeDate(first) < GAGS_SINCE) return first;
+  let recent = [];
+  try { recent = JSON.parse(localStorage.getItem(RECENT) || "[]"); } catch { /* */ }
+  const seen = new Set(recent.flat());
+  const d = await loadData(first, browserFetchJson);
+  let best = null;
+  for (let i = 0; i < 8; i++) {
+    const c = i ? newCode() : first;
+    const score = features(buildSpin(c, d)).reduce((a, f) => a + (seen.has(f) ? WEIGHT[f[0]] : 0), 0);
+    if (!best || score < best.score) best = { c, score };
+  }
+  return best.c;
+}
+function remember(s) {
+  if (!s.gags || gagParam) return;
+  let recent = [];
+  try { recent = JSON.parse(localStorage.getItem(RECENT) || "[]"); } catch { /* */ }
+  recent.push(features(s));
+  localStorage.setItem(RECENT, JSON.stringify(recent.slice(-4)));
 }
 
 // ------------------------------------------------------------------ render mode (capture)
@@ -66,7 +100,7 @@ if (RENDER) {
   window.__show = {
     ready,
     info: () => ({ code: spin.code, date: spin.date, catalogDate: spin.catalogDate, duration: spin.duration,
-      tStop: spin.tStop, landing: spin.landing, reaction: spin.reaction, eligibleCount: spin.eligibleCount,
+      tStop: spin.tStop, landing: spin.landing, reaction: spin.reaction, eligibleCount: spin.eligibleCount, gags: spin.gags,
       result: { title: spin.result.title, productId: spin.result.id, storeUrl: spin.result.store, boxart: spin.result.boxart } }),
     seek: async (t) => {
       await show.drawExact(t);
@@ -107,7 +141,7 @@ async function live() {
   };
 
   try {
-    await prepare(seedParam || newCode());
+    await prepare(seedParam || await freshCode());
     requestAnimationFrame(idle);
     idleLine = seedParam
       ? `Replay of spin ${code} (${codeDate(code)}). Same spin, same game. Watch closely.`
@@ -142,7 +176,8 @@ async function live() {
       } catch (e) { console.warn(e); ctx = null; }
     }
     // a page left open overnight: the spin belongs to the day it's pressed
-    if (!seedParam && codeDate(code) !== ukDate()) await prepare(newCode());
+    if (!seedParam && codeDate(code) !== ukDate()) await prepare(await freshCode());
+    remember(spin);
     $("result").hidden = true;
     const clock = () => (ctx ? ctx.currentTime - t0 : (performance.now() - t0) / 1000);
     if (ctx) {
@@ -177,7 +212,9 @@ async function live() {
     $("store").href = r.store;
     $("store").textContent = "GET IT ON XBOX ↗";   // the title is on the banner above
     $("played").href = `https://github.com/Hexakin/gamepass-button/issues/new?title=${encodeURIComponent(`played: ${code}`)}&body=${encodeURIComponent(`Marks ${r.title} as played (spin ${code}, ${spin.date}). Submit to confirm; a bot updates played.json and closes this.`)}`;
-    $("resultnote").textContent = `Spin ${code} · ${spin.date} · drawn from ${spin.eligibleCount} games`;
+    $("resultnote").textContent = gagParam ? `Gag preview (${gagParam}) on spin ${code}: not a real spin`
+      : `Spin ${code} · ${spin.date} · drawn from ${spin.eligibleCount} games`;
+    $("played").hidden = !!gagParam;
     $("result").hidden = false;
   }
 

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gag gallery · The Game Pass Button</title>
+<link rel="stylesheet" href="css/app.css">
+<style>
+  body { background: var(--paper); color: var(--ink); font: 16px/1.4 "Plex Mono", monospace; padding: 20px; max-width: 1100px; margin: 0 auto; overflow: auto; height: auto; }
+  h1 { font: 900 44px/1 "Big Shoulders Display", Impact, sans-serif; margin: 0 0 6px; }
+  h2 { font: 900 28px/1 "Big Shoulders Display", Impact, sans-serif; margin: 26px 0 8px; border-bottom: 4px solid var(--ink); }
+  p { margin: 0 0 10px; max-width: 70ch; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  a.gag { display: block; color: inherit; text-decoration: none; background: #fbf8f0; border: 3px solid var(--ink); border-radius: 10px; padding: 6px; }
+  a.gag:hover { border-color: var(--red); }
+  a.gag img { width: 100%; aspect-ratio: 1; object-fit: contain; display: block; }
+  a.gag b { display: block; font-size: 14px; }
+  a.gag small { display: block; font-size: 11px; color: #555; min-height: 2.6em; }
+  .tag { display: inline-block; font-size: 10px; background: var(--red); color: #fff; padding: 0 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<h1>Gag gallery</h1>
+<p>Every gag the button can draw. Tap one to play a spin with it forced in (a preview, not a real spin). <span id="count"></span></p>
+<div id="list"></div>
+<script type="module">
+import { CATALOGUE, gagPoses } from "./js/gags.js";
+const NAMES = { opener: "Openers: how he presses it", bit: "Bits during the spin", mishap: "Mishaps, fake-outs and injuries",
+  slowdown: "Slowdowns", reaction: "Reactions (by mood)", genre: "Reactions (by the game's genre)", outro: "Outros" };
+const KIND_POSE = { nap: "shove-offscreen", break: "electrocuted-a", anvil: "sit_anvil-flat", banana: "sit_banana-slip",
+  cables: "sit_cables-tangled", ball: "scene_goals-ball-face", balloon: "sit_balloon-float", cliff: "sit_cliff-wile",
+  frozen: "react_shocked-frozen", dizzy: "react_dizzy", runaway: "sit_run-away", slam: "slam-impact", poke: "prop_magnifier",
+  magic: "jazz-hands", lazy: "react_yawn-stretch" };
+const CORE = new Set(["idle", "slam-windup", "slam-impact", "electrocuted-a", "electrocuted-b", "frazzled-aftermath",
+  "nose-on-glass", "pointing-accuse", "tap-watch", "shush", "scheming", "shove-offscreen", "despair-collapse",
+  "despair-flat", "celebrate", "jazz-hands", "shrug", "thumbs-down"]);
+const img = (p) => (CORE.has(p) ? `avatar/chibi/${p}.webp` : `avatar/lib/${p}.webp`);
+let n = 0, html = "";
+for (const [slot, list] of Object.entries(CATALOGUE)) {
+  html += `<h2>${NAMES[slot]} (${list.length})</h2><div class="grid">`;
+  for (const g of list) {
+    n++;
+    const pose = (g.kind === "break" && g.pre) ? g.pre : gagPoses(g)[0] || KIND_POSE[g.kind] || "idle";
+    const text = (g.lines || g.before || g.preLines || [g.kind])[0];
+    html += `<a class="gag" href="./?seed=09M-00000&gag=${slot}:${g.id}"><img loading="lazy" src="${img(pose)}" alt="">` +
+      `<b>${g.id}${g.rare ? ' <span class="tag">RARE</span>' : ""}</b><small>${text.replace(/</g, "&lt;")}` +
+      `${g.genres ? `<br>${g.genres.join(", ")}` : ""}${g.title && !g.genres ? "<br>(by title)" : ""}</small></a>`;
+  }
+  html += "</div>";
+}
+document.getElementById("list").innerHTML = html;
+document.getElementById("count").textContent = `${n} gags in total.`;
+</script>
+</body>
+</html>

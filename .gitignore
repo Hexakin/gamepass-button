@@ -3,3 +3,6 @@ assets/avatar/frames/
 assets/avatar/tmp/
 __pycache__/
 *.pyc
+
+# local copies of Ares's library cutouts (81 MB); provenance in assets/avatar/lib-sources.json
+assets/avatar/lib/

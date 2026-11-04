@@ -5,6 +5,8 @@
 Writes, under site/data/:
   gamepass.json           the current list, readable (title, publisher, box art, store link)
   index.json              every game ever seen: {id: [title, boxart, hero]} (only grows)
+  genres.json             every game ever seen: {id: [store categories]} (only grows; the
+                          button's genre gags read it)
   archive/<date>.json     that day's list, as ordered product ids
   archive/dates.json      every archived date, sorted
 
@@ -77,6 +79,8 @@ def fetch() -> list[dict]:
                 "boxart": image(loc, "Poster", "BoxArt"),
                 "hero": image(loc, "SuperHeroArt", "TitledHeroArt", "BrandedKeyArt"),
                 "store": f"https://www.xbox.com/en-GB/games/store/p/{pid}",
+                "genres": [c for c in ((p.get("Properties") or {}).get("Categories")
+                                       or [(p.get("Properties") or {}).get("Category")]) if c],
             })
         time.sleep(0.3)
     order = {pid: n for n, pid in enumerate(ids)}
@@ -95,6 +99,12 @@ def write(games: list[dict], date: str) -> None:
     for g in games:
         idx[g["id"]] = [g["title"], g["boxart"], g["hero"]]
     idx_path.write_text(json.dumps(idx, ensure_ascii=False, separators=(",", ":")))
+    gen_path = DATA / "genres.json"
+    gen = json.loads(gen_path.read_text()) if gen_path.exists() else {}
+    for g in games:
+        if g.get("genres"):
+            gen[g["id"]] = g["genres"]
+    gen_path.write_text(json.dumps(gen, ensure_ascii=False, separators=(",", ":")))
     (DATA / "archive" / f"{date}.json").write_text(json.dumps([g["id"] for g in games]))
     dates = sorted(p.stem for p in (DATA / "archive").glob("????-??-??.json"))
     (DATA / "archive" / "dates.json").write_text(json.dumps(dates))

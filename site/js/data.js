@@ -15,7 +15,12 @@ export async function loadData(code, fetchJson) {
     const [title, boxart, hero] = index[id];
     return { id, title, boxart, hero, store: `https://www.xbox.com/en-GB/games/store/p/${id}` };
   });
-  return { date, catalogDate, catalogue, played: played.games || played, dates };
+  // store genres per game id (site/data/genres.json); kept apart from the catalogue objects so
+  // older spins' timelines stay byte-identical
+  const genres = await fetchJson("data/genres.json").catch(() => ({}));
+  // pose metadata (head positions, boxes, sign text areas) for the gag builder
+  const lib = await fetchJson("avatar/lib.json").catch(() => ({}));
+  return { date, catalogDate, catalogue, played: played.games || played, dates, genres, lib };
 }
 
 export const browserFetchJson = (path) => fetch(path, { cache: "no-cache" }).then((r) => {

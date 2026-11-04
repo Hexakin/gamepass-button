@@ -18,6 +18,11 @@
 
 export const CANVAS = 1200;
 export const FEET = [0.5, 0.95];
+// Library poses (avatar/lib/<id>.webp, from Ares's sticker library via tools/avatar/import_library.py)
+// sit on a 1600 canvas: the core 1200 canvas plus 200 px each side and 400 above, feet at (800,
+// 1540), same px scale. Anything not in POSES is a library pose.
+const LIB = { size: 1600, off: [200, 400] };
+const isLib = (p) => !POSES.includes(p);
 
 export const POSES = ["idle", "slam-windup", "slam-impact", "electrocuted-a", "electrocuted-b",
   "frazzled-aftermath", "nose-on-glass", "pointing-accuse", "tap-watch", "shush", "scheming",
@@ -36,6 +41,24 @@ export const POSE_SCALE = {
 const POSE_ANCHOR_Y = { "electrocuted-a": 1156 };   // canvas y of the feet, when not 1140
 // canvas px a pose slides sideways (despair-flat lies wide: keep its head off the left edge)
 const POSE_SHIFT_X = { "despair-flat": 55 };
+// core canvas point -> where it lands once the pose's own scale/shift is applied (overlays, FX)
+export function posePoint(p, [x, y]) {
+  if (isLib(p)) return [x, y];
+  const k = POSE_SCALE[p] || 1;
+  const dy = ((POSE_ANCHOR_Y[p] || 1140) - 1140) * k;
+  return [600 + (x - 600) * k + (POSE_SHIFT_X[p] || 0), 1140 + (y - 1140) * k - dy];
+}
+// how a pose's <img> sits in the puppet box
+function placeImg(img, p) {
+  if (isLib(p)) {
+    const f = LIB.size / CANVAS * 100;
+    Object.assign(img.style, { left: `${-LIB.off[0] / CANVAS * 100}%`, top: `${-LIB.off[1] / CANVAS * 100}%`,
+      width: `${f}%`, height: `${f}%`, transformOrigin: "50% 96.25%", transform: "none" });
+  } else {
+    Object.assign(img.style, { left: "0", top: "0", width: "100%", height: "100%", transformOrigin: "",
+      transform: poseTransform(p) });
+  }
+}
 const poseTransform = (p) => {
   const k = POSE_SCALE[p] || 1, dy = ((POSE_ANCHOR_Y[p] || 1140) - 1140) * k / CANVAS * 100;
   const dx = (POSE_SHIFT_X[p] || 0) / CANVAS * 100;
@@ -55,8 +78,8 @@ export const noise = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453
 
 export class Puppet {
   // root: element on the stage; scale: stage px per canvas px; feetAt: [x, y] stage px
-  constructor(root, { scale = 0.6, feetAt = [360, 1490], base = "avatar/chibi/" } = {}) {
-    this.root = root; this.scale = scale; this.feetAt = feetAt; this.base = base;
+  constructor(root, { scale = 0.6, feetAt = [360, 1490], base = "avatar/chibi/", libBase = "avatar/lib/" } = {}) {
+    this.root = root; this.scale = scale; this.feetAt = feetAt; this.base = base; this.libBase = libBase;
     this.imgs = {}; this.ghosts = [];
     root.classList.add("puppet");
     root.innerHTML = "";
@@ -77,7 +100,16 @@ export class Puppet {
     this.lines.setAttribute("viewBox", `0 0 ${CANVAS} ${CANVAS}`);
     this.lines.classList.add("plines");
     root.appendChild(this.lines);
+    // overlay drawn in core canvas px that moves with him (sign text, plasters, stars...)
+    this.over = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    this.over.setAttribute("viewBox", `0 0 ${CANVAS} ${CANVAS}`);
+    this.over.setAttribute("class", "pover");
+    Object.assign(this.over.style, { position: "absolute", left: "0", top: "0", width: "100%", height: "100%", overflow: "visible" });
+    root.appendChild(this.over);
   }
+
+  // set the overlay (SVG markup in core canvas px; posePoint() maps pose points into it)
+  overlay(svg) { if (this._over !== svg) { this.over.innerHTML = svg; this._over = svg; } }
 
   // stage px of a canvas point, following the last drawn state (for bolts, smoke, cracks...)
   toStage([cx, cy], s = this.last) {
@@ -100,9 +132,9 @@ export class Puppet {
       if (this.imgs[p]) return null;
       const img = document.createElement("img");
       img.alt = ""; img.className = "pose"; img.decoding = "sync";
-      img.style.transform = poseTransform(p);
+      placeImg(img, p);
       img.style.visibility = "hidden";
-      img.src = `${this.base}${p}.webp`;
+      img.src = isLib(p) ? `${this.libBase}${p}.webp` : `${this.base}${p}.webp`;
       this.body.appendChild(img);
       this.imgs[p] = img;
       return img.decode().catch(() => new Promise((r) => { img.onload = r; img.onerror = r; }));
@@ -174,10 +206,10 @@ export class Puppet {
     this.ghosts.forEach((g, n) => {
       if (!smearOn) { if (g.style.opacity !== "0") g.style.opacity = 0; return; }
       const img = this.imgs[k.pose];
-      if (g.src !== img.src) g.src = img.src;
+      if (g.src !== img.src) { g.src = img.src; placeImg(g, k.pose); }
       const back = (n + 1) / 3.2 * (1 - s.u * 0.6);
       g.style.opacity = (0.42 - n * 0.12).toFixed(2);
-      g.style.transform = `translate(${(-k.smear[0] * back * this.scale).toFixed(1)}px, ${(-k.smear[1] * back * this.scale).toFixed(1)}px) ${poseTransform(k.pose)}`;
+      g.style.transform = `translate(${(-k.smear[0] * back * this.scale).toFixed(1)}px, ${(-k.smear[1] * back * this.scale).toFixed(1)}px) ${isLib(k.pose) ? "" : poseTransform(k.pose)}`;
     });
     // speed lines along the move
     // (an impact's contact frames stay clean: no lingering lines)

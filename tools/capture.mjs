@@ -2,6 +2,7 @@
 //
 //   node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only] [--cut] [--fps 30]
 //   node tools/capture.mjs X --page lab/ --out DIR   a test page (full.mp4 only)
+//   node tools/capture.mjs <CODE> --gag mishap:anvil --out DIR   a gag preview (not a real spin)
 //   node tools/capture.mjs --played     every spin in site/data/played.json (marked from the
 //                                       phone) that has no spin folder yet (git pull first)
 //
@@ -37,6 +38,7 @@ function args() {
     else if (a[i] === "--cut") o.cut = true;
     else if (a[i] === "--played") o.played = true;
     else if (a[i] === "--page") o.page = a[++i];
+    else if (a[i] === "--gag") o.gag = a[++i];
     else o.code = a[i];
   }
   if (!o.code && !o.played) { console.error("usage: node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only]"); process.exit(2); }
@@ -84,10 +86,11 @@ async function capture(o) {
   try {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
     page.on("pageerror", (e) => console.error("page error:", e.message));
-    await page.goto(`http://127.0.0.1:${port}/${o.page || ""}?seed=${encodeURIComponent(o.code)}&render=916`);
+    await page.goto(`http://127.0.0.1:${port}/${o.page || ""}?seed=${encodeURIComponent(o.code)}&render=916${o.gag ? `&gag=${encodeURIComponent(o.gag)}` : ""}`);
     await page.waitForFunction(() => window.__show, null, { timeout: 30000 });
     await page.evaluate(() => window.__show.ready);
     const info = await page.evaluate(() => window.__show.info());
+    if (o.gag && !o.out) throw new Error("--gag previews need --out (they are not real spins)");
     const outDir = o.out || path.join(SPINS, `${info.date}-${info.code}`);
     await mkdir(outDir, { recursive: true });
     console.log(`spin ${info.code} (${info.date}): ${info.result ? info.result.title : "(test page)"}  ->  ${outDir}`);

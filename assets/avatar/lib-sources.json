@@ -1,0 +1,610 @@
+{
+ "note": "Stickers imported from Ares's chibi library (Meshy nano-banana-pro, 4 Nov 2026) by tools/avatar/import_library.py. The cutout PNGs are copied to assets/avatar/lib/ locally (not in git: 81 MB); the source folder is read-only.",
+ "assets": {
+  "gaming_controller-gripping": {
+   "task_id": "01a1a5e2-5bd7-74cd-ab25-3d25d700f11c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/gaming_controller-gripping/cutout.png",
+   "qc": "ok"
+  },
+  "gaming_controller-hold": {
+   "task_id": "01a1a5e2-5bd6-775b-b0a4-94a00d313fdc",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/gaming_controller-hold/cutout.png",
+   "qc": "ok"
+  },
+  "gaming_controller-triumph": {
+   "task_id": "01a1a5e2-5bd8-74df-853f-6e123086b82f",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/gaming_controller-triumph/cutout.png",
+   "qc": "soft"
+  },
+  "gaming_giant-controller": {
+   "task_id": "01a1a5fe-9226-76f9-add1-d7f53f77bb27",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/gaming_giant-controller/cutout.png",
+   "qc": "ok"
+  },
+  "gaming_sofa-snacks": {
+   "task_id": "01a1a5e2-5bfa-77ea-8c04-5c4b28e30489",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/gaming_sofa-snacks/cutout.png",
+   "qc": "ok"
+  },
+  "genre_basketball": {
+   "task_id": "01a1a604-24a5-7030-93a9-7d5c801a4c6c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_basketball/cutout.png",
+   "qc": "soft"
+  },
+  "genre_blaster": {
+   "task_id": "01a1a5fd-ce50-776e-8f8d-632dd05ade27",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_blaster/cutout.png",
+   "qc": "ok"
+  },
+  "genre_boxer": {
+   "task_id": "01a1a5fd-7a3b-74cc-981f-34e075086d6a",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_boxer/cutout.png",
+   "qc": "ok"
+  },
+  "genre_cook": {
+   "task_id": "01a1a604-251b-7238-bd92-c23130b1f34b",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_cook/cutout.png",
+   "qc": "soft"
+  },
+  "genre_farmer": {
+   "task_id": "01a1a5fd-0bc2-7667-9c96-90831387efcb",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_farmer/cutout.png",
+   "qc": "ok"
+  },
+  "genre_fishing": {
+   "task_id": "01a1a5fd-2537-711e-b2a4-79a70d1c2368",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_fishing/cutout.png",
+   "qc": "ok"
+  },
+  "genre_footballer": {
+   "task_id": "01a1a5fe-1107-7227-8df5-736f77ed60d0",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_footballer/cutout.png",
+   "qc": "ok"
+  },
+  "genre_horror-flashlight": {
+   "task_id": "01a1a604-24a4-7601-9ee9-dd0d2a26fd24",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_horror-flashlight/cutout.png",
+   "qc": "ok"
+  },
+  "genre_horror-ghost": {
+   "task_id": "01a1a5fc-dc70-75e1-8447-e5f0bc407f65",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_horror-ghost/cutout.png",
+   "qc": "ok"
+  },
+  "genre_jetpack": {
+   "task_id": "01a1a5fd-f99c-73bf-a411-84acab210fee",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_jetpack/cutout.png",
+   "qc": "ok"
+  },
+  "genre_knight": {
+   "task_id": "01a1a5fc-9642-72b9-8f96-a223a5950265",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_knight/cutout.png",
+   "qc": "ok"
+  },
+  "genre_ninja": {
+   "task_id": "01a1a5fd-e6f8-709e-ba61-a6a9029a437b",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_ninja/cutout.png",
+   "qc": "ok"
+  },
+  "genre_racing-kart": {
+   "task_id": "01a1a5fc-b173-7558-bf5a-09a45f478c25",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_racing-kart/cutout.png",
+   "qc": "ok"
+  },
+  "genre_skate": {
+   "task_id": "01a1a5fe-41eb-757d-9e06-e58487a78576",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_skate/cutout.png",
+   "qc": "ok"
+  },
+  "genre_space-suit": {
+   "task_id": "01a1a5fc-f4a6-7692-a6b9-be3bcb45f552",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_space-suit/cutout.png",
+   "qc": "ok"
+  },
+  "genre_zombie-bat": {
+   "task_id": "01a1a5fd-ab8b-7738-bc52-8e0edd37d875",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/genre_zombie-bat/cutout.png",
+   "qc": "ok"
+  },
+  "prop_clipboard": {
+   "task_id": "01a1a5ef-b57f-737e-aa22-9559a69035ac",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_clipboard/cutout.png",
+   "qc": "ok"
+  },
+  "prop_crown": {
+   "task_id": "01a1a5ed-da63-77da-8e49-b7aac3f6d1ec",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_crown/cutout.png",
+   "qc": "ok"
+  },
+  "prop_crown-hold": {
+   "task_id": "01a1a5fb-36dd-730b-8406-05ddb1b972be",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_crown-hold/cutout.png",
+   "qc": "ok"
+  },
+  "prop_grave-rip": {
+   "task_id": "01a1a5ef-4ca3-736a-977a-70b04c18dbdf",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_grave-rip/cutout.png",
+   "qc": "ok"
+  },
+  "prop_hourglass": {
+   "task_id": "01a1a5f0-6a98-76b5-b7e3-6c042820806e",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_hourglass/cutout.png",
+   "qc": "soft"
+  },
+  "prop_magnifier": {
+   "task_id": "01a1a5ef-93ef-7618-958e-8ad73e8fca22",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_magnifier/cutout.png",
+   "qc": "soft"
+  },
+  "prop_stopwatch-1hour": {
+   "task_id": "01a1a5ef-f707-7049-b491-575fd2ddf992",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_stopwatch-1hour/cutout.png",
+   "qc": "ok"
+  },
+  "prop_stopwatch-hug": {
+   "task_id": "01a1a5f0-56fc-7043-818a-4a4f22a3877c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_stopwatch-hug/cutout.png",
+   "qc": "ok"
+  },
+  "prop_stopwatch-race": {
+   "task_id": "01a1a5f0-68f0-744e-b11a-b36b7dc0ba5c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/prop_stopwatch-race/cutout.png",
+   "qc": "ok"
+  },
+  "react_bored-cheek-fist": {
+   "task_id": "01a1a5f7-4e42-7255-a4ea-15aa65f1aceb",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_bored-cheek-fist/cutout.png",
+   "qc": "ok"
+  },
+  "react_bored-lying-ceiling": {
+   "task_id": "01a1a5e8-73ed-710b-8b97-75b271399495",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_bored-lying-ceiling/cutout.png",
+   "qc": "soft"
+  },
+  "react_bored-sigh": {
+   "task_id": "01a1a5f7-4e5e-7348-89e8-d7eefe536455",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_bored-sigh/cutout.png",
+   "qc": "ok"
+  },
+  "react_clapping-hype": {
+   "task_id": "01a1a5eb-e9fc-7409-bd4d-4433b68a044a",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_clapping-hype/cutout.png",
+   "qc": "ok"
+  },
+  "react_confused-shrug-qs": {
+   "task_id": "01a1a5eb-d72c-77fb-a25a-d3790779c009",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_confused-shrug-qs/cutout.png",
+   "qc": "ok"
+  },
+  "react_cringe": {
+   "task_id": "01a1a5f8-6f4a-7698-9fd4-e6504ece783f",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_cringe/cutout.png",
+   "qc": "ok"
+  },
+  "react_disgusted-gag": {
+   "task_id": "01a1a5f7-4e87-7256-8cd2-9d2d55435a11",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_disgusted-gag/cutout.png",
+   "qc": "ok"
+  },
+  "react_disgusted-nose": {
+   "task_id": "01a1a5f7-4e7c-73cd-93aa-1bd212602511",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_disgusted-nose/cutout.png",
+   "qc": "soft"
+  },
+  "react_disgusted-recoil": {
+   "task_id": "01a1a5f7-4e84-7543-bbe7-2f8c22db1ff9",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_disgusted-recoil/cutout.png",
+   "qc": "ok"
+  },
+  "react_dizzy": {
+   "task_id": "01a1a5ec-40ff-733d-a5c9-6f30d1e4d836",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_dizzy/cutout.png",
+   "qc": "ok"
+  },
+  "react_evil-lean-in": {
+   "task_id": "01a1a601-dcd4-7052-9bac-a714eb149c86",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_evil-lean-in/cutout.png",
+   "qc": "ok"
+  },
+  "react_evil-lightbulb": {
+   "task_id": "01a1a5eb-03c2-750b-958f-ac77331dfe64",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_evil-lightbulb/cutout.png",
+   "qc": "ok"
+  },
+  "react_eyeroll": {
+   "task_id": "01a1a5f7-4e93-75f6-b774-d1b060639f7e",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_eyeroll/cutout.png",
+   "qc": "ok"
+  },
+  "react_eyeroll-blah": {
+   "task_id": "01a1a5e9-1eb7-7258-bd2f-e68b010ebefb",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_eyeroll-blah/cutout.png",
+   "qc": "ok"
+  },
+  "react_facepalm": {
+   "task_id": "01a1a5e9-3bb8-7763-9f85-20a6b7dbd0fe",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_facepalm/cutout.png",
+   "qc": "ok"
+  },
+  "react_facepalm-double": {
+   "task_id": "01a1a5e9-652d-7539-bc7c-b2445e513eb6",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_facepalm-double/cutout.png",
+   "qc": "ok"
+  },
+  "react_facepalm-headshake": {
+   "task_id": "01a1a5e9-9f26-72c2-a8ea-e34582847567",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_facepalm-headshake/cutout.png",
+   "qc": "ok"
+  },
+  "react_horrified-munch-scream": {
+   "task_id": "01a1a5fc-5938-7311-894f-57b7e9b8c2db",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_horrified-munch-scream/cutout.png",
+   "qc": "ok"
+  },
+  "react_horrified-peek-fingers": {
+   "task_id": "01a1a5e6-9a03-71c5-9260-8bef69254bfb",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_horrified-peek-fingers/cutout.png",
+   "qc": "ok"
+  },
+  "react_horrified-trembling": {
+   "task_id": "01a1a5e6-790a-76b8-ad69-ad28c5a77b0d",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_horrified-trembling/cutout.png",
+   "qc": "ok"
+  },
+  "react_hype-jump": {
+   "task_id": "01a1a5ec-f27c-704b-ba69-0d68b9df2bda",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_hype-jump/cutout.png",
+   "qc": "ok"
+  },
+  "react_laugh-bent-back": {
+   "task_id": "01a1a5e7-95af-749e-9bd8-4cf2e6948eb0",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_laugh-bent-back/cutout.png",
+   "qc": "ok"
+  },
+  "react_laugh-crying": {
+   "task_id": "01a1a5e7-6c5d-7631-8bef-67a916cebc88",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_laugh-crying/cutout.png",
+   "qc": "ok"
+  },
+  "react_laugh-pointing": {
+   "task_id": "01a1a5e7-6abf-74ca-9784-aa704aeed1f1",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_laugh-pointing/cutout.png",
+   "qc": "ok"
+  },
+  "react_laugh-rolling": {
+   "task_id": "01a1a5e7-4e26-75cf-a686-4f964bde3668",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_laugh-rolling/cutout.png",
+   "qc": "ok"
+  },
+  "react_mindblown-explosion": {
+   "task_id": "01a1a5f9-2c87-724f-aea7-08b6458ef460",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_mindblown-explosion/cutout.png",
+   "qc": "ok"
+  },
+  "react_mindblown-hands-head": {
+   "task_id": "01a1a5e9-fc55-777a-851a-0581ddc848bd",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_mindblown-hands-head/cutout.png",
+   "qc": "soft"
+  },
+  "react_mindblown-spiral": {
+   "task_id": "01a1a5f9-2de1-765b-8656-e50b0dc49d7f",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_mindblown-spiral/cutout.png",
+   "qc": "ok"
+  },
+  "react_nervous-sweat": {
+   "task_id": "01a1a5f9-987f-72f6-8247-c5b5d853b7dc",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_nervous-sweat/cutout.png",
+   "qc": "ok"
+  },
+  "react_nope": {
+   "task_id": "01a1a5f8-714e-710e-98f5-57c9364f32bb",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_nope/cutout.png",
+   "qc": "ok"
+  },
+  "react_ok-sign": {
+   "task_id": "01a1a5ec-f619-75bf-bf54-719e1d273f3d",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_ok-sign/cutout.png",
+   "qc": "ok"
+  },
+  "react_rage-scream": {
+   "task_id": "01a1a5fb-3650-758d-8380-2e1d7038d9fc",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_rage-scream/cutout.png",
+   "qc": "ok"
+  },
+  "react_rage-table-flip": {
+   "task_id": "01a1a5e4-d7eb-7181-a580-e0d18a607e3c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_rage-table-flip/cutout.png",
+   "qc": "ok"
+  },
+  "react_rage-tantrum": {
+   "task_id": "01a1a5f8-6f3e-76f5-b815-cac5574812d9",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_rage-tantrum/cutout.png",
+   "qc": "ok"
+  },
+  "react_salute-gg": {
+   "task_id": "01a1a5ec-f39b-7025-8620-08be229ae7f6",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_salute-gg/cutout.png",
+   "qc": "ok"
+  },
+  "react_shocked-cheeks": {
+   "task_id": "01a1a5fb-36c4-72ee-8158-e8ae31aca570",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_shocked-cheeks/cutout.png",
+   "qc": "ok"
+  },
+  "react_shocked-frozen": {
+   "task_id": "01a1a5e6-4f64-75e2-9731-4035aadbdf75",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_shocked-frozen/cutout.png",
+   "qc": "ok"
+  },
+  "react_shocked-jolt": {
+   "task_id": "01a1a5e5-faec-748f-9e96-85a9850001d0",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_shocked-jolt/cutout.png",
+   "qc": "ok"
+  },
+  "react_shocked-jump-back": {
+   "task_id": "01a1a5e6-4e06-774f-a346-4b9471fb74b7",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_shocked-jump-back/cutout.png",
+   "qc": "ok"
+  },
+  "react_sleep-standing": {
+   "task_id": "01a1a5e8-411b-74c8-81b4-6a2de6be083b",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_sleep-standing/cutout.png",
+   "qc": "ok"
+  },
+  "react_smug-arms-crossed": {
+   "task_id": "01a1a5e5-f8f4-7744-a532-e528fb06b96e",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_smug-arms-crossed/cutout.png",
+   "qc": "ok"
+  },
+  "react_smug-finger-guns": {
+   "task_id": "01a1a5e5-fa92-771d-ab33-5997f3012acc",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_smug-finger-guns/cutout.png",
+   "qc": "ok"
+  },
+  "react_smug-finger-wag": {
+   "task_id": "01a1a5f7-4e73-726b-b9a5-dff2947b390e",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_smug-finger-wag/cutout.png",
+   "qc": "ok"
+  },
+  "react_smug-hands-behind-head": {
+   "task_id": "01a1a5e5-f9e5-73b4-a901-9acb2510444a",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_smug-hands-behind-head/cutout.png",
+   "qc": "ok"
+  },
+  "react_sobbing-fountains": {
+   "task_id": "01a1a5e6-ae8e-7493-b574-a3056b3bc023",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_sobbing-fountains/cutout.png",
+   "qc": "soft"
+  },
+  "react_sobbing-hug-disc": {
+   "task_id": "01a1a5e7-180e-765d-8a06-fd843a03fc82",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_sobbing-hug-disc/cutout.png",
+   "qc": "ok"
+  },
+  "react_sobbing-puddle": {
+   "task_id": "01a1a5f8-6e38-7439-9f73-406fd54bdb8a",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_sobbing-puddle/cutout.png",
+   "qc": "soft"
+  },
+  "react_sobbing-tissue": {
+   "task_id": "01a1a5e7-182e-749a-bedb-bf081c5ded72",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_sobbing-tissue/cutout.png",
+   "qc": "ok"
+  },
+  "react_suspicious-binoculars": {
+   "task_id": "01a1a5ea-bc18-75a1-95c9-5cdea5f83b6c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_suspicious-binoculars/cutout.png",
+   "qc": "soft"
+  },
+  "react_suspicious-squint": {
+   "task_id": "01a1a5f9-19f6-7094-86a8-087c16b91a5c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_suspicious-squint/cutout.png",
+   "qc": "ok"
+  },
+  "react_thinking-bubble": {
+   "task_id": "01a1a5ec-34d1-75a7-b985-d66a924ed62a",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_thinking-bubble/cutout.png",
+   "qc": "ok"
+  },
+  "react_thumbs-up": {
+   "task_id": "01a1a5eb-d8cf-7612-97ce-77ab831b2325",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_thumbs-up/cutout.png",
+   "qc": "ok"
+  },
+  "react_triumph-fist-pump": {
+   "task_id": "01a1a5eb-2103-71e1-b675-87dae1b81998",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_triumph-fist-pump/cutout.png",
+   "qc": "ok"
+  },
+  "react_triumph-flex": {
+   "task_id": "01a1a5eb-23d8-74f5-b72b-379bbcfc5b69",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_triumph-flex/cutout.png",
+   "qc": "ok"
+  },
+  "react_triumph-mic-drop": {
+   "task_id": "01a1a5eb-368b-71de-94d4-cc2a54ba2365",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_triumph-mic-drop/cutout.png",
+   "qc": "ok"
+  },
+  "react_triumph-sunburst": {
+   "task_id": "01a1a5eb-80d1-7282-855b-faf4d3e6c256",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_triumph-sunburst/cutout.png",
+   "qc": "ok"
+  },
+  "react_wave-hello": {
+   "task_id": "01a1a5ec-2bfc-73ed-a435-a56e56302fce",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_wave-hello/cutout.png",
+   "qc": "ok"
+  },
+  "react_yawn-cover": {
+   "task_id": "01a1a5f7-4e65-71df-8c25-591280790ddc",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_yawn-cover/cutout.png",
+   "qc": "ok"
+  },
+  "react_yawn-stretch": {
+   "task_id": "01a1a5f7-4dbe-744c-a7bd-d881454429aa",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/react_yawn-stretch/cutout.png",
+   "qc": "ok"
+  },
+  "scene_goals-ball-face": {
+   "task_id": "01a1a5f5-b204-73a9-98e3-6ca64dd7b517",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/scene_goals-ball-face/cutout.png",
+   "qc": "ok"
+  },
+  "scene_goals-knee-slide": {
+   "task_id": "01a1a5f5-b196-72a6-a4e1-e268d3f4e5a7",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/scene_goals-knee-slide/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-board": {
+   "task_id": "01a1a5dc-27cf-73f5-97a5-91164c67e385",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-board/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-easel": {
+   "task_id": "01a1a5fb-bff3-7302-a549-d4002064bf73",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-easel/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-hold-high": {
+   "task_id": "01a1a5fb-949a-77bc-92e8-eb73a1856bf0",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-hold-high/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-lean": {
+   "task_id": "01a1a5fb-f851-74bc-98af-78eb5797b605",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-lean/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-protest": {
+   "task_id": "01a1a5fb-4174-7705-8e45-a9ef5877a7a2",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-protest/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-sandwich": {
+   "task_id": "01a1a5fc-138f-723b-aaf3-254db59631ff",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-sandwich/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-two-hands-low": {
+   "task_id": "01a1a5fb-f88b-717d-b071-8fda1b6b134f",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-two-hands-low/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-wall-pointing": {
+   "task_id": "01a1a5fc-38f4-7437-bf43-dc3ad62fa19e",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-wall-pointing/cutout.png",
+   "qc": "ok"
+  },
+  "sign_blank-yellow": {
+   "task_id": "01a1a5fb-2ffe-776c-9043-4dacf6e23bd2",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sign_blank-yellow/cutout.png",
+   "qc": "ok"
+  },
+  "sit_anvil-flat": {
+   "task_id": "01a1a5f9-ffb5-7198-9870-f3e34f57e5ca",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_anvil-flat/cutout.png",
+   "qc": "ok"
+  },
+  "sit_balloon-float": {
+   "task_id": "01a1a5f9-aeee-72c9-9248-e0214872728c",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_balloon-float/cutout.png",
+   "qc": "ok"
+  },
+  "sit_banana-slip": {
+   "task_id": "01a1a5dc-27d6-70b8-960e-4b9bcabba9aa",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_banana-slip/cutout.png",
+   "qc": "ok"
+  },
+  "sit_banana-slip-b": {
+   "task_id": "01a1a5f7-377f-77e2-8d8a-eaac9ecd1851",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_banana-slip-b/cutout.png",
+   "qc": "ok"
+  },
+  "sit_cables-tangled": {
+   "task_id": "01a1a5fa-1258-76d0-9067-27f0eabd4443",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_cables-tangled/cutout.png",
+   "qc": "ok"
+  },
+  "sit_cliff-wile": {
+   "task_id": "01a1a5f7-434b-7768-b73f-84c479c5f457",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_cliff-wile/cutout.png",
+   "qc": "ok"
+  },
+  "sit_climb-cases": {
+   "task_id": "01a1a5fa-a3a7-7615-aae2-0b02ebe380d1",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_climb-cases/cutout.png",
+   "qc": "ok"
+  },
+  "sit_money-moths": {
+   "task_id": "01a1a5fa-cca5-7078-831c-5a07184e7416",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_money-moths/cutout.png",
+   "qc": "ok"
+  },
+  "sit_notifications": {
+   "task_id": "01a1a5fa-3b37-7286-90c3-94c1e72df05a",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_notifications/cutout.png",
+   "qc": "ok"
+  },
+  "sit_peek-bottom": {
+   "task_id": "01a1a5f8-4a12-7399-871a-2c4088121c55",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_peek-bottom/cutout.png",
+   "qc": "ok"
+  },
+  "sit_peek-right": {
+   "task_id": "01a1a5f8-5e0a-7504-8215-cb31d56c9621",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_peek-right/cutout.png",
+   "qc": "ok"
+  },
+  "sit_peek-top": {
+   "task_id": "01a1a5f8-922b-7136-8afa-885a9b746893",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_peek-top/cutout.png",
+   "qc": "ok"
+  },
+  "sit_point-up": {
+   "task_id": "01a1a5f8-d4c6-70ef-a52d-74a41b4a04c4",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_point-up/cutout.png",
+   "qc": "ok"
+  },
+  "sit_run-away": {
+   "task_id": "01a1a5f7-8af3-7670-b425-886c33a727f7",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_run-away/cutout.png",
+   "qc": "ok"
+  },
+  "sit_run-away-front": {
+   "task_id": "01a1a5f7-ce4e-7486-bff0-b305ff7b4c0b",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_run-away-front/cutout.png",
+   "qc": "ok"
+  },
+  "sit_tiny-vs-case": {
+   "task_id": "01a1a5fe-91ae-73eb-aa7f-8501019925f7",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/sit_tiny-vs-case/cutout.png",
+   "qc": "ok"
+  },
+  "villain_coat-spin": {
+   "task_id": "01a1a5f1-d748-7661-8e61-418a6fdfcd12",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/villain_coat-spin/cutout.png",
+   "qc": "ok"
+  },
+  "villain_crystal-ball": {
+   "task_id": "01a1a5f2-f49e-731e-8488-54d51a5ae7ea",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/villain_crystal-ball/cutout.png",
+   "qc": "ok"
+  },
+  "villain_evil-laugh": {
+   "task_id": "01a1a5f0-d4cd-747a-a659-666f3ae790b5",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/villain_evil-laugh/cutout.png",
+   "qc": "ok"
+  },
+  "villain_sinister-point": {
+   "task_id": "01a1a5f2-8342-70d2-95f2-9c52634ee5c1",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/villain_sinister-point/cutout.png",
+   "qc": "ok"
+  },
+  "villain_steepled": {
+   "task_id": "01a1a5f9-8e91-75e2-9d7e-55e15225b041",
+   "source": "~/Videos/quick-takes/audit-2026-11/pack/avatar2d/library/villain_steepled/cutout.png",
+   "qc": "ok"
+  }
+ }
+}

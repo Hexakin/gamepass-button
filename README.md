@@ -30,6 +30,24 @@ node tools/capture.mjs --played                     # every spin marked played (
 
 Output: `~/Videos/quick-takes/gamepass-button/spins/<YYYY-MM-DD>-<CODE>/`. The page is rendered at 1080×1920 with no UI (`?seed=<code>&render=916`) and stepped frame by frame, so the video is exactly the show; the audio is rendered offline by the page's own sound code. `spin.json` = `{code, date, result {title, productId, storeUrl, boxart}, catalogDate, landing [start, end], …}`.
 
+## Gags
+
+Every spin draws an opener, 2–4 bits, 0–2 mishaps (fake-outs and injuries; injuries leave a
+plaster, bandage, soot or stars on him for the rest of the spin), a slowdown, a reaction (a genre
+costume when the game's genre matches, else by mood) and an outro from `site/js/gags.js`. Each gag
+has a `since` date and is never edited once shipped, so codes always replay exactly
+(`node tools/test_replays.mjs`). A new page spin picks, out of 8 candidate codes, the one whose gags
+differ most from your last few spins on that device.
+
+```
+node tools/test_gags.mjs                              # every gag builds; lengths; repeat odds
+node tools/test_replays.mjs                           # existing codes unchanged
+node tools/spin.mjs --find mishap=anvil,genre=Shooter # codes with those gags (for Shorts)
+node tools/capture.mjs <CODE> --gag mishap:anvil --out DIR   # a gag preview video
+```
+
+Plan and the Meshy wishlist for new art: `docs/GAGS-PLAN.md`.
+
 ## Data
 
 `tools/fetch_gamepass.py` (stdlib Python) reads two public but unofficial, undocumented Microsoft endpoints (the "All Console Games" list, GB market, and the display catalogue for titles and box art). The GitHub Action runs it daily at 03:15 UTC and writes:
@@ -49,7 +67,12 @@ Every sound effect is synthesised in WebAudio by `site/js/audio.js` (our own; no
 ```
 site/            the website (deployed as-is)
   js/rng.js      spin codes, seeded streams
-  js/spin.js     the show as data: buildSpin(code, data)
+  js/spin.js     the show as data: buildSpin(code, data) (spins before 5 Nov 2026: the original builder)
+  js/gags.js     the gag library (openers, bits, mishaps/injuries, slowdowns, reactions, genre
+                 costumes, outros) and the builder for spins from 5 Nov 2026
+  gags.html      gag gallery: every gag, tap to preview it forced into a spin
+  avatar/lib/    121 stickers imported from Ares's chibi library (tools/avatar/import_library.py)
+  data/genres.json  store genres per game (the genre reactions)
   js/show.js     draws the show at any time t
   js/audio.js    synth SFX + music, live or offline
   js/app.js      page glue (phone mode, render mode)

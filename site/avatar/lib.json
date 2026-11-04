@@ -1,0 +1,1896 @@
+{
+"celebrate": {
+"eyes": [
+577,
+565
+],
+"core": true
+},
+"despair-collapse": {
+"eyes": [
+594,
+688
+],
+"core": true
+},
+"despair-flat": {
+"eyes": [
+300,
+860
+],
+"core": true
+},
+"electrocuted-a": {
+"eyes": [
+600,
+470
+],
+"core": true
+},
+"electrocuted-b": {
+"eyes": [
+596,
+398
+],
+"core": true
+},
+"frazzled-aftermath": {
+"eyes": [
+672,
+534
+],
+"core": true
+},
+"idle": {
+"eyes": [
+528,
+502
+],
+"core": true
+},
+"jazz-hands": {
+"eyes": [
+570,
+532
+],
+"core": true
+},
+"nose-on-glass": {
+"eyes": [
+600,
+700
+],
+"core": true
+},
+"pointing-accuse": {
+"eyes": [
+496,
+649
+],
+"core": true
+},
+"scheming": {
+"eyes": [
+590,
+640
+],
+"core": true
+},
+"shove-offscreen": {
+"eyes": [
+680,
+615
+],
+"core": true
+},
+"shrug": {
+"eyes": [
+556,
+602
+],
+"core": true
+},
+"shush": {
+"eyes": [
+610,
+600
+],
+"core": true
+},
+"slam-impact": {
+"eyes": [
+570,
+620
+],
+"core": true
+},
+"slam-windup": {
+"eyes": [
+522,
+546
+],
+"core": true
+},
+"tap-watch": {
+"eyes": [
+618,
+540
+],
+"core": true
+},
+"thumbs-down": {
+"eyes": [
+674,
+609
+],
+"core": true
+},
+"sit_notifications": {
+"eyes": [
+600,
+481
+],
+"box": [
+176,
+203,
+1084,
+1140
+],
+"scale": 1.063,
+"cat": "situational"
+},
+"react_bored-sigh": {
+"eyes": [
+600,
+498
+],
+"box": [
+170,
+174,
+978,
+1140
+],
+"scale": 1.063,
+"cat": "reaction"
+},
+"react_bored-cheek-fist": {
+"eyes": [
+600,
+450
+],
+"box": [
+192,
+220,
+1008,
+1140
+],
+"scale": 1.004,
+"cat": "reaction",
+"noeyes": true
+},
+"react_yawn-stretch": {
+"eyes": [
+600,
+486
+],
+"box": [
+222,
+252,
+976,
+1140
+],
+"scale": 1.0,
+"cat": "reaction"
+},
+"react_yawn-cover": {
+"eyes": [
+600,
+420
+],
+"box": [
+427,
+99,
+1010,
+1140
+],
+"scale": 1.175,
+"cat": "reaction"
+},
+"react_sleep-standing": {
+"eyes": [
+600,
+332
+],
+"box": [
+121,
+-17,
+975,
+1140
+],
+"scale": 1.314,
+"cat": "reaction"
+},
+"react_shocked-jolt": {
+"eyes": [
+600,
+497
+],
+"box": [
+176,
+199,
+1042,
+1140
+],
+"scale": 1.02,
+"cat": "reaction"
+},
+"react_suspicious-binoculars": {
+"eyes": [
+600,
+419
+],
+"box": [
+315,
+137,
+918,
+1140
+],
+"scale": 1.15,
+"cat": "reaction"
+},
+"react_suspicious-squint": {
+"eyes": [
+600,
+496
+],
+"box": [
+446,
+212,
+902,
+1140
+],
+"scale": 1.047,
+"cat": "reaction"
+},
+"prop_clipboard": {
+"eyes": [
+600,
+446
+],
+"box": [
+302,
+144,
+981,
+1140
+],
+"scale": 1.12,
+"cat": "prop"
+},
+"react_thinking-bubble": {
+"eyes": [
+600,
+456
+],
+"box": [
+-15,
+6,
+895,
+1140
+],
+"scale": 1.175,
+"cat": "reaction"
+},
+"react_evil-lightbulb": {
+"eyes": [
+600,
+122
+],
+"box": [
+369,
+51,
+1157,
+1140
+],
+"scale": 1.18,
+"cat": "reaction"
+},
+"sit_money-moths": {
+"eyes": [
+600,
+698
+],
+"box": [
+213,
+190,
+993,
+1140
+],
+"scale": 1.05,
+"cat": "situational"
+},
+"prop_stopwatch-race": {
+"eyes": [
+600,
+455
+],
+"box": [
+220,
+141,
+1188,
+1140
+],
+"scale": 1.128,
+"cat": "prop"
+},
+"prop_stopwatch-1hour": {
+"eyes": [
+600,
+505
+],
+"box": [
+220,
+227,
+896,
+1140
+],
+"scale": 1.031,
+"cat": "prop"
+},
+"react_confused-shrug-qs": {
+"eyes": [
+600,
+321
+],
+"box": [
+31,
+161,
+759,
+1140
+],
+"scale": 1.1,
+"cat": "reaction"
+},
+"react_eyeroll-blah": {
+"eyes": [
+600,
+511
+],
+"box": [
+325,
+318,
+864,
+1140
+],
+"scale": 0.93,
+"cat": "reaction"
+},
+"react_wave-hello": {
+"eyes": [
+600,
+487
+],
+"box": [
+176,
+207,
+887,
+1140
+],
+"scale": 1.04,
+"cat": "reaction"
+},
+"gaming_controller-gripping": {
+"eyes": [
+600,
+860
+],
+"box": [
+69,
+119,
+810,
+1140
+],
+"scale": 1.15,
+"cat": "gaming"
+},
+"gaming_controller-hold": {
+"eyes": [
+599,
+450
+],
+"box": [
+206,
+220,
+993,
+1140
+],
+"scale": 1.048,
+"cat": "gaming",
+"noeyes": true
+},
+"gaming_sofa-snacks": {
+"eyes": [
+600,
+481
+],
+"box": [
+29,
+191,
+1061,
+1140
+],
+"scale": 1.117,
+"cat": "gaming"
+},
+"sit_peek-right": {
+"eyes": [
+599,
+483
+],
+"box": [
+352,
+264,
+847,
+1140
+],
+"scale": 1.0,
+"cat": "situational",
+"noeyes": true
+},
+"sit_peek-top": {
+"eyes": [
+600,
+826
+],
+"box": [
+227,
+188,
+972,
+1140
+],
+"scale": 1.074,
+"cat": "situational"
+},
+"sit_peek-bottom": {
+"eyes": [
+600,
+777
+],
+"box": [
+362,
+656,
+839,
+1140
+],
+"scale": 0.606,
+"cat": "situational",
+"noeyes": true
+},
+"react_smug-hands-behind-head": {
+"eyes": [
+600,
+404
+],
+"box": [
+358,
+76,
+945,
+1140
+],
+"scale": 1.2,
+"cat": "reaction"
+},
+"sit_climb-cases": {
+"eyes": [
+600,
+358
+],
+"box": [
+186,
+-15,
+1287,
+1140
+],
+"scale": 1.314,
+"cat": "situational"
+},
+"sit_tiny-vs-case": {
+"eyes": [
+600,
+497
+],
+"box": [
+264,
+-9,
+1340,
+1140
+],
+"scale": 1.288,
+"cat": "situational"
+},
+"sit_point-up": {
+"eyes": [
+600,
+496
+],
+"box": [
+329,
+270,
+881,
+1140
+],
+"scale": 1.175,
+"cat": "situational"
+},
+"prop_magnifier": {
+"eyes": [
+599,
+450
+],
+"box": [
+262,
+220,
+937,
+1140
+],
+"scale": 1.038,
+"cat": "prop",
+"noeyes": true
+},
+"sign_blank-board": {
+"eyes": [
+600,
+494
+],
+"box": [
+356,
+212,
+973,
+1140
+],
+"scale": 1.047,
+"cat": "holding-sign",
+"text": [
+429,
+709,
+463,
+170
+]
+},
+"sign_blank-hold-high": {
+"eyes": [
+600,
+583
+],
+"box": [
+54,
+-65,
+978,
+1140
+],
+"scale": 1.241,
+"cat": "holding-sign",
+"text": [
+100,
+-19,
+806,
+535
+]
+},
+"sign_blank-protest": {
+"eyes": [
+600,
+454
+],
+"box": [
+73,
+-51,
+1031,
+1140
+],
+"scale": 1.34,
+"cat": "holding-sign",
+"text": [
+111,
+-13,
+450,
+344
+]
+},
+"sign_blank-yellow": {
+"eyes": [
+600,
+422
+],
+"box": [
+204,
+140,
+1009,
+1140
+],
+"scale": 1.126,
+"cat": "holding-sign",
+"text": [
+275,
+481,
+670,
+369
+]
+},
+"sign_blank-two-hands-low": {
+"eyes": [
+600,
+448
+],
+"box": [
+331,
+131,
+1029,
+1140
+],
+"scale": 1.15,
+"cat": "holding-sign",
+"text": [
+367,
+715,
+451,
+281
+]
+},
+"sign_blank-sandwich": {
+"eyes": [
+600,
+494
+],
+"box": [
+444,
+212,
+900,
+1140
+],
+"scale": 1.047,
+"cat": "holding-sign",
+"text": [
+530,
+697,
+210,
+268
+]
+},
+"sign_blank-wall-pointing": {
+"eyes": [
+600,
+480
+],
+"box": [
+-42,
+197,
+896,
+1140
+],
+"scale": 1.063,
+"cat": "holding-sign",
+"text": [
+-13,
+425,
+457,
+373
+]
+},
+"sign_blank-easel": {
+"eyes": [
+592,
+516
+],
+"box": [
+301,
+231,
+1400,
+1140
+],
+"scale": 1.081,
+"cat": "holding-sign",
+"text": [
+883,
+310,
+447,
+611
+]
+},
+"sign_blank-lean": {
+"eyes": [
+600,
+374
+],
+"box": [
+-106,
+100,
+817,
+1140
+],
+"scale": 1.136,
+"cat": "holding-sign",
+"text": [
+-49,
+260,
+430,
+345
+]
+},
+"sit_anvil-flat": {
+"eyes": [
+600,
+886
+],
+"box": [
+252,
+457,
+990,
+1140
+],
+"scale": 0.788,
+"cat": "situational"
+},
+"sit_banana-slip": {
+"eyes": [
+599,
+450
+],
+"box": [
+164,
+220,
+1035,
+1140
+],
+"scale": 1.08,
+"cat": "situational",
+"noeyes": true
+},
+"sit_banana-slip-b": {
+"eyes": [
+600,
+575
+],
+"box": [
+156,
+334,
+938,
+1140
+],
+"scale": 0.9,
+"cat": "situational"
+},
+"sit_cables-tangled": {
+"eyes": [
+600,
+451
+],
+"box": [
+260,
+189,
+1029,
+1140
+],
+"scale": 1.047,
+"cat": "situational"
+},
+"sit_cliff-wile": {
+"eyes": [
+600,
+450
+],
+"box": [
+192,
+220,
+1009,
+1140
+],
+"scale": 1.065,
+"cat": "situational",
+"noeyes": true,
+"text": [
+780,
+356,
+185,
+115
+]
+},
+"scene_goals-ball-face": {
+"eyes": [
+599,
+450
+],
+"box": [
+62,
+220,
+1137,
+1140
+],
+"scale": 1.097,
+"cat": "scene",
+"noeyes": true
+},
+"react_dizzy": {
+"eyes": [
+600,
+450
+],
+"box": [
+248,
+220,
+952,
+1140
+],
+"scale": 1.01,
+"cat": "reaction",
+"noeyes": true
+},
+"react_shocked-frozen": {
+"eyes": [
+600,
+483
+],
+"box": [
+197,
+186,
+1015,
+1140
+],
+"scale": 1.039,
+"cat": "reaction"
+},
+"react_mindblown-explosion": {
+"eyes": [
+600,
+428
+],
+"box": [
+280,
+95,
+1070,
+1140
+],
+"scale": 1.175,
+"cat": "reaction"
+},
+"sit_balloon-float": {
+"eyes": [
+600,
+512
+],
+"box": [
+38,
+-112,
+1162,
+1140
+],
+"scale": 1.288,
+"cat": "situational"
+},
+"sit_run-away": {
+"eyes": [
+600,
+414
+],
+"box": [
+-2,
+147,
+916,
+1140
+],
+"scale": 1.063,
+"cat": "situational"
+},
+"sit_run-away-front": {
+"eyes": [
+600,
+450
+],
+"box": [
+133,
+220,
+1067,
+1140
+],
+"scale": 1.01,
+"cat": "situational",
+"noeyes": true
+},
+"react_rage-tantrum": {
+"eyes": [
+526,
+427
+],
+"box": [
+239,
+86,
+1400,
+1140
+],
+"scale": 1.25,
+"cat": "reaction"
+},
+"react_horrified-trembling": {
+"eyes": [
+600,
+380
+],
+"box": [
+317,
+41,
+1066,
+1140
+],
+"scale": 1.241,
+"cat": "reaction"
+},
+"react_nervous-sweat": {
+"eyes": [
+600,
+527
+],
+"box": [
+394,
+282,
+904,
+1140
+],
+"scale": 0.92,
+"cat": "reaction"
+},
+"react_horrified-peek-fingers": {
+"eyes": [
+600,
+556
+],
+"box": [
+440,
+271,
+976,
+1140
+],
+"scale": 0.941,
+"cat": "reaction"
+},
+"react_evil-lean-in": {
+"eyes": [
+600,
+584
+],
+"box": [
+343,
+302,
+1026,
+1140
+],
+"scale": 0.905,
+"cat": "reaction"
+},
+"villain_steepled": {
+"eyes": [
+600,
+475
+],
+"box": [
+337,
+183,
+1039,
+1140
+],
+"scale": 1.081,
+"cat": "villain"
+},
+"villain_crystal-ball": {
+"eyes": [
+600,
+474
+],
+"box": [
+300,
+165,
+936,
+1140
+],
+"scale": 1.196,
+"cat": "villain"
+},
+"villain_sinister-point": {
+"eyes": [
+600,
+563
+],
+"box": [
+263,
+288,
+1048,
+1140
+],
+"scale": 0.97,
+"cat": "villain"
+},
+"prop_stopwatch-hug": {
+"eyes": [
+600,
+498
+],
+"box": [
+218,
+216,
+1058,
+1140
+],
+"scale": 1.047,
+"cat": "prop"
+},
+"prop_hourglass": {
+"eyes": [
+600,
+543
+],
+"box": [
+11,
+290,
+859,
+1140
+],
+"scale": 0.957,
+"cat": "prop"
+},
+"react_triumph-fist-pump": {
+"eyes": [
+600,
+495
+],
+"box": [
+214,
+232,
+1005,
+1140
+],
+"scale": 1.047,
+"cat": "reaction"
+},
+"react_triumph-flex": {
+"eyes": [
+600,
+482
+],
+"box": [
+244,
+222,
+1049,
+1140
+],
+"scale": 1.0,
+"cat": "reaction"
+},
+"react_triumph-mic-drop": {
+"eyes": [
+600,
+500
+],
+"box": [
+315,
+225,
+894,
+1140
+],
+"scale": 0.971,
+"cat": "reaction"
+},
+"react_triumph-sunburst": {
+"eyes": [
+600,
+305
+],
+"box": [
+67,
+-6,
+1188,
+1140
+],
+"scale": 1.218,
+"cat": "reaction"
+},
+"react_hype-jump": {
+"eyes": [
+600,
+450
+],
+"box": [
+190,
+220,
+1010,
+1140
+],
+"scale": 1.043,
+"cat": "reaction",
+"noeyes": true
+},
+"react_clapping-hype": {
+"eyes": [
+600,
+503
+],
+"box": [
+221,
+248,
+892,
+1140
+],
+"scale": 0.985,
+"cat": "reaction"
+},
+"react_thumbs-up": {
+"eyes": [
+600,
+533
+],
+"box": [
+65,
+266,
+890,
+1140
+],
+"scale": 1.031,
+"cat": "reaction"
+},
+"prop_crown": {
+"eyes": [
+600,
+596
+],
+"box": [
+303,
+204,
+906,
+1140
+],
+"scale": 0.957,
+"cat": "prop"
+},
+"prop_crown-hold": {
+"eyes": [
+600,
+735
+],
+"box": [
+375,
+382,
+902,
+1140
+],
+"scale": 0.86,
+"cat": "prop"
+},
+"gaming_controller-triumph": {
+"eyes": [
+600,
+507
+],
+"box": [
+309,
+167,
+928,
+1140
+],
+"scale": 0.985,
+"cat": "gaming"
+},
+"react_smug-finger-guns": {
+"eyes": [
+600,
+539
+],
+"box": [
+310,
+272,
+1012,
+1140
+],
+"scale": 0.98,
+"cat": "reaction"
+},
+"react_salute-gg": {
+"eyes": [
+600,
+476
+],
+"box": [
+378,
+183,
+909,
+1140
+],
+"scale": 1.081,
+"cat": "reaction"
+},
+"scene_goals-knee-slide": {
+"eyes": [
+600,
+593
+],
+"box": [
+254,
+373,
+1064,
+1140
+],
+"scale": 0.94,
+"cat": "scene"
+},
+"react_ok-sign": {
+"eyes": [
+600,
+487
+],
+"box": [
+275,
+231,
+854,
+1140
+],
+"scale": 0.931,
+"cat": "reaction"
+},
+"gaming_giant-controller": {
+"eyes": [
+600,
+462
+],
+"box": [
+153,
+183,
+902,
+1140
+],
+"scale": 1.076,
+"cat": "gaming"
+},
+"react_facepalm": {
+"eyes": [
+600,
+330
+],
+"box": [
+360,
+-12,
+980,
+1140
+],
+"scale": 1.3,
+"cat": "reaction"
+},
+"react_facepalm-double": {
+"eyes": [
+600,
+382
+],
+"box": [
+176,
+-72,
+1066,
+1140
+],
+"scale": 1.33,
+"cat": "reaction"
+},
+"react_facepalm-headshake": {
+"eyes": [
+600,
+554
+],
+"box": [
+306,
+220,
+1041,
+1140
+],
+"scale": 1.0,
+"cat": "reaction"
+},
+"react_sobbing-fountains": {
+"eyes": [
+600,
+328
+],
+"box": [
+42,
+63,
+1163,
+1140
+],
+"scale": 1.155,
+"cat": "reaction"
+},
+"react_sobbing-puddle": {
+"eyes": [
+600,
+550
+],
+"box": [
+198,
+246,
+1106,
+1140
+],
+"scale": 1.0,
+"cat": "reaction"
+},
+"react_sobbing-hug-disc": {
+"eyes": [
+600,
+450
+],
+"box": [
+228,
+220,
+973,
+1140
+],
+"scale": 0.992,
+"cat": "reaction",
+"noeyes": true
+},
+"react_sobbing-tissue": {
+"eyes": [
+600,
+492
+],
+"box": [
+367,
+198,
+963,
+1140
+],
+"scale": 1.063,
+"cat": "reaction"
+},
+"react_nope": {
+"eyes": [
+600,
+570
+],
+"box": [
+207,
+302,
+969,
+1140
+],
+"scale": 0.985,
+"cat": "reaction"
+},
+"react_disgusted-nose": {
+"eyes": [
+600,
+438
+],
+"box": [
+269,
+133,
+1103,
+1140
+],
+"scale": 1.136,
+"cat": "reaction"
+},
+"react_disgusted-gag": {
+"eyes": [
+599,
+450
+],
+"box": [
+180,
+220,
+1019,
+1140
+],
+"scale": 1.014,
+"cat": "reaction",
+"noeyes": true
+},
+"react_disgusted-recoil": {
+"eyes": [
+600,
+460
+],
+"box": [
+-178,
+-19,
+1001,
+1140
+],
+"scale": 1.25,
+"cat": "reaction"
+},
+"react_cringe": {
+"eyes": [
+600,
+449
+],
+"box": [
+335,
+96,
+1021,
+1140
+],
+"scale": 1.18,
+"cat": "reaction"
+},
+"react_eyeroll": {
+"eyes": [
+600,
+489
+],
+"box": [
+366,
+202,
+921,
+1140
+],
+"scale": 1.063,
+"cat": "reaction"
+},
+"react_bored-lying-ceiling": {
+"eyes": [
+600,
+426
+],
+"box": [
+219,
+59,
+1291,
+1140
+],
+"scale": 1.22,
+"cat": "reaction"
+},
+"react_rage-scream": {
+"eyes": [
+600,
+407
+],
+"box": [
+112,
+144,
+1085,
+1140
+],
+"scale": 1.117,
+"cat": "reaction"
+},
+"react_rage-table-flip": {
+"eyes": [
+600,
+235
+],
+"box": [
+45,
+-61,
+1279,
+1140
+],
+"scale": 1.34,
+"cat": "reaction"
+},
+"prop_grave-rip": {
+"eyes": [
+600,
+438
+],
+"box": [
+296,
+117,
+1174,
+1140
+],
+"scale": 1.155,
+"cat": "prop"
+},
+"react_shocked-cheeks": {
+"eyes": [
+600,
+485
+],
+"box": [
+374,
+198,
+954,
+1140
+],
+"scale": 1.063,
+"cat": "reaction"
+},
+"react_shocked-jump-back": {
+"eyes": [
+600,
+401
+],
+"box": [
+98,
+103,
+1083,
+1140
+],
+"scale": 1.131,
+"cat": "reaction"
+},
+"react_horrified-munch-scream": {
+"eyes": [
+600,
+467
+],
+"box": [
+225,
+145,
+1016,
+1140
+],
+"scale": 1.089,
+"cat": "reaction"
+},
+"react_mindblown-hands-head": {
+"eyes": [
+600,
+519
+],
+"box": [
+271,
+125,
+933,
+1140
+],
+"scale": 1.047,
+"cat": "reaction"
+},
+"react_mindblown-spiral": {
+"eyes": [
+600,
+462
+],
+"box": [
+158,
+108,
+1019,
+1140
+],
+"scale": 1.145,
+"cat": "reaction"
+},
+"react_laugh-crying": {
+"eyes": [
+600,
+508
+],
+"box": [
+309,
+225,
+1019,
+1140
+],
+"scale": 1.047,
+"cat": "reaction"
+},
+"react_laugh-rolling": {
+"eyes": [
+600,
+549
+],
+"box": [
+234,
+264,
+1123,
+1140
+],
+"scale": 1.027,
+"cat": "reaction"
+},
+"react_laugh-pointing": {
+"eyes": [
+600,
+495
+],
+"box": [
+315,
+212,
+900,
+1140
+],
+"scale": 1.047,
+"cat": "reaction"
+},
+"react_laugh-bent-back": {
+"eyes": [
+600,
+629
+],
+"box": [
+328,
+119,
+1299,
+1140
+],
+"scale": 1.12,
+"cat": "reaction"
+},
+"react_smug-arms-crossed": {
+"eyes": [
+600,
+523
+],
+"box": [
+446,
+238,
+895,
+1140
+],
+"scale": 1.031,
+"cat": "reaction"
+},
+"react_smug-finger-wag": {
+"eyes": [
+600,
+534
+],
+"box": [
+322,
+247,
+897,
+1140
+],
+"scale": 1.0,
+"cat": "reaction"
+},
+"villain_evil-laugh": {
+"eyes": [
+600,
+474
+],
+"box": [
+176,
+263,
+1025,
+1140
+],
+"scale": 0.971,
+"cat": "villain"
+},
+"villain_coat-spin": {
+"eyes": [
+600,
+210
+],
+"box": [
+-193,
+32,
+832,
+1140
+],
+"scale": 1.25,
+"cat": "villain"
+},
+"genre_basketball": {
+"eyes": [
+600,
+47
+],
+"box": [
+-181,
+-62,
+937,
+1140
+],
+"scale": 1.24,
+"cat": "genre"
+},
+"genre_blaster": {
+"eyes": [
+600,
+456
+],
+"box": [
+-69,
+173,
+914,
+1140
+],
+"scale": 1.063,
+"cat": "genre"
+},
+"genre_boxer": {
+"eyes": [
+600,
+448
+],
+"box": [
+226,
+159,
+1059,
+1140
+],
+"scale": 1.098,
+"cat": "genre"
+},
+"genre_cook": {
+"eyes": [
+600,
+560
+],
+"box": [
+146,
+304,
+978,
+1140
+],
+"scale": 0.87,
+"cat": "genre"
+},
+"genre_farmer": {
+"eyes": [
+600,
+482
+],
+"box": [
+248,
+171,
+1013,
+1140
+],
+"scale": 1.047,
+"cat": "genre"
+},
+"genre_fishing": {
+"eyes": [
+600,
+486
+],
+"box": [
+270,
+122,
+1240,
+1140
+],
+"scale": 1.047,
+"cat": "genre"
+},
+"genre_footballer": {
+"eyes": [
+600,
+466
+],
+"box": [
+140,
+198,
+1121,
+1140
+],
+"scale": 1.063,
+"cat": "genre"
+},
+"genre_horror-flashlight": {
+"eyes": [
+600,
+428
+],
+"box": [
+128,
+111,
+1254,
+1140
+],
+"scale": 1.175,
+"cat": "genre"
+},
+"genre_horror-ghost": {
+"eyes": [
+600,
+470
+],
+"box": [
+286,
+181,
+1053,
+1140
+],
+"scale": 1.063,
+"cat": "genre"
+},
+"genre_jetpack": {
+"eyes": [
+600,
+330
+],
+"box": [
+-80,
+67,
+913,
+1140
+],
+"scale": 1.196,
+"cat": "genre"
+},
+"genre_knight": {
+"eyes": [
+600,
+408
+],
+"box": [
+124,
+32,
+1022,
+1140
+],
+"scale": 1.241,
+"cat": "genre"
+},
+"genre_ninja": {
+"eyes": [
+600,
+574
+],
+"box": [
+71,
+291,
+945,
+1140
+],
+"scale": 0.957,
+"cat": "genre"
+},
+"genre_racing-kart": {
+"eyes": [
+600,
+562
+],
+"box": [
+262,
+294,
+1146,
+1140
+],
+"scale": 0.985,
+"cat": "genre"
+},
+"genre_skate": {
+"eyes": [
+600,
+485
+],
+"box": [
+196,
+211,
+945,
+1140
+],
+"scale": 1.047,
+"cat": "genre"
+},
+"genre_space-suit": {
+"eyes": [
+600,
+450
+],
+"box": [
+266,
+220,
+935,
+1140
+],
+"scale": 1.04,
+"cat": "genre",
+"noeyes": true
+},
+"genre_zombie-bat": {
+"eyes": [
+600,
+545
+],
+"box": [
+-38,
+260,
+921,
+1140
+],
+"scale": 1.047,
+"cat": "genre"
+}
+}

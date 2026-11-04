@@ -1,6 +1,10 @@
 # Plan: a big random gag library for the Game Pass Button
 
-Status: plan, 4 Nov 2026. Nothing built or spent yet.
+Status (4 Nov 2026): **phase 1 (free) is built and live for spins dated 5 Nov 2026 onwards**: 121
+library stickers imported, 143 gags (4 openers, 42 bits, 13 mishaps, 11 slowdowns, 45 reactions,
+20 genre reactions, 9 outros), injury statuses, signs with text, genre reactions, anti-repeat,
+gallery (`site/gags.html`), `spin.mjs --find`, tests. **Phases 2–3 (Meshy art) wait until the
+user's credits reset on 13 Nov 2026** (his call: "leave it, but save all the ideas").
 
 ## What we already have (free)
 
