@@ -3,6 +3,7 @@
 //   node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only] [--cut] [--fps 30]
 //   node tools/capture.mjs X --page lab/ --out DIR   a test page (full.mp4 only)
 //   node tools/capture.mjs <CODE> --gag mishap:anvil --out DIR   a gag preview (not a real spin)
+//   ... --from S --to S                              only that window (full.mp4 of it)
 //   node tools/capture.mjs --played     every spin in site/data/played.json (marked from the
 //                                       phone) that has no spin folder yet (git pull first)
 //
@@ -39,6 +40,8 @@ function args() {
     else if (a[i] === "--played") o.played = true;
     else if (a[i] === "--page") o.page = a[++i];
     else if (a[i] === "--gag") o.gag = a[++i];
+    else if (a[i] === "--from") o.from = +a[++i];
+    else if (a[i] === "--to") o.to = +a[++i];
     else o.code = a[i];
   }
   if (!o.code && !o.played) { console.error("usage: node tools/capture.mjs <SPIN-CODE> [--out DIR] [--landing-only]"); process.exit(2); }
@@ -124,8 +127,8 @@ async function capture(o) {
     };
 
     const [l0, l1] = info.landing;
-    if (!o.landingOnly) await encode(path.join(outDir, "full.mp4"), 0, info.duration);
-    if (!info.result) { console.log(`done: ${outDir}`); return; }   // a test page: just the video
+    if (!o.landingOnly) await encode(path.join(outDir, "full.mp4"), o.from || 0, Math.min(o.to || info.duration, info.duration));
+    if (!info.result || o.from || o.to) { console.log(`done: ${outDir}`); return; }   // a test page / a window: just the video
     await encode(path.join(outDir, "landing.mp4"), l0, l1);
     await writeFile(path.join(outDir, "landing.png"), await (async () => {
       await page.evaluate((x) => window.__show.seek(x), info.tStop + 1.1);
