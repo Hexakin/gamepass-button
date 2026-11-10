@@ -1,8 +1,8 @@
 {
-"fetched": "2026-11-09T11:24:29+00:00",
+"fetched": "2026-11-10T11:03:59+00:00",
 "market": "GB",
 "list": "All Console Games",
-"count": 627,
+"count": 630,
 "games": [
 {
 "id": "9NPDN9R45JX4",
@@ -310,7 +310,8 @@
 "hero": "https://store-images.s-microsoft.com/image/apps.53783.71972716530068101.ccdcadf1-1d2a-49f2-9c37-0b0a27e5a53c.6d60329c-2f2a-4ac9-9dd3-2f132d5c3b6c",
 "store": "https://www.xbox.com/en-GB/games/store/p/BW9TWC8L4JCS",
 "genres": [
-"Action & adventure"
+"Action & adventure",
+"Role playing"
 ]
 },
 {
@@ -409,7 +410,8 @@
 "hero": "https://store-images.s-microsoft.com/image/apps.58021.69011092827716296.e9190db7-6f4c-478c-8555-3edad4336a39.de8bb314-af23-4670-9343-fa78251591c8",
 "store": "https://www.xbox.com/en-GB/games/store/p/BQ9S8ZKCT3Q7",
 "genres": [
-"Action & adventure"
+"Action & adventure",
+"Classics"
 ]
 },
 {
@@ -4055,8 +4057,8 @@
 "id": "9P8X6TVW9ZW8",
 "title": "Mistfall Hunter",
 "publisher": "Skystone Games",
-"boxart": "https://store-images.s-microsoft.com/image/apps.46876.14079456565345641.e3e3713f-53d2-4829-9bd5-395a291216ac.cc590df2-b04c-4c5a-9ac2-7446c5c83b6f",
-"hero": "https://store-images.s-microsoft.com/image/apps.30683.14079456565345641.e3e3713f-53d2-4829-9bd5-395a291216ac.55d47f53-510e-4d6c-8546-3423537ffd0c",
+"boxart": "https://store-images.s-microsoft.com/image/apps.1812.14079456565345641.6e8f7d58-d469-40c4-827b-64e8dcbdeb18.c5036d3e-caf8-4aff-b693-3e1f93ea2ec8",
+"hero": "https://store-images.s-microsoft.com/image/apps.33162.14079456565345641.6e8f7d58-d469-40c4-827b-64e8dcbdeb18.b381719e-ad36-4501-9fec-aaabe91bbf0d",
 "store": "https://www.xbox.com/en-GB/games/store/p/9P8X6TVW9ZW8",
 "genres": [
 "Multi-player Online Battle Arena",
@@ -5942,6 +5944,19 @@
 ]
 },
 {
+"id": "9NRBW3FJSJWT",
+"title": "TANUKI: Pon's Summer",
+"publisher": "CRITICAL REFLEX",
+"boxart": "https://store-images.s-microsoft.com/image/apps.55068.14390224744653316.b8cfc87d-5763-4e3b-9506-f6dc3b4f7735.9e7b7cab-1918-46f7-a5a7-258279566820",
+"hero": "https://store-images.s-microsoft.com/image/apps.35381.14390224744653316.b8cfc87d-5763-4e3b-9506-f6dc3b4f7735.172a1329-71ee-4015-a9ec-c950f9e31931",
+"store": "https://www.xbox.com/en-GB/games/store/p/9NRBW3FJSJWT",
+"genres": [
+"Action & adventure",
+"Family & kids",
+"Platformer"
+]
+},
+{
 "id": "9P9GX5D8H9DW",
 "title": "TCG Card Shop Simulator",
 "publisher": "OPNeon Games Sdn Bhd",
@@ -6102,6 +6117,17 @@
 "store": "https://www.xbox.com/en-GB/games/store/p/BV05F8VT7JJ4",
 "genres": [
 "Racing & flying"
+]
+},
+{
+"id": "BXVCFBJBNS17",
+"title": "The Elder Scrolls III: Morrowind",
+"publisher": "Bethesda Softworks",
+"boxart": "https://store-images.s-microsoft.com/image/apps.42981.63316511565903586.d62160f8-6032-426e-af13-d87fe2d204a7.f3794cc2-595b-4388-8533-73979efc2e4a",
+"hero": "https://store-images.s-microsoft.com/image/apps.44690.63316511565903586.d62160f8-6032-426e-af13-d87fe2d204a7.eea1eec7-7361-48c9-bbce-ac54d9d26b50",
+"store": "https://www.xbox.com/en-GB/games/store/p/BXVCFBJBNS17",
+"genres": [
+"Role playing"
 ]
 },
 {
@@ -6990,6 +7016,17 @@
 "genres": [
 "Action & adventure",
 "Shooter"
+]
+},
+{
+"id": "9MZZWGTF7V65",
+"title": "Warhammer Survivors",
+"publisher": "Auroch Digital",
+"boxart": "https://store-images.s-microsoft.com/image/apps.63012.13865289401901694.ec4fd4fe-95aa-4110-a6b3-96d9a78df1a3.0a17bc32-56e3-46a1-8aae-d4edfc5689e8",
+"hero": "https://store-images.s-microsoft.com/image/apps.51381.13865289401901694.ec4fd4fe-95aa-4110-a6b3-96d9a78df1a3.8a18a5bc-1739-497e-97b4-0dca3b1b01a7",
+"store": "https://www.xbox.com/en-GB/games/store/p/9MZZWGTF7V65",
+"genres": [
+"Action & adventure"
 ]
 },
 {
