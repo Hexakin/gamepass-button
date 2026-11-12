@@ -1,8 +1,8 @@
 {
-"fetched": "2026-11-11T10:49:01+00:00",
+"fetched": "2026-11-12T03:19:47+00:00",
 "market": "GB",
 "list": "All Console Games",
-"count": 630,
+"count": 632,
 "games": [
 {
 "id": "9NPDN9R45JX4",
@@ -3282,6 +3282,18 @@
 ]
 },
 {
+"id": "9P1S707BPW6W",
+"title": "Hope in the City",
+"publisher": "Lofty Sky Games and NAGA Games",
+"boxart": "https://store-images.s-microsoft.com/image/apps.18291.14501332661010356.1878bbae-b86e-4579-a4ee-b6e5b6f9498a.006155a7-c92b-46e3-8067-ae5260091bde",
+"hero": "https://store-images.s-microsoft.com/image/apps.38978.14501332661010356.1878bbae-b86e-4579-a4ee-b6e5b6f9498a.8e558370-e4f8-4ee3-ae5b-4ef51b3c323e",
+"store": "https://www.xbox.com/en-GB/games/store/p/9P1S707BPW6W",
+"genres": [
+"Action & adventure",
+"Puzzle & trivia"
+]
+},
+{
 "id": "9NBFGKQLMV33",
 "title": "House Flipper",
 "publisher": "Frozen District",
@@ -6455,6 +6467,17 @@
 ]
 },
 {
+"id": "9NWWL1CBWFCG",
+"title": "Thronefall",
+"publisher": "Mythwright",
+"boxart": "https://store-images.s-microsoft.com/image/apps.6680.14441309410256211.99377474-23f3-49c1-b8b5-99ac2efbc206.679c84e1-8453-4a86-a0d9-73938d5be9ad",
+"hero": "https://store-images.s-microsoft.com/image/apps.47116.14441309410256211.99377474-23f3-49c1-b8b5-99ac2efbc206.b2125385-2f7f-49e9-b0df-052f8af509ec",
+"store": "https://www.xbox.com/en-GB/games/store/p/9NWWL1CBWFCG",
+"genres": [
+"Strategy"
+]
+},
+{
 "id": "9ND19JDMBS3R",
 "title": "Tiny Bookshop",
 "publisher": "Skystone Games Inc.",
@@ -6970,8 +6993,8 @@
 "id": "BX1DTCBD1HXJ",
 "title": "War Thunder",
 "publisher": "Gaijin Distribution Kft",
-"boxart": "https://store-images.s-microsoft.com/image/apps.30829.63381296256995371.9e10cdbd-1881-4099-9f20-0b0885c216a7.cea534d7-08cd-4f3f-9bed-765c2c2534cc",
-"hero": "https://store-images.s-microsoft.com/image/apps.807.63381296256995371.9e10cdbd-1881-4099-9f20-0b0885c216a7.7d58f477-d384-4f9a-b610-cabcee88978e",
+"boxart": "https://store-images.s-microsoft.com/image/apps.31569.63381296256995371.63fd92c7-ca2f-4730-a89d-ce2b9c6e5a2b.74335df6-275b-4eab-9f85-3553275f2c77",
+"hero": "https://store-images.s-microsoft.com/image/apps.15726.63381296256995371.63fd92c7-ca2f-4730-a89d-ce2b9c6e5a2b.e6af7dbb-a869-47ed-b468-99ca8f2b748f",
 "store": "https://www.xbox.com/en-GB/games/store/p/BX1DTCBD1HXJ",
 "genres": [
 "Action & adventure",
@@ -7372,8 +7395,8 @@
 "id": "9P41GS5W1C6L",
 "title": "Wuthering Waves",
 "publisher": "KURO GAMES",
-"boxart": "https://store-images.s-microsoft.com/image/apps.41355.14597666972638877.5bceb6f8-6cdc-4d7b-bf47-6857fe6c0434.7ed514f5-984b-48f8-9420-0aff88f34e7f",
-"hero": "https://store-images.s-microsoft.com/image/apps.53938.14597666972638877.5bceb6f8-6cdc-4d7b-bf47-6857fe6c0434.62c89a6e-8525-4e0f-a416-1bb7f9f8d66b",
+"boxart": "https://store-images.s-microsoft.com/image/apps.892.14597666972638877.997ecdaf-86da-490b-9c6a-bb00a16ac10c.22e253a7-e520-4052-80f1-986412b0a6c1",
+"hero": "https://store-images.s-microsoft.com/image/apps.55886.14597666972638877.997ecdaf-86da-490b-9c6a-bb00a16ac10c.3a33bacc-a7a7-4322-9802-8beb55449b5a",
 "store": "https://www.xbox.com/en-GB/games/store/p/9P41GS5W1C6L",
 "genres": [
 "Action & adventure",
