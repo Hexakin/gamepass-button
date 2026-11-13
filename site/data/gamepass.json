@@ -1,8 +1,8 @@
 {
-"fetched": "2026-11-12T03:19:47+00:00",
+"fetched": "2026-11-13T03:19:24+00:00",
 "market": "GB",
 "list": "All Console Games",
-"count": 632,
+"count": 634,
 "games": [
 {
 "id": "9NPDN9R45JX4",
@@ -2942,6 +2942,17 @@
 ]
 },
 {
+"id": "BTHC2G28X9H4",
+"title": "Grabbed by the Ghoulies™",
+"publisher": "Microsoft",
+"boxart": "https://store-images.s-microsoft.com/image/apps.59433.70863828853700397.56ab1f4a-a316-4055-8172-52200337d56f.d0e37ded-a86f-4757-9ed4-1f68d310e177",
+"hero": "https://store-images.s-microsoft.com/image/apps.41069.70863828853700397.56ab1f4a-a316-4055-8172-52200337d56f.72337d92-a8dc-4082-9774-479feb7044ea",
+"store": "https://www.xbox.com/en-GB/games/store/p/BTHC2G28X9H4",
+"genres": [
+"Action & adventure"
+]
+},
+{
 "id": "9PBG4MTM3JJC",
 "title": "GRAVHOUNDS (Game Preview)",
 "publisher": "Octopus Panic, Inc",
@@ -3446,6 +3457,18 @@
 ]
 },
 {
+"id": "9MTGCZ84M503",
+"title": "John Carpenter's Toxic Commando",
+"publisher": "Focus Entertainment",
+"boxart": "https://store-images.s-microsoft.com/image/apps.29766.13813225504277272.60187aa7-cee5-4670-9406-da8555a77e6d.c837b95c-ea53-45ca-8a1d-e10bea8f2ff1",
+"hero": "https://store-images.s-microsoft.com/image/apps.18789.13813225504277272.60187aa7-cee5-4670-9406-da8555a77e6d.1dfc778b-2a38-470b-9168-0b3acda80a6f",
+"store": "https://www.xbox.com/en-GB/games/store/p/9MTGCZ84M503",
+"genres": [
+"Action & adventure",
+"Shooter"
+]
+},
+{
 "id": "C1ZWH2BZ9TSF",
 "title": "Joy Ride Turbo",
 "publisher": "Microsoft Studios",
@@ -3580,12 +3603,13 @@
 {
 "id": "9MW53ZKZH168",
 "title": "Kiln",
-"publisher": "Xbox Game Studios",
-"boxart": "https://store-images.s-microsoft.com/image/apps.8202.13846114870355423.c6d5bbc2-3a52-4589-8bbf-606749aa483c.212d1263-476d-49c3-972d-3bc343d29dc0",
-"hero": "https://store-images.s-microsoft.com/image/apps.20929.13846114870355423.c6d5bbc2-3a52-4589-8bbf-606749aa483c.baefbe6e-d0f1-4fef-b5b5-5a40b9fffc4d",
+"publisher": "Double Fine Productions",
+"boxart": "https://store-images.s-microsoft.com/image/apps.48716.13846114870355423.e43ee5b3-300f-4323-b45f-d8368f69215d.b91169a5-fc95-467b-998b-0635ba722f98",
+"hero": "https://store-images.s-microsoft.com/image/apps.17375.13846114870355423.e43ee5b3-300f-4323-b45f-d8368f69215d.ff270445-c3d8-4764-81a8-a21272c69e8e",
 "store": "https://www.xbox.com/en-GB/games/store/p/9MW53ZKZH168",
 "genres": [
-"Action & adventure"
+"Action & adventure",
+"Fighting"
 ]
 },
 {
@@ -7358,10 +7382,10 @@
 },
 {
 "id": "9PLCL2VB2SC0",
-"title": "World War Z: Aftermath",
+"title": "World War Z: Year 1 Edition",
 "publisher": "Saber Interactive Inc.",
-"boxart": "https://store-images.s-microsoft.com/image/apps.52097.14315814591543581.e259272c-6394-43a0-9fcb-744c0a35683f.74727990-a7ec-4dbd-8bc9-29b0b83eebee",
-"hero": "https://store-images.s-microsoft.com/image/apps.6226.14045535769728047.85d0711f-7ce8-4a86-bd72-ebb541ae51d5.d217f364-9faa-49c2-9d66-271db2341be3",
+"boxart": "https://store-images.s-microsoft.com/image/apps.11303.14315814591543581.7abfbd86-71c6-4582-a8ef-26d2cba60921.fd262ff0-3854-4d0d-b014-2d434eb6a2ca",
+"hero": "https://store-images.s-microsoft.com/image/apps.31616.14315814591543581.7abfbd86-71c6-4582-a8ef-26d2cba60921.c3679bc6-67ae-4f48-a119-c80e2b04885d",
 "store": "https://www.xbox.com/en-GB/games/store/p/9PLCL2VB2SC0",
 "genres": [
 "Action & adventure"
