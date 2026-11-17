@@ -1,20 +1,9 @@
 {
-"fetched": "2026-11-16T03:22:29+00:00",
+"fetched": "2026-11-17T03:19:56+00:00",
 "market": "GB",
 "list": "All Console Games",
-"count": 634,
+"count": 623,
 "games": [
-{
-"id": "9NPDN9R45JX4",
-"title": "1000xRESIST",
-"publisher": "Fellow Traveller",
-"boxart": "https://store-images.s-microsoft.com/image/apps.42712.13724740810259939.b66dd818-9d75-4097-b510-7e4f8f43131a.ac32cda4-2fd9-4049-a090-966d3ace3e22",
-"hero": "https://store-images.s-microsoft.com/image/apps.38663.13724740810259939.b66dd818-9d75-4097-b510-7e4f8f43131a.17207052-a7ae-4ad3-afaa-030774844c4d",
-"store": "https://www.xbox.com/en-GB/games/store/p/9NPDN9R45JX4",
-"genres": [
-"Action & adventure"
-]
-},
 {
 "id": "9P8LR42PTRGJ",
 "title": "33 Immortals",
@@ -497,8 +486,8 @@
 "id": "9MWXF3SRD7QN",
 "title": "BALL x PIT",
 "publisher": "Devolver Digital",
-"boxart": "https://store-images.s-microsoft.com/image/apps.65421.13835016463632115.666396b5-f6e8-4a0a-ae87-81ee6b77084a.9ca9b47c-fe5e-416f-b0d8-585389838713",
-"hero": "https://store-images.s-microsoft.com/image/apps.59747.13835016463632115.666396b5-f6e8-4a0a-ae87-81ee6b77084a.b20a80cf-1b8f-43b5-8253-c51070bacef7",
+"boxart": "https://store-images.s-microsoft.com/image/apps.41615.13835016463632115.a5cef575-d953-487b-9311-f25cca59bc7c.3fc8dbfb-f70e-4591-a04a-f75028587427",
+"hero": "https://store-images.s-microsoft.com/image/apps.56018.13835016463632115.e71b68fd-01a3-4f56-bac2-9c7e69d8f4f9.a72aaf1f-9cf5-4aa7-9338-46a6b7943cf6",
 "store": "https://www.xbox.com/en-GB/games/store/p/9MWXF3SRD7QN",
 "genres": [
 "Action & adventure",
@@ -553,18 +542,6 @@
 "genres": [
 "Action & adventure",
 "Classics"
-]
-},
-{
-"id": "9N21ZCV0JW6V",
-"title": "Barbie™ Horse Trails",
-"publisher": "Outright Games Ltd.",
-"boxart": "https://store-images.s-microsoft.com/image/apps.59736.13960600887743581.ba328299-e217-4554-95d0-597345e02b27.619fb50f-5c70-4233-b504-e5e7fdee4a5d",
-"hero": "https://store-images.s-microsoft.com/image/apps.884.13960600887743581.ba328299-e217-4554-95d0-597345e02b27.16288063-9e98-411c-b8b9-e1a1f87696ee",
-"store": "https://www.xbox.com/en-GB/games/store/p/9N21ZCV0JW6V",
-"genres": [
-"Family & kids",
-"Action & adventure"
 ]
 },
 {
@@ -1891,17 +1868,6 @@
 ]
 },
 {
-"id": "BX03760D0QGN",
-"title": "DRAGON BALL XENOVERSE 2",
-"publisher": "Bandai Namco Entertainment Inc.",
-"boxart": "https://store-images.s-microsoft.com/image/apps.32513.63336639312113079.ceb7d6d9-5c03-4721-ab3f-09019902f961.e4eb532e-0d8b-41c0-ac6a-dbeb6ff4e9dd",
-"hero": "https://store-images.s-microsoft.com/image/apps.29991.63336639312113079.ceb7d6d9-5c03-4721-ab3f-09019902f961.6cc5d6bd-1b2b-4351-af8d-59a6b4014655",
-"store": "https://www.xbox.com/en-GB/games/store/p/BX03760D0QGN",
-"genres": [
-"Action & adventure"
-]
-},
-{
 "id": "9NFQ1XMXDLN6",
 "title": "DreamWorks Gabby’s Dollhouse: Ready to Party",
 "publisher": "Outright Games Ltd.",
@@ -2538,19 +2504,6 @@
 ]
 },
 {
-"id": "9NBZ7Z3JRXQ8",
-"title": "Firefighting Simulator - The Squad",
-"publisher": "astragon Entertainment",
-"boxart": "https://store-images.s-microsoft.com/image/apps.37983.13574093128038227.7f017f9d-a7e7-46d3-ac09-ad5cece1a687.d4771ae5-9b57-4a43-8021-142acfe2e595",
-"hero": "https://store-images.s-microsoft.com/image/apps.21696.13574093128038227.7f017f9d-a7e7-46d3-ac09-ad5cece1a687.8c44ae06-7246-4ef6-856e-b9b3e480ec98",
-"store": "https://www.xbox.com/en-GB/games/store/p/9NBZ7Z3JRXQ8",
-"genres": [
-"Action & adventure",
-"Simulation",
-"Strategy"
-]
-},
-{
 "id": "9N8RKWJT32L4",
 "title": "Firefighting Simulator: Ignite",
 "publisher": "astragon Entertainment GmbH",
@@ -2963,18 +2916,6 @@
 "Shooter",
 "Action & adventure",
 "Strategy"
-]
-},
-{
-"id": "9N36BLQF3FX6",
-"title": "Great God Grove",
-"publisher": "Fellow Traveller",
-"boxart": "https://store-images.s-microsoft.com/image/apps.49217.13938047926882205.478db89a-539b-4b20-956d-db969f740012.51327afc-1102-47d8-8243-0a7e592ceb44",
-"hero": "https://store-images.s-microsoft.com/image/apps.30443.13938047926882205.478db89a-539b-4b20-956d-db969f740012.394ba679-fdf1-4c98-9b74-8acdc0958526",
-"store": "https://www.xbox.com/en-GB/games/store/p/9N36BLQF3FX6",
-"genres": [
-"Action & adventure",
-"Puzzle & trivia"
 ]
 },
 {
@@ -4166,17 +4107,6 @@
 ]
 },
 {
-"id": "9P8XJRLCLH2P",
-"title": "Moonlighter",
-"publisher": "11 bit studios",
-"boxart": "https://store-images.s-microsoft.com/image/apps.27309.14078999020725962.f9f4d516-290a-4fec-820e-f71d575013d8.781a4a00-3d6d-477f-987a-a7b734ab1fd1",
-"hero": "https://store-images.s-microsoft.com/image/apps.36643.14078999020725962.ddb83977-3b2d-4498-aa21-0a1bdeb1cddc.7cf5715a-f99d-4a58-a93d-44bed95c01dd",
-"store": "https://www.xbox.com/en-GB/games/store/p/9P8XJRLCLH2P",
-"genres": [
-"Action & adventure"
-]
-},
-{
 "id": "9NDJX252Q5BW",
 "title": "Moonlighter 2: The Endless Vault",
 "publisher": "11 bit studios",
@@ -4633,6 +4563,19 @@
 ]
 },
 {
+"id": "9N3P3TRJGWV0",
+"title": "PAW Patrol™: Dino World",
+"publisher": "Outright Games Ltd.",
+"boxart": "https://store-images.s-microsoft.com/image/apps.23698.14003155671712527.e2286374-c296-44cb-8b6c-1bb5b97b583a.6e26181c-b9e8-4402-8d4b-77f3dcadcd79",
+"hero": "https://store-images.s-microsoft.com/image/apps.173.14003155671712527.e2286374-c296-44cb-8b6c-1bb5b97b583a.5e64d97c-fef0-4890-869e-572b86e75412",
+"store": "https://www.xbox.com/en-GB/games/store/p/9N3P3TRJGWV0",
+"genres": [
+"Family & kids",
+"Action & adventure",
+"Platformer"
+]
+},
+{
 "id": "9PJRQHMCFQGS",
 "title": "PBA Pro Bowling 2026",
 "publisher": "FarSight Studios",
@@ -4726,19 +4669,6 @@
 "Role playing",
 "Simulation",
 "Strategy"
-]
-},
-{
-"id": "9NRHQLZX3900",
-"title": "Pigeon Simulator",
-"publisher": "tinyBuild",
-"boxart": "https://store-images.s-microsoft.com/image/apps.63629.14382953481681867.8b1ccf01-d587-4b7f-afbc-ee46cb87b3d4.69ed27fb-c1a2-4c19-a803-a9f289039e26",
-"hero": "https://store-images.s-microsoft.com/image/apps.58441.14382953481681867.8b1ccf01-d587-4b7f-afbc-ee46cb87b3d4.ac8c2d5f-a388-46de-a115-c4eae4c0e480",
-"store": "https://www.xbox.com/en-GB/games/store/p/9NRHQLZX3900",
-"genres": [
-"Action & adventure",
-"Simulation",
-"Family & kids"
 ]
 },
 {
@@ -4867,17 +4797,6 @@
 "store": "https://www.xbox.com/en-GB/games/store/p/9P2HHT3VS7MP",
 "genres": [
 "Other"
-]
-},
-{
-"id": "9P0NPLQ9P1DB",
-"title": "Police Simulator: Patrol Officers",
-"publisher": "astragon Entertainment GmbH",
-"boxart": "https://store-images.s-microsoft.com/image/apps.26366.14523320294659833.0e9cb134-00a8-4d23-9793-93834d8d61ef.9b9e6bbe-69b3-4cd9-8509-3de264dfc1a2",
-"hero": "https://store-images.s-microsoft.com/image/apps.26344.14523320294659833.0e9cb134-00a8-4d23-9793-93834d8d61ef.749a3894-1367-4657-9f81-cd40abad6530",
-"store": "https://www.xbox.com/en-GB/games/store/p/9P0NPLQ9P1DB",
-"genres": [
-"Simulation"
 ]
 },
 {
@@ -5072,19 +4991,6 @@
 "hero": "https://store-images.s-microsoft.com/image/apps.59770.14091188428798620.2f105d2c-1b7f-4fd0-b12e-5483087f47d1.5c054463-6cd6-4f2d-a278-d88154fe3e45",
 "store": "https://www.xbox.com/en-GB/games/store/p/9P8JRMWRQP4H",
 "genres": [
-"Action & adventure",
-"Shooter"
-]
-},
-{
-"id": "9P81K2C8RBF4",
-"title": "Relic Hunters Legend",
-"publisher": "Rogue Snail",
-"boxart": "https://store-images.s-microsoft.com/image/apps.37208.14097016447581693.ee94877f-b509-44d9-abed-33614d4bfc2b.bc2320d7-e0dd-4e46-91d9-33b920008b14",
-"hero": "https://store-images.s-microsoft.com/image/apps.23976.14097016447581693.35978914-0148-46da-9734-4dc034c820b0.3e985321-bf8a-4677-8a76-375515abe39b",
-"store": "https://www.xbox.com/en-GB/games/store/p/9P81K2C8RBF4",
-"genres": [
-"Role playing",
 "Action & adventure",
 "Shooter"
 ]
@@ -6630,18 +6536,6 @@
 ]
 },
 {
-"id": "9PHTX5QZ035T",
-"title": "Total Chaos",
-"publisher": "Infogrames, Atari, Apogee Entertainment",
-"boxart": "https://store-images.s-microsoft.com/image/apps.28442.14224411830682092.a75ca261-09af-4d3c-9aa3-170861aaf880.9b048914-2a7a-4761-92ad-b34030a60d61",
-"hero": "https://store-images.s-microsoft.com/image/apps.3007.14224411830682092.a75ca261-09af-4d3c-9aa3-170861aaf880.28423119-9b67-4771-a76b-da268a898d6e",
-"store": "https://www.xbox.com/en-GB/games/store/p/9PHTX5QZ035T",
-"genres": [
-"Shooter",
-"Action & adventure"
-]
-},
-{
 "id": "9PC4RWP34M2D",
 "title": "Totally Accurate Battle Simulator",
 "publisher": "Landfall",
@@ -7244,19 +7138,6 @@
 ]
 },
 {
-"id": "9ND3HTTQ0GKB",
-"title": "Winter Burrow",
-"publisher": "Noodlecake",
-"boxart": "https://store-images.s-microsoft.com/image/apps.17059.13551922362408999.6a1ab142-ad0f-4a13-b0ba-9fcbb7182271.7ccb83f6-23a8-4dc2-af72-26b158ad9746",
-"hero": "https://store-images.s-microsoft.com/image/apps.50205.13551922362408999.6a1ab142-ad0f-4a13-b0ba-9fcbb7182271.4f8b4629-e03d-4011-b2d6-5bb0e52abf72",
-"store": "https://www.xbox.com/en-GB/games/store/p/9ND3HTTQ0GKB",
-"genres": [
-"Simulation",
-"Other",
-"Action & adventure"
-]
-},
-{
 "id": "9N9X9PC8V9CP",
 "title": "Wo Long: Fallen Dynasty",
 "publisher": "KOEI TECMO EUROPE",
@@ -7389,18 +7270,6 @@
 "store": "https://www.xbox.com/en-GB/games/store/p/9PLCL2VB2SC0",
 "genres": [
 "Action & adventure"
-]
-},
-{
-"id": "BRJNRZ9N734V",
-"title": "Wreckfest",
-"publisher": "THQ Nordic",
-"boxart": "https://store-images.s-microsoft.com/image/apps.62864.69762792333465121.4086c71f-fab9-4c14-b959-3e77164a74cf.20973bfd-77f7-41d0-8e0a-7cb51d9f8add",
-"hero": "https://store-images.s-microsoft.com/image/apps.26794.69762792333465121.4086c71f-fab9-4c14-b959-3e77164a74cf.6f7d7fb6-9c96-432b-8625-6749a1135a91",
-"store": "https://www.xbox.com/en-GB/games/store/p/BRJNRZ9N734V",
-"genres": [
-"Action & adventure",
-"Racing & flying"
 ]
 },
 {
